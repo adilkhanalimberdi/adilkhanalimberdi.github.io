@@ -1,0 +1,43 @@
+h1 {
+	color: rgb(0, 0, 0);
+	font-size: 32px;
+}
+
+h2,h1,h3,h4,h5,h6 {
+	font-family: sans-serif;
+}
+
+.p {
+	margin-left: auto;
+	margin-top: auto;
+}
+
+tr,th,td {
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+}
+
+span {
+	font-weight: bold;
+}
+
+h1,h2,h4,p {
+	line-height: 1.5em;
+}
+
+figcaption {
+	text-align: right;
+	font-style: italic;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+}
+
+.center {
+	margin-right: auto;
+	margin-left: auto;
+	width: 70%;
+}
