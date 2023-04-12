@@ -1,3 +1,2 @@
-# adilkhanalimberdi.github.io
-
 Hi !
+My name is Adilkhan.
