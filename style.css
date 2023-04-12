@@ -12,6 +12,10 @@ header {
     color: #FFFF;
 }
 
+a#btn:active, a#btn:hover, a#btn {
+    text-decoration: none;
+}
+
 .about, .content {
     background-color: #887fab;
     color: #FFFF;
