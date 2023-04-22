@@ -9,27 +9,28 @@ ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 72px;
+    gap: 5%;    
 }
 
 .buttons a {
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
-    padding: 10px;
+    padding: 1%;
     font-size: 20px;
     font-family: "Montserrat", monospace;
     font-weight: 800;
     transition: 0.5s ease;
     border: #fff solid;
     border-radius: 12px;
+    border-width: 4px;
 }
 
 .buttons {
-    margin-top: 50px;
+    margin-top: 5%;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 3%;
 }
 
 .buttons:hover a:not(:hover) {
@@ -50,15 +51,32 @@ ul li a{
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
-    padding: 10px;
+    padding: 5%;
     font-size: 20px;
     font-family: "Montserrat", monospace;
     font-weight: 800;
     transition: 0.5s ease;
 }
 
-ul:hover li a {
+/*
     color: #fff;
+    linear-gradient(125deg, #5E529C, #AD3B8D, #E4243E, #F27F46, #FBC24E);
+}
+*/
+
+.tg:hover {
+    border-color: #24A2E0;
+    color: #24A2E0;
+}
+
+.inst:hover {
+    color: #AD3B8D;
+    border-color: #AD3B8D;
+}
+
+.gh:hover {
+    color: #111;
+    border-color: #111;
 }
 
 ul:hover li a:not(:hover) {
@@ -70,4 +88,3 @@ ul:hover li a:not(:hover) {
 body {
     margin: 0;
 }
-
