@@ -95,7 +95,7 @@ ul:hover li a:not(:hover) {
 
 .about-name {
     margin-left: 2%;
-    font-size: 18px;
+    font-size: 22px;
     width:max-content;
     color:#fff;
     font-weight: 600;
@@ -104,7 +104,7 @@ ul:hover li a:not(:hover) {
 
 .about-text {
     font-weight: 400;
-    font-size: 18px;
+    font-size: 20px;
     width:1200px;
     color:#fff;
     font-family: "Montserrat", monospace;
@@ -112,7 +112,7 @@ ul:hover li a:not(:hover) {
 
 .sites th, td, table {
     color: #fff;
-    border: 3px solid #b200cd;
+    border: 3px solid #fff;
     border-collapse: collapse;
     font-family: "Montserrat", monospace;
 }
@@ -149,23 +149,62 @@ ul:hover li a:not(:hover) {
 }
 
 .about-uzdikter2 a {
-    border: #CD00CD solid 3px;
+    border: #fff solid 3px;
     border-radius: 100px;
-    padding: 12px;
     color: #fff;
     text-decoration: none;
+    font-weight: 200;
     font-family: "Montserrat", monospace;
+    padding: 10px 30px;
 }
 
 .img {
     height: 440px;
     width: max-content;
-    border: #CD00CD solid 5px;
+    border: #fff solid 5px;
 }
 
-.about-content {
-    width: 1200px;
-    border-top: 3px solid #CD00CD;
+.about-text a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: "Montserrat", monospace;
+    color: #fff;
+    background: none;
+    border: 3px solid #fff;
+    border-radius: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
+}
+
+.sticky {
+    position: absolute;
+    right: 20px;
+
+}
+
+.about-title {
+    position: relative;
+    left: 45%;
+    color: #fff;
+    font-family: "Montserrat", monospace;
+    text-transform: uppercase;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    /*background-color: red;*/
+}
+
+.head-items {
+    position: relative;
+    display: flex;
 }
 
 /*
