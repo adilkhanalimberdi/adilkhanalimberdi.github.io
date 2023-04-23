@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
 body {
     background-image: url(bg.jpg);
     background-repeat: no-repeat;
@@ -40,7 +43,7 @@ ul {
 
 .text {
     color: #fff;
-    font-family: "Chivo Mono", monospace;
+    font-family: "Montserrat", monospace;
     text-transform: uppercase;
     font-weight: 800;
     display: flex;
@@ -85,6 +88,107 @@ ul:hover li a:not(:hover) {
     filter: blur(1px);
 }
 
-body {
-    margin: 0;
+.about-content {
+    margin-top: 35px;
+    margin-left: 8%;
 }
+
+.about-name {
+    margin-left: 2%;
+    font-size: 18px;
+    width:max-content;
+    color:#fff;
+    font-weight: 600;
+    font-family: "Montserrat", monospace;
+}
+
+.about-text {
+    font-weight: 400;
+    font-size: 18px;
+    width:1200px;
+    color:#fff;
+    font-family: "Montserrat", monospace;
+}
+
+.sites th, td, table {
+    color: #fff;
+    border: 3px solid #b200cd;
+    border-collapse: collapse;
+    font-family: "Montserrat", monospace;
+}
+
+.sites th {
+    font-family: "Montserrat", monospace;
+    font-weight: 800;
+    width:400px;
+    height: 60px;
+}
+
+.sites td {
+    text-align: center;
+    width: 400px;
+    height: 40px;
+}
+
+#sites {
+    color: #fff;
+    text-decoration: none;
+} 
+
+.overflow {
+    min-height: 400px;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    background-color: #CD00CD;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:#880088;
+}
+
+.about-uzdikter2 a {
+    border: #CD00CD solid 3px;
+    border-radius: 100px;
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Montserrat", monospace;
+}
+
+.img {
+    height: 440px;
+    width: max-content;
+    border: #CD00CD solid 5px;
+}
+
+.about-content {
+    width: 1200px;
+    border-top: 3px solid #CD00CD;
+}
+
+/*
+.sites td {
+    width:400px;
+    height: 50px;
+    text-align: center;
+    border-right: solid 3px #fff;
+}
+
+.sites th {
+    width:400px;
+    height: 50px;
+    border-right: #fff 3px solid;
+    border-bottom: 3px solid #fff;
+}
+
+.sites {
+    border: 3px #fff solid;
+}
+
+.sites #songy {
+    border-bottom: 3px solid #fff;
+    border-right: none;
+}
+*/
