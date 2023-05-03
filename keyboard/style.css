@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    margin: 0;
+}
+
+#border {
+    border: 3px black solid;
+    border-radius: 20px;
+    height: 80px;
+    width: 51.5%;
+    margin-left: 24%;
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+#res {
+    overflow-x:hidden;
+    margin-left:5px;
+    white-space: nowrap;
+    word-wrap: break-word;
+    max-width: 98%;
+    margin-top: 17px;
+    background-color: #fff;
+    font-family: "Montserrat", monospace;
+    font-size: 36px;
+}
+
+.row1, .row2, .row3, .row4{
+    display: flex;
+    justify-content: center;
+}
+
+.row3>div, .row2>div, .row1>div, .row4>div {
+    background-color: #fff;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 2%;
+    margin-right: 0.3%;
+    margin-bottom: 0.3%;
+    font-family: "Montserrat", monospace;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.row1>div:hover, .row2>div:hover, .row3>div:hover {
+    background-color: #d6d6d6;
+}
+
+.row1>div:active, .row2>div:active, .row3>div:active {
+    background-color: #999;
+}
+
+.row4>div {
+    text-align: center; 
+}
+
+.row4>div:hover {
+    background-color: #afafaf;
+}
+
+.row4>div:active {
+    background-color: #707070;
+}
+
+.space {
+    width: 19%;
+}
+
+.logo {
+    font-family: "Montserrat", monospace;
+    font-size: 45px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 2%;
+    background: linear-gradient(to right, rgb(104, 104, 255), rgb(255, 255, 90));
+    background-clip: content-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media all and (max-width: 768px) {
+
+    .logo {
+        margin-top: 5%;
+        font-size: 40px;
+    }
+
+    #border {
+        margin-top: 5%;
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .row1>div, .row2>div, .row3>div, .row4>div {
+        font-size: 15px;
+        padding: 3%;
+        margin-left: 0;
+        font-weight: 500;
+    }
+
+    .keys {
+        margin-top: 10%;
+    }
+}
+
+@media all and (max-width: 320px) {
+    
+    .logo {
+        margin-top: 10%;
+        font-size: 35px;
+    }
+
+    #border {
+        margin-top: 10%;
+    }
+
+    .keys {
+        margin-top: 30%;
+    }
+}
