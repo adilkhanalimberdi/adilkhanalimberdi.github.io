@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Montserrat", monospace;
+}
+
+.py-content, .html-content, .cpp-content {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+#back {
+    position: relative;
+    left: 2%;
+    top: 20px;
+    color: #000;
+    text-decoration: none;
+    border: 1.6px #000 solid;
+    padding: 5px 10px;
+    transition: all 1s;
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: #000;
+        transition: all 1s;
+        z-index: -1;
+    }
+
+    &:hover {
+        color: #fff;
+        
+        &::before {
+            width: 100%;
+        }
+    }
+
+}
+
+.title {
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 35%;
+    width: 30%;
+    font-size: 30px;
+    text-align: center;
+}
+
+.py-content > .bg {
+    background: url(images/py-logo.png);
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    filter: blur(10px);
+    opacity: 90%;
+}
+
+.cpp-content > .bg {
+    background: url(images/cpp-logo.png);
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    filter: blur(10px);
+    opacity: 90%;
+}
+
+.html-content > .bg {
+    background: url(images/html-logo.png);
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    filter: blur(10px);
+    opacity: 90%;
+}
+
+.py .content {
+    z-index: 9999;
+}
