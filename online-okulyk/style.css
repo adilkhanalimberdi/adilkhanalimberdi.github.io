@@ -469,11 +469,13 @@ header {
             background-position-x: -8px;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
             cursor: pointer;
+            transition: 0.5s;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/a-byte-of-py.jpg);
                 background-size: cover;
                 background-position-x: -8px;
+                transform: scale(1.05);
             }
 
         }
@@ -485,10 +487,12 @@ header {
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
             cursor: pointer;
+            transition: 0.5s;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/groking-algo.png);
                 background-size: cover;
+                transform: scale(1.05);
             }
         }
 
@@ -499,9 +503,12 @@ header {
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
             cursor: pointer;
+            transition: 0.5s;
+
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/izu4aem-py.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -513,10 +520,12 @@ header {
             background: url(images/vnutrycpy.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/vnutrycpy.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -536,10 +545,12 @@ header {
             background: url(images/yapcpp.jpg);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/yapcpp.jpg);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -551,10 +562,12 @@ header {
             background: url(images/cppprimerp.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/cppprimerp.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -566,10 +579,12 @@ header {
             background: url(images/oopcpp.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/oopcpp.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -581,10 +596,12 @@ header {
             background: url(images/dumaikakproger.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/dumaikakproger.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -596,7 +613,8 @@ header {
         display: flex;
         gap: 35px;
         background: #fff;
-        justify-content: left;
+            transition: 0.5s;
+            justify-content: left;
 
         & .designhtml {
             width: 200px;
@@ -608,6 +626,7 @@ header {
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/html-book.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -619,10 +638,12 @@ header {
             background: url(images/webdesign.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/webdesign.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -635,11 +656,13 @@ header {
             background-size: cover;
             background-position-x: -20px;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/shporhtml.png);
                 background-size: cover;
+                transform: scale(1.05);
                 background-position-x: -20px;
             }
 
@@ -651,10 +674,12 @@ header {
             background: url(images/htmlcss.jpg);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/htmlcss.jpg);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -675,11 +700,13 @@ header {
             background-position-x: -10px;
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php1.png);
                 background-size: cover;
+                transform: scale(1.05);
                 background-position-x: -10px;
             }
 
@@ -691,10 +718,12 @@ header {
             background: url(images/php2.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php2.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -706,10 +735,12 @@ header {
             background: url(images/php3.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php3.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
@@ -721,10 +752,12 @@ header {
             background: url(images/php4.png);
             background-size: cover;
             box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            transition: 0.5s;
             cursor: pointer;
 
             &:hover {
                 background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php4.png);
+                transform: scale(1.05);
                 background-size: cover;
             }
 
