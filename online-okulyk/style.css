@@ -33,6 +33,16 @@ header {
     margin-top: 0;
     padding-top: 2.5%;
     gap: 72px;
+
+    & #selected {
+        color: #7d2997;
+
+        &:hover {
+            border-color: #7d2997;
+        }
+
+    }
+
 }
 
 .items > ul li a {
@@ -63,26 +73,48 @@ header {
 
 .social {
     display: flex;
-    margin-top: 3%;
-    width: 100%;
+    gap: 3%;
+    margin-top: 5%;
     justify-content: center;
-    height: 6.5%;
-    bottom: 10px;
-    gap: 1.4rem;
 
     & a {
-        color: #000;
-        font-size: 1.2rem;
-        border: #000 solid 1.6px;
-        padding: 9px 10px;
-        text-align: center;
+
+        display: block;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        transition: all 0.3s;
+        transition: 0.5s;
 
         &:hover {
             transform: translateY(-10px);
-            box-shadow: 0px 10px 20px rgb(0, 0, 0, 0.9);
+            box-shadow: 0px 10px 20px #000;
         }
+        
+        &:nth-child(1) {
+            background: url(images/instagram.png);
+            background-size: cover;
+        }
+
+        &:nth-child(2) {
+            background: url(images/telegram.png);
+            background-size: cover;
+        }
+
+        &:nth-child(3) {
+            background: url(images/whatsapp.png);
+            background-size: cover;
+        }
+
+        &:nth-child(4) {
+            background: url(images/facebook.png);
+            background-size: cover;
+        }
+
+        &:nth-child(5) {
+            background: url(images/twitter.png);
+            background-size: cover;
+        }
+
     }
 
 }
@@ -224,12 +256,12 @@ header {
 
 .contact-btns {
     justify-content: center;
-    margin-top: 20%;
+    margin-top: 10%;
     gap: 30px;
     display: flex;
 }
 
-.contact-content a {
+.contact-btns a {
     position: relative;
     background-color: red;
     font-size: 30px;
@@ -270,6 +302,12 @@ header {
 
 }
 
+.contact-content .info {
+    margin-top: 10%;
+    width: 100%;
+    text-align: center;
+}
+
 .nav li a {
     border-bottom: 1.5px solid antiquewhite;
     transition: 0.5s;
@@ -287,10 +325,11 @@ header {
     & .title {
         margin-top: 2%;
         position: relative;
-        background-color: #dcdcdc;
+        background-color: #ead192;
         width: 100%;
         height: 65px;
         cursor: pointer;
+        margin-top: 5%;
 
         & h2 {
             position: absolute;
@@ -303,14 +342,14 @@ header {
             -ms-user-select: none;
         }
 
-        &:first-child {
-            margin-top: 5%;
-        }
+    }
 
+    & ._6cl {
+        margin-top: 3%;
     }
 
     ._7cl, ._6cl, ._8cl, ._9cl, ._10cl {
-        background-color: #dcdcdc;
+        background-color: #f5eec4;
     }
 
     & .info {
@@ -331,8 +370,57 @@ header {
             border-radius: 10px;
         }
 
+        & img {
+            margin-left: 2.4%;
+        }
+
+        & .imgs {
+
+            display: flex;
+            justify-content: space-around;
+            
+            & .img1 {
+                width: 400px;
+                height: 400px;
+                background: url(images/example11.png);
+                background-size: cover;
+            }
+
+            & .img2 {
+                width: 400px;
+                height: 400px;
+                background: url(images/example12.png);
+                background-size: cover;
+            }
+        }
+
+        & .imgs2 {
+            margin-left: 15%;
+        }
+
+        & nn {
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 50px;
+            letter-spacing: 0.1em;
+        } 
+
+        & tab {
+            margin-left: 40px;
+        }
+
+        & .massiveex {
+            width: 100%;
+            height: 350px;
+            background: url(images/massiveexample.png);
+            background-size: cover;
+            background-position-y: 10px;
+        }
+
         & table {
             border-collapse: collapse;
+            margin-left: 25%;
+            width: 50%;
 
             & thead tr {
                 text-align: center;
@@ -345,10 +433,299 @@ header {
             & tr {
                 
                 & td {
-                    width: 75px;
+                    text-align: center;
                     border: 1px #000 solid;
                 }
 
+            }
+
+        }
+
+    }
+
+}
+
+.dev-t-content {
+    margin-left: 20%;
+    width: 60%;
+    height: 86vh;
+
+    & h2 {
+        font-weight: 400;
+        margin-top: 5%;
+    }
+
+    & .py {
+        display: flex;
+        gap: 35px;
+        background: #fff;
+        justify-content: left;
+
+        & .a-byte-of-py {
+            width: 200px;
+            height: 300px;
+            background: url(images/a-byte-of-py.jpg);
+            background-size: cover;
+            background-position-x: -8px;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/a-byte-of-py.jpg);
+                background-size: cover;
+                background-position-x: -8px;
+            }
+
+        }
+    
+        & .groking-algo {
+            width: 200px;
+            height: 300px;
+            background: url(images/groking-algo.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/groking-algo.png);
+                background-size: cover;
+            }
+        }
+
+        & .izu4aem-py {
+            width: 200px;
+            height: 300px;
+            background: url(images/izu4aem-py.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/izu4aem-py.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .vnutrycpy {
+            width: 200px;
+            height: 300px;
+            background: url(images/vnutrycpy.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/vnutrycpy.png);
+                background-size: cover;
+            }
+
+        }
+
+    }
+
+    & .cpp {
+        display: flex;
+        gap: 35px;
+        background: #fff;
+        justify-content: left;
+
+        & .yapcpp {
+            width: 200px;
+            height: 300px;
+            background: url(images/yapcpp.jpg);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/yapcpp.jpg);
+                background-size: cover;
+            }
+
+        }
+
+        & .cppprimerp {
+            width: 200px;
+            height: 300px;
+            background: url(images/cppprimerp.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/cppprimerp.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .oopcpp {
+            width: 200px;
+            height: 300px;
+            background: url(images/oopcpp.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/oopcpp.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .dumaikakproger {
+            width: 200px;
+            height: 300px;
+            background: url(images/dumaikakproger.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/dumaikakproger.png);
+                background-size: cover;
+            }
+
+        }
+
+    }
+
+    & .html {
+        display: flex;
+        gap: 35px;
+        background: #fff;
+        justify-content: left;
+
+        & .designhtml {
+            width: 200px;
+            height: 300px;
+            background: url(images/html-book.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/html-book.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .webdesign {
+            width: 200px;
+            height: 300px;
+            background: url(images/webdesign.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/webdesign.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .shporhtml {
+            width: 200px;
+            height: 300px;
+            background: url(images/shporhtml.png);
+            background-size: cover;
+            background-position-x: -20px;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/shporhtml.png);
+                background-size: cover;
+                background-position-x: -20px;
+            }
+
+        }
+
+        & .htmlcss {
+            width: 200px;
+            height: 300px;
+            background: url(images/htmlcss.jpg);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/htmlcss.jpg);
+                background-size: cover;
+            }
+
+        }
+
+    }
+
+    & .php {
+        display: flex;
+        gap: 35px;
+        background: #fff;
+        justify-content: left;
+
+        & .php1 {
+            width: 200px;
+            height: 300px;
+            background: url(images/php1.png);
+            background-position-x: -10px;
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php1.png);
+                background-size: cover;
+                background-position-x: -10px;
+            }
+
+        }
+
+        & .php2 {
+            width: 200px;
+            height: 300px;
+            background: url(images/php2.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php2.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .php3 {
+            width: 200px;
+            height: 300px;
+            background: url(images/php3.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php3.png);
+                background-size: cover;
+            }
+
+        }
+
+        & .php4 {
+            width: 200px;
+            height: 300px;
+            background: url(images/php4.png);
+            background-size: cover;
+            box-shadow: 0px 10px 20px rgb(0,0,0,0.9);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.5)), url(images/php4.png);
+                background-size: cover;
             }
 
         }
