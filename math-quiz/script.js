@@ -22,7 +22,7 @@ function generateQuiz() {
     b = randomNum(levels[level]);
     operator = randomOper();
 
-    if (operator == "/" && b == 0) {
+    if (operator == "&divide;" && b == 0) {
         while (b == 0) {
             b = randomNum(levels[level]);
         }
@@ -47,9 +47,10 @@ function generateQuiz() {
 
     document.getElementById("quizz").innerHTML = quiz + "=";
     n++;
-    if ((n % 5 == 0 && n != 0) && n <= 25) {
+    if ((n % 5 == 0 && n != 0) && n < 25) {
         level++;
     }
+
 }
 
 function check(userans) {
