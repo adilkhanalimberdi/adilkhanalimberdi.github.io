@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    display: none;
+    width: 70%;
+    height: 70%;
+    margin-left: 15%;
+    margin-top: 7.5%;
+    position: relative;
+
+    & .quiz {
+        border-bottom: 2px black solid;
+        position: absolute;
+        width: 80%;
+        height: 25%;
+        margin-left: 10%;
+        margin-top: 5%;
+        text-align: center;
+        font-size: 300%;
+        vertical-align: middle;
+        line-height: 400%;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /*
+    .btns {
+        position: absolute;
+        width: 80%;
+        height: 40%;
+        margin-top: 23%;
+        margin-left: 10%;
+        display: flex;
+        justify-content: space-around;
+
+        & div {
+            width: 25%;
+            height: 100%;
+            border: 2px black solid;
+        }
+
+    }
+    */
+
+    & #ans {
+        position: absolute;
+        margin-left: 20%;
+        margin-top: 25%;
+        width: 50%;
+        height: 10%;
+        font-size: 25px;
+        border: 2px solid black;
+    }
+
+    & #send {
+        cursor: pointer;
+        border: 2px solid black;
+        font-size: 19px;
+        background-color: #fff;
+        position: absolute;
+        height: 11%;
+        width: 5%;
+        margin-top: 25%;
+        margin-left: 71%;
+    }
+
+}
+
+.start {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-weight: 300;
+
+    & button {
+        position: absolute;
+        width: 10%;
+        height: 8%;
+        font-family: "Poppins", sans-serif;
+        font-size: 19px;
+        margin-top: 22.5%;
+        margin-left: 45%;
+        background-color: #c3cff2;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.6s, background-color 0.6s;
+
+        &:hover {
+            transform: scale(1.1);
+            background-color: #aabaec;
+        }
+
+    }
+
+}
+
+#lose {
+
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 35px;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    & h4 {
+        font-weight: 300;
+        margin-top: 15%;
+    }
+}
+
+#scoreboard {
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    display: none;
+}
+
+span {
+    font-size: 28px;
+}
+
+#score {
+    margin-left: 10px;
+    font-size: 30px;
+    width: max-content;
+}

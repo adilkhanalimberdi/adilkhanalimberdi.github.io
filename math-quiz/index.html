@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Math Quizz</title>
+</head>
+<body>
+
+    <div id="scoreboard">
+        
+        <span>Score:</span><div id="score">0</div>
+
+    </div>
+
+    <div id="lose" onclick="restart()">
+    
+        <h4>you've lost<br>click to restart<br></h4>
+    
+    </div>
+
+    <div class="start" id="startbg">
+        <button id="start" onclick="started()">Start</button>
+    </div>
+
+    <div class="container" id="content">
+
+        <div class="quiz" id="quizz"></div>
+
+        <!--
+
+        <div class="btns">
+
+            <div class="btn1"></div>
+
+            <div class="btn2"></div>
+
+            <div class="btn3"></div>
+
+        </div>
+
+        -->
+
+        <div class="answer">
+            
+            <input type="text" id="ans">
+
+            <input type="button" value="OK" id="send" onclick="useranswer()">
+        
+        </div>
+
+    </div>
+    
+</body>
+</html>
