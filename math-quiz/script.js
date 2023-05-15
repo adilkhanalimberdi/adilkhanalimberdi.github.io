@@ -1,6 +1,7 @@
-var score = 0;
-var answer;
-var n = 0, level = 0;
+var score = 0, a,b;
+var answer, operator, userAns;
+var quiz = "";
+var n = 0, level = 0, restarted = 0;
 var levels = [10, 100, 1000, 5000, 10000];
 var operators = ["-", "+", "&divide;", "&times;"];
 
@@ -12,12 +13,13 @@ function restart() {
 
 function loser() {
     document.getElementById("content").style.display = "none";
+    document.getElementById("lose-res").innerHTML = quiz + " = " + answer;
+    document.getElementById("youre").innerHTML = document.getElementById("ans").value;
     document.getElementById("lose").style.display = "block";
 }
 
 function generateQuiz() {
-    var quiz = "", a, b, operator;
-
+    quiz = "";
     a = randomNum(levels[level]);
     b = randomNum(levels[level]);
     operator = randomOper();
@@ -51,12 +53,26 @@ function generateQuiz() {
         level++;
     }
 
+    document.addEventListener('keyup', function(event){
+        if (event.key == "Enter" && document.getElementById("lose").style.display == "none") {
+            check();
+        }
+    });
+
 }
 
-function check(userans) {
-    if (userans == answer) {
+function check() {
+
+    let userans =  document.getElementById("ans").value;
+
+    if (userans == answer && userans != "") {
         score++;
     } else {
+        score--;
+    }
+
+    if (score < 0) {
+        score = 0;
         loser();
     }
 
@@ -66,9 +82,9 @@ function check(userans) {
 }
 
 function useranswer() {
-    var userAns = document.getElementById("ans").value;
+    userAns = document.getElementById("ans").value;
 
-    check(userAns);
+    check();
 
     document.getElementById("ans").value = "";
 }
@@ -85,7 +101,6 @@ function started() {
     document.getElementById("lose").style.display = "none";
     document.getElementById("startbg").style.display = "none";
     document.getElementById("content").style.display = "block";
-    document.getElementById("score").style.display = "block";
     document.getElementById("scoreboard").style.display = "flex";
     level = 0;
     n = 0;
