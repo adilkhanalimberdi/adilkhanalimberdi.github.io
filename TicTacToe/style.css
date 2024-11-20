@@ -1,0 +1,85 @@
+body {
+    /* что бы убрать выделение текста*/
+    user-select: none; /* Основное свойство */
+    -webkit-user-select: none; /* Для WebKit (Chrome, Safari) */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для старых версий IE */
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.box {
+    width: 180px;
+    height: 180px;
+    background-color: #dadada;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 40px;
+
+    &:hover {
+        background-color: #c2c2c2;
+    }
+
+    border: 1px solid #afafaf;
+}
+
+
+.FirstRow, .SecondRow, .ThirdRow {
+    width: 100%;
+    display: flex;
+}
+
+
+#label {
+    font-size: 20px;
+}
+
+
+#bottom {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 5%;
+}
+
+
+#restart {
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border-radius: 2px;
+    border: 1px solid #afafaf;
+    display: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+@media (max-width: 650px) {
+    .box {
+        width: 150px;
+        height: 150px;
+    }
+
+    #label {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    .box {
+        width: 100px;
+        height: 100px;
+    }
+
+    #label {
+        font-size: 16px;
+    }
+}
