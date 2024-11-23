@@ -39,7 +39,7 @@ body {
     display: flex;
 }
 
-.brand {
+#brand {
     & .logo {
         width: 50px;
         height: 50px;
@@ -204,6 +204,11 @@ form {
     }
 }
 
+#top {
+    display: none;
+}
+
+
 @media (max-width: 1000px) {
     .wrapper {
         display: block;
@@ -213,7 +218,7 @@ form {
         justify-content: center;
     }
 
-    .brand {
+    #brand {
         justify-content: center;
     }
 }
@@ -221,5 +226,42 @@ form {
 @media (max-width: 780px) {
     .nav div {
         width: 150px;
+    }
+
+    .input {
+        width: 80%;
+        margin-left: 10%;
+    }
+}
+
+@media (max-width: 560px) {
+    #top {
+        display: block;
+    }
+    
+    #phone-nav {
+        display: block;
+        width: 50px;
+        height: 50px;
+        background-image: url("images/menu.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        justify-content: left;
+        cursor: pointer;
+    }
+
+    #phone-home, #phone-download, #phone-contacts {
+        display: none;
+        font-size: 30px;
+        cursor: pointer;
+        width: max-content;
+    }
+
+    #phone-home {
+        padding-top: 20px;
+    }
+
+    .nav {
+        display: none;
     }
 }
