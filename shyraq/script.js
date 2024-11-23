@@ -14,17 +14,33 @@ nav_contacts.addEventListener("click", () => {
     window.location.href = "contacts.html";
 });
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-    e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const data = {
-        user: formData.get("name"),
-        email: formData.get("email"),
-        message: formData.get("contact-text"),
-    };
+document.getElementById("phone-home").addEventListener("click", () => {
+    window.location = "index.html";
+});
 
-    console.log(data);
+document.getElementById("phone-download").addEventListener("click", () => {
+    window.location = "download.html";
+});
 
-    alert("Your message has been sent successfully!");
+document.getElementById("phone-contacts").addEventListener("click", () => {
+    window.location = "contacts.html";
+});
+
+
+
+const phone_nav = document.getElementById("phone-nav");
+var count = 0;
+
+phone_nav.addEventListener("click", () => {
+    if (count % 2 == 1) {
+        document.getElementById("phone-home").style.display = "block";
+        document.getElementById("phone-download").style.display = "block";
+        document.getElementById("phone-contacts").style.display = "block";
+    } else {
+        document.getElementById("phone-home").style.display = "none";
+        document.getElementById("phone-download").style.display = "none";
+        document.getElementById("phone-contacts").style.display = "none";
+    }
+    count++;
 });
