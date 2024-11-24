@@ -44,3 +44,34 @@ phone_nav.addEventListener("click", () => {
     }
     count++;
 });
+
+
+document.getElementById("kz").addEventListener("click", () => {
+    document.getElementById("home").textContent = "НЕГІЗГІ";
+    document.getElementById("download").textContent = "ЖҮКТЕУ";
+    document.getElementById("contacts").textContent = "БАЙЛАНЫС";
+
+    document.getElementById("phone-home").textContent = "НЕГІЗГІ";
+    document.getElementById("phone-download").textContent = "ЖҮКТЕУ";
+    document.getElementById("phone-contacts").textContent = "БАЙЛАНЫС";
+});
+
+document.getElementById("ru").addEventListener("click", () => {
+    document.getElementById("home").textContent = "ГЛАВНАЯ";
+    document.getElementById("download").textContent = "ЗАГРУЗКИ";
+    document.getElementById("contacts").textContent = "СВЯЗАТЬСЯ";
+
+    document.getElementById("phone-home").textContent = "ГЛАВНАЯ";
+    document.getElementById("phone-download").textContent = "ЗАГРУЗКИ";
+    document.getElementById("phone-contacts").textContent = "СВЯЗАТЬСЯ";
+});
+
+document.getElementById("en").addEventListener("click", () => {
+    document.getElementById("home").textContent = "HOME";
+    document.getElementById("download").textContent = "DOWNLOAD";
+    document.getElementById("contacts").textContent = "CONTACTS";
+
+    document.getElementById("phone-home").textContent = "HOME";
+    document.getElementById("phone-download").textContent = "DOWNLOAD";
+    document.getElementById("phone-contacts").textContent = "CONTACTS";
+});
