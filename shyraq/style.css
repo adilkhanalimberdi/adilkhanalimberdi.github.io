@@ -20,6 +20,7 @@ body {
 .nav {
 
     & div {
+        border-radius: 30px;
         height: 60px;
         width: 200px;
         justify-content: center;
@@ -83,7 +84,7 @@ body {
     font-size: 50px;
     font-weight: 600;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     width: 80%;
     margin-left: 10%;
     padding-top: 30px;
@@ -114,17 +115,11 @@ body {
     }
 }
 
-.images {
-    padding-top: 50px;
-    display: flex;  
-    gap: 50px;
-}
-
-.vertical1, .vertical2 {
-    width: 360px;
-    height: 600px;
+.photo {
+    width: 100%;
+    height: 100%;
     background-color: #000;
-    border-radius: 50px;
+    border-radius: 40px;
 }
 
 .bottom-space {
@@ -179,8 +174,13 @@ form {
     width: max-content;
 
     & input {
+        border: 1px solid black;
         width: 500px;
         height: 30px;
+    }
+
+    & textarea {
+        border: 1px solid black;
     }
 }
 
@@ -198,6 +198,7 @@ form {
     color: #fff;
     text-align: center;
     cursor: pointer;
+    width: 500px;
 
     &:hover {
         background-color: #292929;
@@ -208,8 +209,33 @@ form {
     display: none;
 }
 
+form {
+    width: 80%;
+}
+
+.line {
+    width: 100%;
+    padding-top: 10px;
+    border-bottom: 2px solid #000;
+}
+
+#translate {
+    right: 15px;
+    top: 0;
+    font-size: 17px;
+    position: absolute;
+
+    & div {
+        cursor: pointer;
+    }
+}
+
 
 @media (max-width: 1000px) {
+    #translate {
+        top: 60px;
+    }
+
     .wrapper {
         display: block;
     }
@@ -224,6 +250,19 @@ form {
 }
 
 @media (max-width: 780px) {
+    form input {
+        width: 400px;
+    }
+    
+    #contact-text {
+        width: 400px;
+        max-width: 400px;
+    }
+
+    #submit {
+        width: 400px;
+    }
+
     .nav div {
         width: 150px;
     }
@@ -235,10 +274,27 @@ form {
 }
 
 @media (max-width: 560px) {
+    #translate {
+        top: 50px;
+    }
+
+    form input {
+        width: 100%;
+    }
+
+    #contact-text {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #submit {
+        width: 100%;
+    }
+
     #top {
         display: block;
     }
-    
+
     #phone-nav {
         display: block;
         width: 50px;
