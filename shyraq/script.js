@@ -75,3 +75,7 @@ document.getElementById("en").addEventListener("click", () => {
     document.getElementById("phone-download").textContent = "DOWNLOAD";
     document.getElementById("phone-contacts").textContent = "CONTACTS";
 });
+
+document.querySelector("div.download-button").addEventListener("click", () => {
+    window.location = "https://drive.google.com/file/d/1rXJuj7KJwNf5evnXRppKgLVx2XF5839B/view?usp=drive_link";
+});
