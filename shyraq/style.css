@@ -115,10 +115,21 @@ body {
     }
 }
 
-.photo {
+.images {
     width: 100%;
-    height: 100%;
-    background-color: #000;
+    height: max-content;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.images div {
+    width: 100%;
+    max-width: 480px;
+    height: 720px;
+    max-height: 720px;
+    background-color: #acacac;
+    border: 5px solid black;
     border-radius: 40px;
 }
 
@@ -231,6 +242,15 @@ form {
 }
 
 
+@media (max-width: 1360px) {
+    .images {
+        & div {
+            width: 300px;
+            height: 540px;
+        }
+    }
+}
+
 @media (max-width: 1000px) {
     #translate {
         top: 60px;
@@ -246,6 +266,18 @@ form {
 
     #brand {
         justify-content: center;
+    }
+}
+
+@media (max-width: 800px) {
+    .images {
+        flex-direction: column;
+        gap: 20px;
+
+        & div {
+            height: 720px;
+            width: 480px;
+        }
     }
 }
 
@@ -270,6 +302,15 @@ form {
     .input {
         width: 80%;
         margin-left: 10%;
+    }
+}
+
+@media (max-width: 600px) {
+    .images {
+        & div {
+            width: 300px;
+            height: 540px;
+        }
     }
 }
 
