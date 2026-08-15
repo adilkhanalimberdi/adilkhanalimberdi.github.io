@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef, type JSX} from "react";
-import {useTheme} from "./UseTheme.tsx";
-import type {Theme} from "./theme.repository.ts";
+import {useTheme} from "../../hooks/UseTheme.tsx";
+import type {Theme} from "../../services/theme.repository.ts";
 import SunIcon from "../../assets/icons/SunIcon.tsx";
 import MoonIcon from "../../assets/icons/MoonIcon.tsx";
 import DesktopIcon from "../../assets/icons/DesktopIcon.tsx";
@@ -47,7 +47,7 @@ export default function ThemeSwitcher() {
                 rounded-lg
                 border border-border
                 bg-primary
-                px-3 py-2
+                px-3 py-2.5
                 text-sm font-medium
                 text-text-secondary
                 shadow-sm
@@ -58,15 +58,15 @@ export default function ThemeSwitcher() {
                 focus:ring-accent"
                 aria-haspopup="true"
                 aria-expanded={isOpen}>
-            <span className="text-text-muted">{currentIcon}</span>
+                <span className="text-text-muted">{currentIcon}</span>
 
-            <span className="capitalize">
-                {theme === "system"
-                    ? "Система"
-                    : theme === "dark"
-                        ? "Тёмная"
-                        : "Светлая"}
-            </span>
+                <span className="capitalize hidden md:inline">
+                    {theme === "system"
+                        ? "Система"
+                        : theme === "dark"
+                            ? "Тёмная"
+                            : "Светлая"}
+                </span>
 
                 <svg className={`h-4 w-4
                         text-text-muted

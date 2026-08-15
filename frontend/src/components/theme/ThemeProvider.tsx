@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useState } from "react";
-import ThemeRepository, { type Theme } from "./theme.repository.ts";
-import { ThemeContext } from "./theme.context.ts";
+import ThemeRepository, { type Theme } from "../../services/theme.repository.ts";
+import { ThemeContext } from "../../context/theme.context.ts";
 
 interface ThemeProviderProps {
     children: ReactNode;
@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
                 : currentTheme === "dark";
 
             root.classList.toggle("dark", isDark);
-            root.style.backgroundColor = isDark ? "#09090b" : "#ffffff";
+            root.style.backgroundColor = isDark ? "oklch(21% 0.006 285.885)" : "oklch(96% 0 0)";
         };
 
         applyTheme(theme);
