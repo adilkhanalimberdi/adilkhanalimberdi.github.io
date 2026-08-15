@@ -3,6 +3,74 @@ html {
     scrollbar-color: #8b5cf6 #18181b;
 }
 
+:root {
+    /* Backgrounds */
+    --theme-primary: oklch(96% 0 0);
+    --theme-secondary: oklch(90% 0 0);
+
+    /* Accent */
+    --theme-accent: oklch(60.6% 0.25 292.717);
+
+    /* Text */
+    --theme-text-primary: oklch(27.8% 0.033 256.848);
+    --theme-text-secondary: oklch(37.2% 0.044 257.287);
+    --theme-text-muted: oklch(55% 0 0);
+
+    /* Borders */
+    --theme-border: oklch(82% 0 0);
+    --theme-border-hover: oklch(75% 0 0);
+
+    /* Interactive */
+    --theme-hover: oklch(93% 0 0);
+    --theme-hover-accent: oklch(94% 0.03 292.717);
+
+    /* Selected */
+    --theme-selected: oklch(91% 0 0);
+    --theme-selected-text: oklch(20% 0 0);
+
+    /* URL */
+    --theme-url-accent: oklch(43.2% 0.232 292.759);
+
+    /* Buttons */
+    --theme-button-primary: oklch(27.8% 0.033 256.848);
+    --theme-button-primary-hover: oklch(35% 0.04 256.848);
+    --theme-button-primary-text: oklch(98% 0 0);
+}
+
+.dark {
+    /* Backgrounds */
+    --theme-primary: oklch(21% 0.006 285.885);
+    --theme-secondary: oklch(27.4% 0.006 286.033);
+
+    /* Accent */
+    --theme-accent: oklch(60.6% 0.25 292.717);
+
+    /* Text */
+    --theme-text-primary: oklch(96.7% 0.001 286.375);
+    --theme-text-secondary: oklch(70.5% 0.015 286.067);
+    --theme-text-muted: oklch(55% 0.015 286.067);
+
+    /* Borders */
+    --theme-border: oklch(35% 0.006 286.033);
+    --theme-border-hover: oklch(42% 0.008 286.033);
+
+    /* Interactive */
+    --theme-hover: oklch(25% 0.006 286.033);
+    --theme-hover-accent: oklch(30% 0.04 292.717);
+
+    /* Selected */
+    --theme-selected: oklch(32% 0.006 286.033);
+    --theme-selected-text: oklch(96.7% 0.001 286.375);
+
+    /* URL */
+    --theme-url-accent: oklch(81.1% 0.111 293.571);
+
+    /* Buttons */
+    --theme-button-primary: oklch(96.7% 0.001 286.375);
+    --theme-button-primary-hover: oklch(90% 0.002 286.375);
+    --theme-button-primary-text: oklch(21% 0.006 285.885);
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }

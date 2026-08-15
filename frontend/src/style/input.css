@@ -1,12 +1,28 @@
-/*@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');*/
 @import "tailwindcss";
 
-/*@theme {*/
-/*    --font-segoe: "IBM Plex Sans", "Segoe UI", sans-serif;*/
-/*}*/
+@theme {
+    --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
 
-/*@layer base {*/
-/*    body {*/
-/*        @apply font-segoe;*/
-/*    }*/
-/*}*/
+    --color-primary: var(--theme-primary);
+    --color-secondary: var(--theme-secondary);
+    --color-accent: var(--theme-accent);
+
+    --color-text-primary: var(--theme-text-primary);
+    --color-text-secondary: var(--theme-text-secondary);
+    --color-text-muted: var(--theme-text-muted);
+
+    --color-border: var(--theme-border);
+    --color-border-hover: var(--theme-border-hover);
+
+    --color-hover: var(--theme-hover);
+    --color-hover-accent: var(--theme-hover-accent);
+
+    --color-selected: var(--theme-selected);
+    --color-selected-text: var(--theme-selected-text);
+
+    --color-url-accent: var(--theme-url-accent);
+
+    --color-button-primary: var(--theme-button-primary);
+    --color-button-primary-hover: var(--theme-button-primary-hover);
+    --color-button-primary-text: var(--theme-button-primary-text);
+}
