@@ -1,10 +1,10 @@
-package com.alimberdi.backend;
+package com.alimberdi.kerege;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+class KeregeApplicationTests {
 
 	@Test
 	void contextLoads() {

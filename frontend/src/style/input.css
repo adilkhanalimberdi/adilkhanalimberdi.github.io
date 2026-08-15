@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import url('https://googleapis.com');
+
+@theme {
+    --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+@layer base {
+    body {
+        @apply font-segoe;
+    }
+}
