@@ -1,12 +1,12 @@
 /*@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');*/
 @import "tailwindcss";
 
-@theme {
-    --font-segoe: "IBM Plex Sans", "Segoe UI", sans-serif;
-}
+/*@theme {*/
+/*    --font-segoe: "IBM Plex Sans", "Segoe UI", sans-serif;*/
+/*}*/
 
-@layer base {
-    body {
-        @apply font-segoe;
-    }
-}
+/*@layer base {*/
+/*    body {*/
+/*        @apply font-segoe;*/
+/*    }*/
+/*}*/
