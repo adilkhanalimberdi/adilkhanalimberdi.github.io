@@ -1,13 +1,13 @@
-package com.alimberdi.kerege;
+package com.alimberdi.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KeregeApplication {
+public class BackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KeregeApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 
 }

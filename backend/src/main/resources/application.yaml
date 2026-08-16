@@ -6,7 +6,7 @@ spring:
     name: backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/kerege
+    url: jdbc:postgresql://localhost:5432/backend
     username: ${DB_USER}
     password: ${DB_PASS}
 

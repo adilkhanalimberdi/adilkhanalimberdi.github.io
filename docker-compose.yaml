@@ -1,10 +1,12 @@
+name: backend
+
 services:
   postgres:
     image: postgres:16-alpine
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_DB: kerege
+      POSTGRES_DB: backend
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
     ports:

@@ -1,6 +1,6 @@
-package com.alimberdi.kerege.portfolio.controller;
+package com.alimberdi.backend.portfolio.controller;
 
-import com.alimberdi.kerege.portfolio.dto.ApiResponse;
+import com.alimberdi.backend.portfolio.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
