@@ -103,31 +103,31 @@ const projects: { name: string, description: string, url: string }[] = [
 
 const skills: { category: string, content: string[] }[] = [
     {
-        category: "programming",
+        category: "Programming",
         content: ["Java", "Python", "SQL"]
     },
     {
-        category: "backend",
+        category: "Backend",
         content: ["Spring (Core, MVC, Boot, Security, Data, Cloud)", "Hibernate", "REST API", "JWT", "Resilience4j"]
     },
     {
-        category: "frontend",
+        category: "Frontend",
         content: ["React", "TypeScript", "Tailwind CSS"]
     },
     {
-        category: "database",
+        category: "Database",
         content: ["PostgreSQL", "Redis", "Flyway (migrations)"]
     },
     {
-        category: "testing",
+        category: "Testing",
         content: ["JUnit 5", "Mockito", "Pytest", "Selenium"]
     },
     {
-        category: "devops",
+        category: "DevOps",
         content: ["Docker", "Docker Compose", "Git", "GitHub"]
     },
     {
-        category: "tools",
+        category: "Tools",
         content: ["Maven", "OpenAPI/Swagger", "Postman"]
     }
 ]
