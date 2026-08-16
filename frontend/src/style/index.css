@@ -11,6 +11,7 @@ html {
 
     /* Accent */
     --theme-accent: oklch(60.6% 0.25 292.717);
+    --theme-accent-secondary: oklch(58.6% 0.253 17.585);
 
     /* Text */
     --theme-text-primary: oklch(27.8% 0.033 256.848);
@@ -45,6 +46,7 @@ html {
 
     /* Accent */
     --theme-accent: oklch(60.6% 0.25 292.717);
+    --theme-accent-secondary: oklch(82.8% 0.189 84.429);
 
     /* Text */
     --theme-text-primary: oklch(96.7% 0.001 286.375);

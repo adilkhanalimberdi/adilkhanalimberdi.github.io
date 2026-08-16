@@ -6,6 +6,7 @@
     --color-primary: var(--theme-primary);
     --color-secondary: var(--theme-secondary);
     --color-accent: var(--theme-accent);
+    --color-accent-secondary: var(--theme-accent-secondary);
 
     --color-text-primary: var(--theme-text-primary);
     --color-text-secondary: var(--theme-text-secondary);

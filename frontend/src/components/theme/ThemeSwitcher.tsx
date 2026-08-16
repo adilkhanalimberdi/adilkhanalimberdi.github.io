@@ -23,17 +23,17 @@ export default function ThemeSwitcher() {
     const options: { value: Theme; label: string; icon: JSX.Element }[] = [
         {
             value: "light",
-            label: "Светлая",
+            label: "Light",
             icon: <SunIcon />,
         },
         {
             value: "dark",
-            label: "Тёмная",
+            label: "Dark",
             icon: <MoonIcon />,
         },
         {
             value: "system",
-            label: "Системная",
+            label: "System",
             icon: <DesktopIcon />,
         },
     ];
@@ -62,10 +62,10 @@ export default function ThemeSwitcher() {
 
                 <span className="capitalize hidden md:inline">
                     {theme === "system"
-                        ? "Система"
+                        ? "System"
                         : theme === "dark"
-                            ? "Тёмная"
-                            : "Светлая"}
+                            ? "Dark"
+                            : "Light"}
                 </span>
 
                 <svg className={`h-4 w-4
