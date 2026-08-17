@@ -11,7 +11,7 @@ public record ContactMessageRequest(
 
 		@NotBlank(message = "Email address should not me blank")
 		@Email(message = "Invalid email format.")
-		@Size(min = 5, max = 80, message = "Email address must be between 5 and 80 characters.")
+		@Size(min = 8, max = 80, message = "Email address must be between 5 and 80 characters.")
 		String email,
 
 		@NotBlank(message = "Message should not be blank")

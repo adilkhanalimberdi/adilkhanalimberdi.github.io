@@ -5,13 +5,15 @@ import Navbar from "../../components/portfolio/Navbar.tsx";
 import {type JSX, useState} from "react";
 import type {ContactMessage} from "../../type/portfolio/contact.message.ts";
 import {ContactMessageService} from "../../services/portfolio/contact.message.service.ts";
-import {AxiosError} from "axios";
 import {type SubmitEvent} from "react";
 import {RiSendPlaneFill} from "react-icons/ri";
 import CustomToaster from "../../components/CustomToaster.tsx";
-import {Mail, MapPin, Phone, Send} from "lucide-react";
+import {Loader2, Mail, MapPin, Phone, Send} from "lucide-react";
 import CopyButton from "../../components/portfolio/CopyButton.tsx";
 import {FiDownload} from "react-icons/fi";
+import type {ErrorResponse} from "../../type/error.ts";
+import toast from "react-hot-toast";
+import * as axios from "axios";
 
 function processInformation(text: string, id: string | number): JSX.Element {
     const parts = text.split('_');
@@ -153,6 +155,12 @@ const languages: { language: string, level: LanguageLevel }[] = [
     }
 ]
 
+type ValidationErrors = {
+    fullName?: string;
+    email?: string;
+    message?: string;
+};
+
 function PortfolioPage() {
     const FULL_NAME_THRESHOLD = 80;
     const EMAIL_THRESHOLD = 80;
@@ -161,6 +169,16 @@ function PortfolioPage() {
     const [fullName, setFullName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [message, setMessage] = useState<string>("");
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState<ValidationErrors>({});
+
+    const clearError = (field: keyof ValidationErrors) => {
+        setErrors(prev => ({
+            ...prev,
+            [field]: undefined
+        }));
+    };
 
     const handleSendMessage = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -171,13 +189,22 @@ function PortfolioPage() {
             message: message,
         };
 
+        setLoading(true);
         try {
             await ContactMessageService.save(request);
+            setErrors({});
         } catch (err) {
-            if (err instanceof AxiosError) {
-                const error = err as AxiosError;
-                console.error(error);
+            if (axios.isAxiosError<ErrorResponse>(err)) {
+                const response = err.response?.data;
+
+                if (response?.errors) {
+                    setErrors(response.errors);
+                } else {
+                    toast.error(response?.message ?? "Something went wrong.");
+                }
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -406,26 +433,42 @@ function PortfolioPage() {
                                     </div>
 
                                     <form className="flex flex-col gap-3" onSubmit={(e) => handleSendMessage(e)}>
-                                        <div className="flex flex-col items-end gap-0">
+                                        <div className="flex flex-col gap-1">
                                             <input id="name"
                                                    type="text"
-                                                   className="flex-1 w-full text-text-primary border border-border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm"
+                                                   className={`flex-1 w-full text-text-primary border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm ${errors.fullName ? "border-red-500" : "border-border"}`}
                                                    placeholder="Full name"
                                                    value={fullName}
                                                    maxLength={FULL_NAME_THRESHOLD}
-                                                   onChange={(e) => setFullName(e.target.value)}
+                                                   onChange={(e) => {
+                                                       setFullName(e.target.value);
+                                                       clearError("fullName");
+                                                   }}
                                                    required={true} />
+                                            {errors.fullName && (
+                                                <p className="text-sm text-red-500">
+                                                    {errors.fullName}
+                                                </p>
+                                            )}
                                         </div>
 
-                                        <div className="flex flex-col items-end gap-0">
+                                        <div className="flex flex-col gap-1">
                                             <input id="email"
                                                    type="email"
-                                                   className="flex-1 w-full text-text-primary border border-border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm"
+                                                   className={`flex-1 w-full text-text-primary border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm ${errors.email ? "border-red-500" : "border-border"}`}
                                                    placeholder="Email address"
                                                    value={email}
                                                    maxLength={EMAIL_THRESHOLD}
-                                                   onChange={(e) => setEmail(e.target.value)}
+                                                   onChange={(e) => {
+                                                       setEmail(e.target.value);
+                                                       clearError("email");
+                                                   }}
                                                    required={true} />
+                                            {errors.email && (
+                                                <p className="text-sm text-red-500">
+                                                    {errors.email}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div className="flex flex-col items-end gap-0">
@@ -435,22 +478,44 @@ function PortfolioPage() {
                                                       rows={10}
                                                       value={message}
                                                       maxLength={MESSAGE_THRESHOLD}
-                                                      onChange={(e) => setMessage(e.target.value)}
-                                                      className="flex w-full text-text-primary border border-border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm resize-none"
+                                                      onChange={(e) => {
+                                                          setMessage(e.target.value);
+                                                          clearError("message");
+                                                      }}
+                                                      className={`flex w-full text-text-primary border rounded-lg px-2 py-2 focus:ring-2 ring-accent focus:outline-none text-sm resize-none ${errors.message ? "border-red-500" : "border-border"}`}
                                                       placeholder="Message"
                                                       required={true}></textarea>
-                                            <p className="text-text-secondary text-sm">
-                                                {message.length}/{MESSAGE_THRESHOLD}
-                                            </p>
+                                            <div className="flex items-center flex-1 w-full justify-between">
+                                                {errors.message ? (
+                                                    <p className="text-sm text-red-500">
+                                                        {errors.message}
+                                                    </p>
+                                                ) : (
+                                                    <span />
+                                                )}
+
+                                                <p className="text-text-secondary text-sm">
+                                                    {message.length}/{MESSAGE_THRESHOLD}
+                                                </p>
+                                            </div>
                                         </div>
 
                                         <div className="flex flex-col gap-1">
-                                            <button className="bg-accent text-text-light py-2 px-5 rounded-md transition-all duration-200
-                                                    hover:bg-accent/80 hover:text-text-light/80 flex flex-row gap-2 items-center justify-center cursor-pointer"
-                                                    type="submit">
-                                                <RiSendPlaneFill className="text-md" />
-                                                <span className="text-sm">Send Message</span>
-                                            </button>
+                                            <button className="h-10 bg-accent text-text-light px-5 rounded-md transition-all duration-200
+                                                hover:bg-accent/80 hover:text-text-light/80
+                                                flex items-center justify-center cursor-pointer
+                                                disabled:cursor-not-allowed disabled:opacity-70"
+                                                    type="submit"
+                                                    disabled={loading}>
+                                                    {loading ? (
+                                                        <Loader2 size={16} className="animate-spin" />
+                                                    ) : (
+                                                        <span className="flex items-center justify-center gap-2">
+                                                            <RiSendPlaneFill size={16} />
+                                                            <span className="text-sm">Send Message</span>
+                                                        </span>
+                                                    )}
+                                                </button>
                                         </div>
                                     </form>
                                 </div>
