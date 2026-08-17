@@ -254,7 +254,7 @@ function PortfolioPage() {
                                         Contact Me
                                     </a>
 
-                                    <a href="https://drive.google.com/file/d/1S5Dy9AFJw0hMRnh5sCJqubvJyJRW0r-u/view?usp=drive_link"
+                                    <a href="https://drive.google.com/file/d/1MYsAdRWHnGG07IoOaVjm3o9QEplXHM7l/view?usp=sharing"
                                        target="_blank"
                                        rel="noopener noreferrer"
                                        className="border border-border text-text-primary bg-primary py-2.5 px-6 rounded-lg text-sm font-medium transition-all duration-200 hover:border-accent hover:text-accent hover:bg-secondary/40 cursor-pointer flex items-center gap-2">
