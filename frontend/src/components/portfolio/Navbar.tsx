@@ -14,6 +14,7 @@ function Navbar() {
                     <a href="#education" className="hover:text-accent transition">Education</a>
                     <a href="#projects" className="hover:text-accent transition">Projects</a>
                     <a href="#skills" className="hover:text-accent transition">Skills</a>
+                    <a href="#contact" className="hover:text-accent transition">Contact</a>
                 </nav>
 
                 <ThemeSwitcher />
@@ -48,6 +49,10 @@ function Navbar() {
 
                         <a href="#skills" onClick={() => setIsOpen(false)}>
                             Skills
+                        </a>
+
+                        <a href="#contact" onClick={() => setIsOpen(false)}>
+                            Contact
                         </a>
                     </div>
                 </nav>

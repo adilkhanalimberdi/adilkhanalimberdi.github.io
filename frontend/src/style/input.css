@@ -11,6 +11,7 @@
     --color-text-primary: var(--theme-text-primary);
     --color-text-secondary: var(--theme-text-secondary);
     --color-text-muted: var(--theme-text-muted);
+    --color-text-light: var(--theme-text-light);
 
     --color-border: var(--theme-border);
     --color-border-hover: var(--theme-border-hover);

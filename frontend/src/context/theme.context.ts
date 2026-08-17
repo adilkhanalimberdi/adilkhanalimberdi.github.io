@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Theme } from "../services/theme.repository.ts";
+import type { Theme } from "../services/portfolio/theme.repository.ts";
 
 export interface ThemeContextType {
     theme: Theme;

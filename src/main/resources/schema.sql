@@ -1,0 +1,9 @@
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));
+create table portfolio.contact_messages (created_at timestamp(6) with time zone, id uuid not null, email varchar(255) not null, full_name varchar(255) not null, message TEXT not null, primary key (id));

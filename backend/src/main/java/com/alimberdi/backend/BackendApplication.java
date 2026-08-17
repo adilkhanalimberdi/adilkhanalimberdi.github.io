@@ -2,7 +2,9 @@ package com.alimberdi.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 
+@EntityScan("com.alimberdi")
 @SpringBootApplication
 public class BackendApplication {
 

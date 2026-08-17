@@ -17,6 +17,7 @@ html {
     --theme-text-primary: oklch(27.8% 0.033 256.848);
     --theme-text-secondary: oklch(37.2% 0.044 257.287);
     --theme-text-muted: oklch(55% 0 0);
+    --theme-text-light: oklch(98.4% 0.003 247.858);
 
     /* Borders */
     --theme-border: oklch(82% 0 0);
@@ -52,6 +53,7 @@ html {
     --theme-text-primary: oklch(96.7% 0.001 286.375);
     --theme-text-secondary: oklch(70.5% 0.015 286.067);
     --theme-text-muted: oklch(55% 0.015 286.067);
+    --theme-text-light: oklch(98.4% 0.003 247.858);
 
     /* Borders */
     --theme-border: oklch(35% 0.006 286.033);
