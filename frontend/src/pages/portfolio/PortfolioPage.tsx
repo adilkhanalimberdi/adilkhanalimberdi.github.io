@@ -360,7 +360,7 @@ function PortfolioPage() {
 
                             <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:gap-5">
                                 <div className="flex flex-col gap-3">
-                                    <p className="text-text-primary text-2xl font-semibold">Technical Skills</p>
+                                    <p className="text-text-primary text-xl font-semibold">Technical Skills</p>
 
                                     <div>
                                         {skills.map((skill, index) => {
@@ -375,7 +375,7 @@ function PortfolioPage() {
                                 </div>
 
                                 <div className="flex flex-col gap-3">
-                                    <p className="text-text-primary text-2xl font-semibold">Languages</p>
+                                    <p className="text-text-primary text-xl font-semibold">Languages</p>
 
                                     <div>
                                         {languages.map((language, index) => {
