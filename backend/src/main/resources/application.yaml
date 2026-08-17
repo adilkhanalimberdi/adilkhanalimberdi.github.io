@@ -7,10 +7,8 @@ spring:
   application:
     name: backend
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/backend
-    username: ${DB_USER}
-    password: ${DB_PASS}
+  profiles:
+    active: dev
 
   flyway:
     enabled: true
@@ -18,7 +16,4 @@ spring:
     locations: classpath:db/migration
 
   jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
     open-in-view: false
