@@ -192,7 +192,13 @@ function PortfolioPage() {
         setLoading(true);
         try {
             await ContactMessageService.save(request);
+
             setErrors({});
+            setFullName("");
+            setEmail("");
+            setMessage("");
+
+            toast.success("Your message has been sent successfully!");
         } catch (err) {
             if (axios.isAxiosError<ErrorResponse>(err)) {
                 const response = err.response?.data;
