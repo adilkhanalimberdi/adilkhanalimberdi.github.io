@@ -1,8 +1,8 @@
 package com.alimberdi.backend.portfolio.controller;
 
-import com.alimberdi.backend.portfolio.dto.api.ApiResponse;
-import com.alimberdi.backend.portfolio.dto.contactMessage.ContactMessageRequest;
-import com.alimberdi.backend.portfolio.dto.contactMessage.ContactMessageResponse;
+import com.alimberdi.backend.common.dto.ApiResponse;
+import com.alimberdi.backend.portfolio.dto.ContactMessageRequest;
+import com.alimberdi.backend.portfolio.dto.ContactMessageResponse;
 import com.alimberdi.backend.portfolio.service.ContactMessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class ContactMessageController {
 	private final ContactMessageService contactMessageService;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<ApiResponse<Page<ContactMessageResponse>>> getAll(
 			@PageableDefault(sort = "createdAt", direction = Sort.Direction.ASC) Pageable pageable
 	) {
@@ -35,6 +37,7 @@ public class ContactMessageController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<ApiResponse<ContactMessageResponse>> getById(@PathVariable UUID id) {
 		ContactMessageResponse message = contactMessageService.getById(id);
 		return new ResponseEntity<>(

@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.config;
+package com.alimberdi.backend.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

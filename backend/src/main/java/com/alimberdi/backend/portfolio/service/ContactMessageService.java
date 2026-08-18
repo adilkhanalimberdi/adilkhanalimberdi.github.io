@@ -1,7 +1,7 @@
 package com.alimberdi.backend.portfolio.service;
 
-import com.alimberdi.backend.portfolio.dto.contactMessage.ContactMessageRequest;
-import com.alimberdi.backend.portfolio.dto.contactMessage.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.ContactMessageRequest;
+import com.alimberdi.backend.portfolio.dto.ContactMessageResponse;
 import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException;
 import com.alimberdi.backend.portfolio.mapper.ContactMessageMapper;
 import com.alimberdi.backend.portfolio.model.entity.ContactMessage;

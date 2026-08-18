@@ -1,6 +1,6 @@
 package com.alimberdi.backend.portfolio.mapper;
 
-import com.alimberdi.backend.portfolio.dto.contactMessage.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.ContactMessageResponse;
 import com.alimberdi.backend.portfolio.model.entity.ContactMessage;
 import org.springframework.stereotype.Component;
 

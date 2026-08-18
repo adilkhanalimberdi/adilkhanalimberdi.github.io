@@ -1,9 +1,11 @@
-package com.alimberdi.backend.portfolio.exception;
+package com.alimberdi.backend.common.exception;
 
-import com.alimberdi.backend.portfolio.dto.api.ErrorResponse;
+import com.alimberdi.backend.common.dto.ErrorResponse;
+import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(ContactMessageNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleContactMessageNotFoundException(ContactMessageNotFoundException ex) {
 		ErrorResponse response = new ErrorResponse(
 				HttpStatus.NOT_FOUND.value(),
@@ -40,6 +43,16 @@ public class GlobalExceptionHandler {
 		);
 
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
+		ErrorResponse response = new ErrorResponse(
+				HttpStatus.FORBIDDEN.value(),
+				"Invalid username or password"
+		);
+
+		return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 	}
 
 	@ExceptionHandler(Exception.class)
