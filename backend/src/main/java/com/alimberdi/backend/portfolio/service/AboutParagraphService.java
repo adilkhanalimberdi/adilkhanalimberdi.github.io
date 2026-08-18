@@ -28,12 +28,16 @@ public class AboutParagraphService {
 	@Transactional(rollbackFor = Exception.class)
 	public AboutParagraphResponse create(AboutParagraphCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
+		if (maxIndex == null) {
+			maxIndex = 0;
+		}
+
 		Integer targetIndex = request.orderIndex();
 
 		if (targetIndex == null || targetIndex > maxIndex) {
 			targetIndex = maxIndex + 1;
 		} else {
-			repository.shiftOrderIndexesFrom(targetIndex);
+			repository.shiftIndexesUpFrom(targetIndex);
 		}
 
 		AboutParagraph paragraph = AboutParagraph.builder()
