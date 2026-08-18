@@ -1,4 +1,6 @@
-CREATE TABLE auth.users
+CREATE SCHEMA IF NOT EXISTS authorization;
+
+CREATE TABLE authorization.users
 (
     id         UUID                        NOT NULL,
     username   VARCHAR(255)                NOT NULL,

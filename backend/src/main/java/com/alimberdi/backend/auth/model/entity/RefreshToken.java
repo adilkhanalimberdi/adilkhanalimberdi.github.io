@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 
 @Entity
-@Table(name = "refresh_tokens", schema = "auth")
+@Table(name = "refresh_tokens", schema = "authorization")
 @Getter
 @Setter
 @ToString
