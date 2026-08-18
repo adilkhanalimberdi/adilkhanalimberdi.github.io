@@ -8,19 +8,24 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface AboutParagraphRepository extends JpaRepository<AboutParagraph, UUID> {
 
-	Optional<AboutParagraph> findByOrderIndex(Integer orderIndex);
-
 	List<AboutParagraph> findAllByOrderByOrderIndexAsc();
 
 	@Modifying
-	@Query("UPDATE AboutParagraph p SET p.orderIndex = p.orderIndex + 1 WHERE p.orderIndex >= :startIndex")
-	void shiftOrderIndexesFrom(@Param("startIndex") Integer startIndex);
+	@Query(value = "UPDATE portfolio.about_paragraphs p " +
+			"SET order_index = p.order_index + 1 " +
+			"FROM ( " +
+			"    SELECT id FROM portfolio.about_paragraphs " +
+			"    WHERE order_index >= :startIndex " +
+			"    ORDER BY order_index DESC " +
+			") sub " +
+			"WHERE p.id = sub.id",
+			nativeQuery = true)
+	void shiftIndexesUpFrom(@Param("startIndex") int startIndex);
 
 	@Query("SELECT COALESCE(MAX(p.orderIndex), 0) FROM AboutParagraph p")
 	Integer findMaxOrderIndex();
