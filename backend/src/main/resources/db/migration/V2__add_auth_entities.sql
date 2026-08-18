@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS "authorization";
+CREATE SCHEMA IF NOT EXISTS security;
 
-CREATE TABLE "authorization".users
+CREATE TABLE security.users
 (
     id         UUID                        NOT NULL,
     username   VARCHAR(255)                NOT NULL,
