@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users", schema = "authorization")
+@Table(name = "users", schema = "`authorization`")
 @Getter
 @Setter
 @ToString
