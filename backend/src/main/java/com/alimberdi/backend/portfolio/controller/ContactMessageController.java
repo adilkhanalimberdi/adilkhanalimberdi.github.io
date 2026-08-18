@@ -1,8 +1,8 @@
 package com.alimberdi.backend.portfolio.controller;
 
 import com.alimberdi.backend.common.dto.ApiResponse;
-import com.alimberdi.backend.portfolio.dto.ContactMessageRequest;
-import com.alimberdi.backend.portfolio.dto.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.request.ContactMessageCreateRequest;
+import com.alimberdi.backend.portfolio.dto.response.ContactMessageResponse;
 import com.alimberdi.backend.portfolio.service.ContactMessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class ContactMessageController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> create(@RequestBody @Valid ContactMessageRequest request) {
+	public ResponseEntity<Void> create(@RequestBody @Valid ContactMessageCreateRequest request) {
 		contactMessageService.create(request);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

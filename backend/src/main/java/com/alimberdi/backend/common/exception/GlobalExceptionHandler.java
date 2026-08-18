@@ -5,7 +5,9 @@ import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -46,7 +48,7 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(BadCredentialsException.class)
-	public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
+	public ResponseEntity<ErrorResponse> handleBadCredentialsException() {
 		ErrorResponse response = new ErrorResponse(
 				HttpStatus.FORBIDDEN.value(),
 				"Invalid username or password"
@@ -55,8 +57,19 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 	}
 
+	@ExceptionHandler({AuthorizationDeniedException.class, AccessDeniedException.class})
+	public ResponseEntity<ErrorResponse> handleAuthorizationDeniedException(AuthorizationDeniedException ex) {
+		ErrorResponse response = new ErrorResponse(
+				HttpStatus.FORBIDDEN.value(),
+				"Access Denied"
+		);
+
+		return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+	}
+
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorResponse> handleGenericException() {
+	public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+		log.error("Generic Exception: {}", ex.getMessage(), ex);
 		ErrorResponse response = new ErrorResponse(
 				HttpStatus.INTERNAL_SERVER_ERROR.value(),
 				"Internal Server Error",

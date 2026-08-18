@@ -2,10 +2,7 @@ package com.alimberdi.backend.auth.model.entity;
 
 import com.alimberdi.backend.auth.model.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,7 +11,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users", schema = "auth")
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

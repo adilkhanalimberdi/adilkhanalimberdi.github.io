@@ -1,9 +1,6 @@
 package com.alimberdi.backend.auth.controller;
 
-import com.alimberdi.backend.auth.dto.AuthResponse;
-import com.alimberdi.backend.auth.dto.LoginRequest;
-import com.alimberdi.backend.auth.dto.RefreshRequest;
-import com.alimberdi.backend.auth.dto.RegisterRequest;
+import com.alimberdi.backend.auth.dto.*;
 import com.alimberdi.backend.auth.service.AuthService;
 import com.alimberdi.backend.common.dto.ApiResponse;
 import jakarta.validation.Valid;
@@ -27,6 +24,13 @@ public class AuthController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(new ApiResponse<>(authService.login(request)));
+	}
+
+	@PostMapping("/admin/login")
+	public ResponseEntity<ApiResponse<AuthResponse>> loginAdmin(@RequestBody @Valid AdminLoginRequest request) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new ApiResponse<>(authService.loginAdmin(request)));
 	}
 
 	@PostMapping("/register")

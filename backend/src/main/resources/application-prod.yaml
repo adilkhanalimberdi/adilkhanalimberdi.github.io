@@ -18,6 +18,10 @@ app:
     expiration:
       access-minutes: ${JWT_EXPIRATION_ACCESS_MINUTES}
       refresh-minutes: ${JWT_EXPIRATION_REFRESH_MINUTES}
+  admin:
+    username: admin
+    email: ${ADMIN_EMAIL}
+    password: ${ADMIN_PASSWORD}
 
 management:
   endpoint:
