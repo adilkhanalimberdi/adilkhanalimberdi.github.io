@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.dto.contactMessage;
+package com.alimberdi.backend.portfolio.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

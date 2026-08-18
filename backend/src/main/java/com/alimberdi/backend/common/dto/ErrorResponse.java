@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.dto.api;
+package com.alimberdi.backend.common.dto;
 
 import java.util.Map;
 
@@ -7,10 +7,7 @@ public record ErrorResponse(
 		String message,
 		Map<String, String> errors
 ) {
-	public ErrorResponse(
-			int statusCode,
-			String message
-	) {
+	public ErrorResponse(int statusCode, String message) {
 		this(statusCode, message, null);
 	}
 }

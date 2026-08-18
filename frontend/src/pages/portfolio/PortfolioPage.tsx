@@ -238,15 +238,17 @@ function PortfolioPage() {
                                  alt="Profile Image" />
                         </div>
 
-                        <div>
+                        <div className="">
                             <div className="flex flex-col gap-1">
-                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-                                    Hi, I'm <span className="text-accent">Adilkhan</span>!
-                                </h1>
+                                <div className="flex flex-col items-center lg:items-start">
+                                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
+                                        Hi, I'm <span className="text-accent">Adilkhan</span>!
+                                    </h1>
 
-                                <p className="text-text-secondary text-lg">
-                                    A Java Backend Developer
-                                </p>
+                                    <p className="text-text-secondary text-lg">
+                                        A Java Backend Developer
+                                    </p>
+                                </div>
 
                                 <div className="flex flex-row items-center gap-3 mt-4">
                                     <a href="#contact"
