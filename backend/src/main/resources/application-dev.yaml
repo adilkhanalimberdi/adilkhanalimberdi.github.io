@@ -1,14 +1,19 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/backend
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: true
+
+  jackson:
+    datatype:
+      datetime:
+        write-dates-as-timestamps: false
 
 app:
   cors:
@@ -18,6 +23,10 @@ app:
     expiration:
       access-minutes: 15
       refresh-minutes: 4320
+  admin:
+    username: admin
+    email: admin@admin.com
+    password: admin123
 
 management:
   endpoint:

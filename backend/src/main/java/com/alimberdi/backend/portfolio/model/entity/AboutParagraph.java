@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "contact_messages", schema = "portfolio")
+@Table(name = "about_paragraphs", schema = "portfolio")
 @Getter
 @Setter
 @ToString
@@ -17,23 +17,20 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class ContactMessage {
+public class AboutParagraph {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
-	@Column(nullable = false)
-	private String fullName;
-
-	@Column(nullable = false)
-	private String email;
-
 	@Column(nullable = false, columnDefinition = "TEXT")
-	private String message;
+	private String content;
 
-	@Column(nullable = false, updatable = false)
+	@Column(name = "order_index", unique = true, nullable = false)
+	private Integer orderIndex;
+
 	@CreatedDate
+	@Column(nullable = false, updatable = false)
 	private Instant createdAt;
 
 }

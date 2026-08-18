@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.dto;
+package com.alimberdi.backend.portfolio.dto.response;
 
 import java.time.Instant;
 import java.util.UUID;

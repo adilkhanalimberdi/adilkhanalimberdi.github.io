@@ -1,10 +1,10 @@
-package com.alimberdi.backend.portfolio.dto;
+package com.alimberdi.backend.portfolio.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record ContactMessageRequest(
+public record ContactMessageCreateRequest(
 		@NotBlank(message = "Full name should not be blank")
 		@Size(min = 5, max = 80, message = "Full name must be between 5 and 80 characters.")
 		String fullName,

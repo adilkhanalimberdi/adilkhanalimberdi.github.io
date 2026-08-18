@@ -46,7 +46,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 				"Unauthorized"
 		);
 
-		response.getWriter().write(objectMapper.writeValueAsString(new ApiResponse<>(errorResponse)));
+		response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
 	}
 
 }

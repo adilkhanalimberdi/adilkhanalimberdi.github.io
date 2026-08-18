@@ -2,18 +2,20 @@ import profileImage from "../../assets/images/adilkhan.webp";
 import {FaGithub, FaLinkedin} from "react-icons/fa";
 
 import Navbar from "../../components/portfolio/Navbar.tsx";
-import {type JSX, useState} from "react";
+import {type JSX, useEffect, useState} from "react";
 import type {ContactMessage} from "../../type/portfolio/contact.message.ts";
 import {ContactMessageService} from "../../services/portfolio/contact.message.service.ts";
 import {type SubmitEvent} from "react";
 import {RiSendPlaneFill} from "react-icons/ri";
 import CustomToaster from "../../components/CustomToaster.tsx";
-import {Loader2, Mail, MapPin, Phone, Send} from "lucide-react";
+import {AlertCircle, Loader2, Mail, MapPin, Phone, RefreshCw, Send} from "lucide-react";
 import CopyButton from "../../components/portfolio/CopyButton.tsx";
 import {FiDownload} from "react-icons/fi";
 import type {ErrorResponse} from "../../type/error.ts";
 import toast from "react-hot-toast";
 import * as axios from "axios";
+import type {PortfolioResponse} from "../../type/portfolio/portfolio.ts";
+import {PortfolioService} from "../../services/portfolio/portfolio.service.ts";
 
 function processInformation(text: string, id: string | number): JSX.Element {
     const parts = text.split('_');
@@ -36,14 +38,6 @@ function processInformation(text: string, id: string | number): JSX.Element {
         </p>
     )
 }
-
-const information: string[] = [
-    "My name is _Adilkhan_, and I'm 19 years old.",
-    "I am a third-year _Information Systems_ student from Kazakhstan.",
-    "During my school years, I actively participated in _competitive programming_ olympiads and reached the _republican stage_, which greatly accelerated my coding skills. At the university, I continued competing in _ICPC contests_, building a _solid foundation in DSA_.",
-    "Later in my studies, I discovered a passion for Backend Development, focusing heavily on the _Java ecosystem_. My competitive background sparked a strong _curiosity for solving complex architectural challenges_. For me, backend engineering is the perfect mix of building systems and solving hard puzzles.",
-    "Currently, I am focusing on developing _scalable, production-grade applications_ and looking for an opportunity to gain _professional backend experience_."
-]
 
 const monthMap: Record<number, string> = {
     1: "January",
@@ -170,8 +164,69 @@ function PortfolioPage() {
     const [email, setEmail] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
-    const [loading, setLoading] = useState<boolean>(false);
+    const [sending, setSending] = useState<boolean>(false);
     const [errors, setErrors] = useState<ValidationErrors>({});
+
+    const [loading, setLoading] = useState<boolean>(true);
+    const [portfolio, setPortfolio] = useState<PortfolioResponse | null>(null);
+
+    useEffect(() => {
+        PortfolioService.get()
+            .then(res => {
+                setPortfolio(res);
+            })
+            .catch(() => {
+                setPortfolio(null);
+                toast.error("Failed to fetch portfolio details, please try again later.");
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-dvh w-full flex items-center justify-center p-4">
+                <div className="flex flex-col items-center gap-3 select-none">
+                    <div className="relative flex items-center justify-center">
+                        <div className="absolute inset-0 rounded-full blur-sm bg-accent/20" />
+                        <Loader2 size={28} className="animate-spin text-text-primary relative z-10" />
+                    </div>
+
+                    <p className="text-sm font-medium tracking-wide text-text-secondary animate-pulse">
+                        Fetching details...
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!loading && !portfolio) {
+        return (
+            <div className="min-h-dvh w-full flex items-center justify-center p-4">
+                <div className="flex flex-col items-center text-center max-w-sm gap-4 select-none">
+                    <div className="p-3 rounded-full bg-red-500/10 text-red-500">
+                        <AlertCircle size={32} />
+                    </div>
+
+                    <div className="space-y-1">
+                        <h3 className="text-lg font-semibold text-text-primary">
+                            Portfolio Unavailable
+                        </h3>
+                        <p className="text-sm text-text-secondary leading-relaxed">
+                            We couldn't load the requested portfolio details. It might have been moved or the server is temporarily down.
+                        </p>
+                    </div>
+
+                    <button onClick={() => window.location.reload()}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-text-light rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer hover:opacity-80">
+                        <RefreshCw size={16}/>
+                        <span>Try Again</span>
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     const clearError = (field: keyof ValidationErrors) => {
         setErrors(prev => ({
@@ -189,7 +244,7 @@ function PortfolioPage() {
             message: message,
         };
 
-        setLoading(true);
+        setSending(true);
         try {
             await ContactMessageService.save(request);
 
@@ -210,7 +265,7 @@ function PortfolioPage() {
                 }
             }
         } finally {
-            setLoading(false);
+            setSending(false);
         }
     }
 
@@ -221,7 +276,7 @@ function PortfolioPage() {
 
             <nav className="w-full h-15 shrink-0 bg-secondary fixed top-0 z-50 flex items-center justify-center">
 
-                {Navbar()}
+                <Navbar />
 
             </nav>
 
@@ -252,14 +307,14 @@ function PortfolioPage() {
 
                                 <div className="flex flex-row items-center gap-3 mt-4">
                                     <a href="#contact"
-                                       className="bg-accent text-text-light py-2.5 px-6 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/80 hover:shadow-lg hover:shadow-accent/20 cursor-pointer">
+                                       className="bg-accent text-text-light py-2.5 px-6 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer hover:opacity-80">
                                         Contact Me
                                     </a>
 
                                     <a href="https://drive.google.com/file/d/1MYsAdRWHnGG07IoOaVjm3o9QEplXHM7l/view?usp=sharing"
                                        target="_blank"
                                        rel="noopener noreferrer"
-                                       className="border border-border text-text-primary bg-primary py-2.5 px-6 rounded-lg text-sm font-medium transition-all duration-200 hover:border-accent hover:text-accent hover:bg-secondary/40 cursor-pointer flex items-center gap-2">
+                                       className="border border-border text-text-primary bg-primary py-2.5 px-6 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-hover cursor-pointer flex items-center gap-2">
                                         <FiDownload size={16} />
                                         <span>Download CV</span>
                                     </a>
@@ -279,7 +334,7 @@ function PortfolioPage() {
                             </h2>
 
                             <div className="flex-1 flex flex-col gap-3">
-                                {information.map((info, index) => {
+                                {portfolio?.about.map(paragraph => paragraph.content).map((info, index) => {
                                     return processInformation(info, index)
                                 })}
                             </div>
@@ -509,13 +564,11 @@ function PortfolioPage() {
                                         </div>
 
                                         <div className="flex flex-col gap-1">
-                                            <button className="h-10 bg-accent text-text-light px-5 rounded-md transition-all duration-200
-                                                hover:bg-accent/80 hover:text-text-light/80
-                                                flex items-center justify-center cursor-pointer
-                                                disabled:cursor-not-allowed disabled:opacity-70"
+                                            <button className="h-10 bg-accent text-text-light px-5 rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer
+                                                    hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
                                                     type="submit"
-                                                    disabled={loading}>
-                                                    {loading ? (
+                                                    disabled={sending}>
+                                                    {sending ? (
                                                         <Loader2 size={16} className="animate-spin" />
                                                     ) : (
                                                         <span className="flex items-center justify-center gap-2">

@@ -1,12 +1,10 @@
 package com.alimberdi.backend.auth.service;
 
-import com.alimberdi.backend.auth.dto.AuthResponse;
-import com.alimberdi.backend.auth.dto.LoginRequest;
-import com.alimberdi.backend.auth.dto.RefreshRequest;
-import com.alimberdi.backend.auth.dto.RegisterRequest;
+import com.alimberdi.backend.auth.dto.*;
 import com.alimberdi.backend.auth.model.entity.RefreshToken;
 import com.alimberdi.backend.auth.model.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,9 @@ public class AuthService {
 	private final RefreshTokenService refreshTokenService;
 	private final AuthenticationManager authenticationManager;
 
+	@Value("${app.admin.username}")
+	private String adminUsername;
+
 	@Transactional(rollbackFor = Exception.class)
 	public AuthResponse login(LoginRequest request) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -30,6 +31,21 @@ public class AuthService {
 		authenticationManager.authenticate(token);
 
 		User found = userService.getByUsername(request.username());
+		String access = jwtService.generateToken(found);
+		String refresh = refreshTokenService.generateRefreshToken(found);
+
+		return new AuthResponse(access, refresh);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public AuthResponse loginAdmin(AdminLoginRequest request) {
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				adminUsername,
+				request.password()
+		);
+		authenticationManager.authenticate(token);
+
+		User found = userService.getByUsername(adminUsername);
 		String access = jwtService.generateToken(found);
 		String refresh = refreshTokenService.generateRefreshToken(found);
 

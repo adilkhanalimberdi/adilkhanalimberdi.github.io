@@ -34,9 +34,9 @@ public class JwtService {
 
 		return Jwts.builder()
 				.subject(user.getUsername())
+				.claim("role", user.getRole().name())
 				.issuedAt(Date.from(issuedAt))
 				.expiration(Date.from(expiration))
-				.claims(Map.of("role", user.getRole()))
 				.signWith(getSecretKey())
 				.compact();
 	}

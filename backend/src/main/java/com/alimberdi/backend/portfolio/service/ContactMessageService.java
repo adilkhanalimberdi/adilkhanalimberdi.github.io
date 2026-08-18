@@ -1,7 +1,7 @@
 package com.alimberdi.backend.portfolio.service;
 
-import com.alimberdi.backend.portfolio.dto.ContactMessageRequest;
-import com.alimberdi.backend.portfolio.dto.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.request.ContactMessageCreateRequest;
+import com.alimberdi.backend.portfolio.dto.response.ContactMessageResponse;
 import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException;
 import com.alimberdi.backend.portfolio.mapper.ContactMessageMapper;
 import com.alimberdi.backend.portfolio.model.entity.ContactMessage;
@@ -33,7 +33,7 @@ public class ContactMessageService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void create(ContactMessageRequest request) {
+	public void create(ContactMessageCreateRequest request) {
 		ContactMessage message = ContactMessage.builder()
 				.fullName(request.fullName())
 				.email(request.email())
