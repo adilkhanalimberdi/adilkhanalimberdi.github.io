@@ -39,3 +39,8 @@ management:
     web:
       exposure:
         include: health
+
+#logging:
+#  level:
+#    org.hibernate: DEBUG
+#    org.springframework.boot.autoconfigure.orm.jpa: DEBUG

@@ -2,9 +2,9 @@ CREATE TABLE portfolio.skills
 (
     id          UUID                        NOT NULL,
     category    VARCHAR(255)                NOT NULL,
-    skill       VARCHAR(255)                NOT NULL,
+    content     VARCHAR(255)                NOT NULL,
     order_index INTEGER                     NOT NULL,
-    created_at  TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    created_at  TIMESTAMP(6) WITH TIME ZONE NOT NULL,
 
     CONSTRAINT pk_skills PRIMARY KEY (id),
     CONSTRAINT uc_skills_order_index UNIQUE (order_index),

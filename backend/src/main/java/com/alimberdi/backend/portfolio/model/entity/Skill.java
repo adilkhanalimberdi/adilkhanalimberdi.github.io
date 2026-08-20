@@ -30,7 +30,7 @@ public class Skill {
 	private SkillCategory category;
 
 	@Column(nullable = false)
-	private String skill;
+	private String content;
 
 	@Column(name = "order_index", unique = true, nullable = false)
 	private Integer orderIndex;
