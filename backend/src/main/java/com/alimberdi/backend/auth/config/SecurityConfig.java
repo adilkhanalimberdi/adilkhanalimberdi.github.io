@@ -58,8 +58,10 @@ public class SecurityConfig {
 						).permitAll()
 						.requestMatchers(
 								HttpMethod.GET,
-								"/actuator/**",
 								"/portfolio"
+						).permitAll()
+						.requestMatchers(
+								"/actuator/**"
 						).permitAll()
 						.anyRequest().authenticated()
 				)

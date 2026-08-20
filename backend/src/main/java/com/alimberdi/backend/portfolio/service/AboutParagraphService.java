@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AboutParagraphService {
 
+	private final OrderIndexService orderIndexService;
 	private final AboutParagraphRepository repository;
 	private final AboutParagraphMapper mapper;
 
@@ -28,17 +29,12 @@ public class AboutParagraphService {
 	@Transactional(rollbackFor = Exception.class)
 	public AboutParagraphResponse create(AboutParagraphCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
-		if (maxIndex == null) {
-			maxIndex = 0;
-		}
 
-		Integer targetIndex = request.orderIndex();
-
-		if (targetIndex == null || targetIndex > maxIndex) {
-			targetIndex = maxIndex + 1;
-		} else {
-			repository.shiftIndexesUpFrom(targetIndex);
-		}
+		Integer targetIndex = orderIndexService.resolveTargetIndex(
+				request.orderIndex(),
+				maxIndex,
+				() -> repository.shiftIndexesUpFrom(request.orderIndex())
+		);
 
 		AboutParagraph paragraph = AboutParagraph.builder()
 				.content(request.content())

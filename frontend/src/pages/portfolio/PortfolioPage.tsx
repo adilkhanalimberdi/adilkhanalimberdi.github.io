@@ -59,19 +59,19 @@ type YearMonth = {
 }
 type Education = {
     institution: string,
-    place: string,
+    location: string,
     degree: string,
     speciality: string,
     startedDate: YearMonth,
     endDate?: YearMonth,
-    gpa: number,
-    description: string,
-    url: string
+    gpa?: number,
+    description?: string,
+    url?: string
 }
 const educations: Education[] = [
     {
         institution: "SDU University",
-        place: "Almaty, Kazakhstan",
+        location: "Almaty, Kazakhstan",
         degree: "Bachelor of Engineering",
         speciality: "Information Systems",
         startedDate: {
@@ -79,8 +79,24 @@ const educations: Education[] = [
             month: 9
         },
         gpa: 3.14,
-        description: "I was a part of Art Club, ICPC Club, and AI Lab. Took part in ICPC contests and participated in Cyber Security competitions.",
+        description: "Member of Art Club, ICPC Club, and AI Lab. Participated in ICPC contests and cybersecurity (CTF) competitions.",
         url: "https://sdu.edu.kz/"
+    },
+    {
+        institution: "EPAM Campus x TechOrda",
+        location: "Remote",
+        degree: "Professional Training Program",
+        speciality: "Java Development with AI Tools",
+        startedDate: {
+            year: 2025,
+            month: 6
+        },
+        endDate: {
+            year: 2026,
+            month: 7
+        },
+        description: "Completed a comprehensive 1-year software engineering program. Developed 'GoLancer', a full-stack project utilizing modern Java backend architecture. Core skills: Java (Core/Advanced), Spring Framework, Maven, Git, and RESTful APIs, with an emphasis on integrating AI tools into the development workflow.",
+        url: "https://campus.epam.kz/en"
     }
 ]
 
@@ -377,7 +393,7 @@ function PortfolioPage() {
 
                                                 <div className="flex flex-wrap items-center gap-2 text-xs shrink-0">
                                                     <span className="bg-secondary/40 text-text-secondary px-3 py-1 rounded-md border border-border">
-                                                        {education.place}
+                                                        {education.location}
                                                     </span>
                                                     <span className="bg-accent/10 text-accent font-medium px-3 py-1 rounded-md border border-accent/20">
                                                         {startDate} - {endDate}
