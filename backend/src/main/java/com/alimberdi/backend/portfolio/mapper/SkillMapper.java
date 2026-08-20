@@ -11,7 +11,7 @@ public class SkillMapper {
 		return new SkillResponse(
 				skill.getId(),
 				skill.getCategory().toString(),
-				skill.getSkill(),
+				skill.getContent(),
 				skill.getOrderIndex(),
 				skill.getCreatedAt()
 		);

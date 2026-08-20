@@ -36,6 +36,7 @@ public class Project {
 	private String url;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private ProjectStatus status;
 
 	@Column(name = "order_index", unique = true, nullable = false)

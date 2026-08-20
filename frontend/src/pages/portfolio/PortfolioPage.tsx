@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import * as axios from "axios";
 import type {PortfolioResponse} from "../../type/portfolio/portfolio.ts";
 import {PortfolioService} from "../../services/portfolio/portfolio.service.ts";
+import {parseYearMonth} from "../../utils/year.month.util.ts";
 
 function processInformation(text: string, id: string | number): JSX.Element {
     const parts = text.split('_');
@@ -364,10 +365,14 @@ function PortfolioPage() {
                             </h2>
 
                             <div className="flex flex-col gap-4">
-                                {educations.map((education, index) => {
-                                    const startDate = `${monthMap[education.startedDate.month]} ${education.startedDate.year}`;
-                                    const endDate = education.endDate
-                                        ? `${monthMap[education.endDate.month]} ${education.endDate.year}`
+                                {portfolio?.education.map((education, index) => {
+                                    const startYearMonth = parseYearMonth(education.startDate);
+                                    const endYearMonth = education.endDate ?
+                                        parseYearMonth(education.endDate)
+                                        : null;
+                                    const startDate = `${monthMap[startYearMonth.month]} ${startYearMonth.year}`;
+                                    const endDate = endYearMonth
+                                        ? `${monthMap[endYearMonth.month]} ${endYearMonth.year}`
                                         : "Present";
 
                                     return (
@@ -402,11 +407,11 @@ function PortfolioPage() {
                                             </div>
 
                                             <div className="flex flex-col gap-2">
-                                                {education.gpa && (
+                                                {education.grade && (
                                                     <div className="flex items-center gap-2 text-sm">
                                                         <span className="text-text-secondary">Grade / GPA:</span>
                                                         <span className="bg-secondary/60 text-text-primary border border-border px-2.5 py-0.5 rounded text-xs font-semibold">
-                                                            {education.gpa}
+                                                            {education.grade}
                                                         </span>
                                                     </div>
                                                 )}
@@ -431,7 +436,7 @@ function PortfolioPage() {
                             </h2>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                {projects.map((project, index) => (
+                                {portfolio?.projects.map((project, index) => (
                                     <div key={index}
                                          onClick={() => {
                                              if (project.url) {
@@ -442,7 +447,7 @@ function PortfolioPage() {
                                          hover:-translate-y-1 hover:border-accent/50 hover:bg-secondary/40 hover:shadow-lg hover:shadow-accent/10 active:translate-y-0">
                                          <div className="flex flex-col gap-2">
                                              <p className="text-xl font-medium text-text-primary transition-colors duration-200 group-hover:text-accent truncate">
-                                                 {project.name}
+                                                 {project.title}
                                              </p>
                                              <p className="text-text-secondary text-sm leading-relaxed line-clamp-3">
                                                  {project.description}
@@ -469,11 +474,11 @@ function PortfolioPage() {
                                     <p className="text-text-primary text-xl font-semibold">Technical Skills</p>
 
                                     <div>
-                                        {skills.map((skill, index) => {
+                                        {portfolio?.skills.map((skillByCategory, index) => {
                                             return (
                                                 <div key={index} className="flex flex-row gap-2">
-                                                    <p className="text-text-primary">{skill.category}: </p>
-                                                    <p className="text-text-secondary">{skill.content.join(", ")}</p>
+                                                    <p className="text-text-primary">{skillByCategory.category}: </p>
+                                                    <p className="text-text-secondary">{skillByCategory.content.map(skill => skill.content).join(", ")}</p>
                                                 </div>
                                             )
                                         })}

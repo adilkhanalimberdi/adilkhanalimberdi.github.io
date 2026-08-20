@@ -1,7 +1,9 @@
 package com.alimberdi.backend.portfolio.service;
 
 import com.alimberdi.backend.portfolio.dto.request.AboutParagraphCreateRequest;
+import com.alimberdi.backend.portfolio.dto.request.AboutParagraphUpdateRequest;
 import com.alimberdi.backend.portfolio.dto.response.AboutParagraphResponse;
+import com.alimberdi.backend.portfolio.exception.AboutParagraphNotFoundException;
 import com.alimberdi.backend.portfolio.mapper.AboutParagraphMapper;
 import com.alimberdi.backend.portfolio.model.entity.AboutParagraph;
 import com.alimberdi.backend.portfolio.repository.AboutParagraphRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +33,7 @@ public class AboutParagraphService {
 	public AboutParagraphResponse create(AboutParagraphCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
 
-		Integer targetIndex = orderIndexService.resolveTargetIndex(
+		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
@@ -41,6 +44,19 @@ public class AboutParagraphService {
 				.orderIndex(targetIndex)
 				.build();
 		return mapper.toResponse(repository.save(paragraph));
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public AboutParagraphResponse update(UUID id, AboutParagraphUpdateRequest request) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		AboutParagraph paragraph = repository.findById(id)
+				.orElseThrow(() -> new AboutParagraphNotFoundException("About paragraph with id " + id + " not found"));
+
+		paragraph.setContent(request.content() != null ? request.content() : paragraph.getContent());
+		return mapper.toResponse(paragraph);
 	}
 
 }

@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderIndexService {
 
-	public Integer resolveTargetIndex(
+	public Integer resolve(
 			Integer requestedIndex,
 			Integer maxIndex,
 			Runnable shiftIndexes
 	) {
-		if (requestedIndex == null || requestedIndex > maxIndex) {
+		if (requestedIndex == null || requestedIndex > maxIndex || requestedIndex < 0) {
 			return maxIndex + 1;
 		}
 
