@@ -11,7 +11,7 @@ CREATE TABLE portfolio.education
     grade       DECIMAL,
     url         VARCHAR(255),
     order_index INTEGER                     NOT NULL,
-    created_at  TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    created_at  TIMESTAMP(6) WITH TIME ZONE NOT NULL,
 
     CONSTRAINT pk_education PRIMARY KEY (id),
     CONSTRAINT uc_education_order_index UNIQUE (order_index)

@@ -1,9 +1,9 @@
 package com.alimberdi.backend.portfolio.controller;
 
 import com.alimberdi.backend.common.dto.ApiResponse;
-import com.alimberdi.backend.portfolio.dto.request.EducationCreateRequest;
-import com.alimberdi.backend.portfolio.dto.response.EducationResponse;
-import com.alimberdi.backend.portfolio.service.EducationService;
+import com.alimberdi.backend.portfolio.dto.request.ProjectCreateRequest;
+import com.alimberdi.backend.portfolio.dto.response.ProjectResponse;
+import com.alimberdi.backend.portfolio.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/education")
+@RequestMapping("/project")
 @PreAuthorize("hasRole('ADMIN')")
-public class EducationController {
+public class ProjectController {
 
-	private final EducationService educationService;
+	private final ProjectService projectService;
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<EducationResponse>> create(@RequestBody @Valid EducationCreateRequest request) {
+	public ResponseEntity<ApiResponse<ProjectResponse>> create(@RequestBody @Valid ProjectCreateRequest request) {
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(new ApiResponse<>(educationService.create(request)));
+				.body(new ApiResponse<>(projectService.create(request)));
 	}
 
 }

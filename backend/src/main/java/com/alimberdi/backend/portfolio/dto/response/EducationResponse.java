@@ -1,5 +1,7 @@
 package com.alimberdi.backend.portfolio.dto.response;
 
+import com.alimberdi.backend.portfolio.model.enums.EducationStatus;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.YearMonth;
@@ -15,6 +17,7 @@ public record EducationResponse(
 		YearMonth startDate,
 		YearMonth endDate,
 		BigDecimal grade,
+		EducationStatus status,
 		String url,
 		Integer orderIndex,
 		Instant createdAt
