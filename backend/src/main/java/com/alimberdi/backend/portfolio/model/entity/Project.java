@@ -1,20 +1,16 @@
 package com.alimberdi.backend.portfolio.model.entity;
 
-import com.alimberdi.backend.portfolio.model.enums.EducationStatus;
+import com.alimberdi.backend.portfolio.model.enums.ProjectStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Check;
-import org.hibernate.annotations.DialectOverride;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.YearMonth;
 import java.util.UUID;
 
 @Entity
-@Table(name = "education", schema = "portfolio")
+@Table(name = "projects", schema = "portfolio")
 @Getter
 @Setter
 @ToString
@@ -22,39 +18,25 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Education {
+public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
 	@Column(nullable = false)
-	private String institution;
+	private String title;
 
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 
-	@Column(nullable = false)
-	private String location;
-
-	@Column(nullable = false)
-	private String degree;
-
-	@Column(nullable = false)
-	private String speciality;
-
-	@Column(name = "start_date", nullable = false)
-	private YearMonth startDate;
-
-	@Column(name = "end_date")
-	private YearMonth endDate;
-
-	private BigDecimal grade;
-
-	@Enumerated(EnumType.STRING)
-	private EducationStatus status;
+	@Column(name = "image_url")
+	private String imageUrl;
 
 	private String url;
+
+	@Enumerated(EnumType.STRING)
+	private ProjectStatus status;
 
 	@Column(name = "order_index", unique = true, nullable = false)
 	private Integer orderIndex;

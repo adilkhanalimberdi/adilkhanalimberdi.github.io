@@ -4,6 +4,7 @@ import com.alimberdi.backend.portfolio.dto.request.EducationCreateRequest;
 import com.alimberdi.backend.portfolio.dto.response.EducationResponse;
 import com.alimberdi.backend.portfolio.mapper.EducationMapper;
 import com.alimberdi.backend.portfolio.model.entity.Education;
+import com.alimberdi.backend.portfolio.model.enums.EducationStatus;
 import com.alimberdi.backend.portfolio.repository.EducationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class EducationService {
 				.startDate(request.startDate())
 				.endDate(request.endDate())
 				.grade(request.grade())
+				.status(request.status() != null ? request.status() : EducationStatus.COMPLETED)
 				.url(request.url())
 				.orderIndex(targetIndex)
 				.build();

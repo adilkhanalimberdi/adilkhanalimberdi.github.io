@@ -18,6 +18,7 @@ public class EducationMapper {
 				education.getStartDate(),
 				education.getEndDate(),
 				education.getGrade(),
+				education.getStatus(),
 				education.getUrl(),
 				education.getOrderIndex(),
 				education.getCreatedAt()
