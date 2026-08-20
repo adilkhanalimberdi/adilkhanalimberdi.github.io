@@ -149,7 +149,7 @@ const skills: { category: string, content: string[] }[] = [
     }
 ]
 
-type LanguageLevel = "Elementary" | "Intermediate" | "Advanced" | "Fluent" | "Native/Second language";
+type LanguageLevel = "Elementary" | "Intermediate" | "Advanced" | "Native/Fluent";
 const languages: { language: string, level: LanguageLevel }[] = [
     {
         language: "English",
@@ -157,11 +157,11 @@ const languages: { language: string, level: LanguageLevel }[] = [
     },
     {
         language: "Russian",
-        level: "Native/Second language"
+        level: "Native/Fluent"
     },
     {
         language: "Kazakh",
-        level: "Native/Second language"
+        level: "Native/Fluent"
     }
 ]
 

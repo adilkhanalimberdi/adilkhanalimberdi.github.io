@@ -11,5 +11,5 @@ CREATE TABLE portfolio.projects
 
     CONSTRAINT pk_projects PRIMARY KEY (id),
     CONSTRAINT uc_projects_order_index UNIQUE (order_index),
-    CONSTRAINT chk_education_status CHECK ( status IN ('IN_PROGRESS', 'COMPLETED') )
+    CONSTRAINT chk_project_status CHECK ( status IN ('IN_PROGRESS', 'COMPLETED') )
 );
