@@ -54,9 +54,20 @@ export type SkillResponse = {
     createdAt: Date;
 }
 
+export type LanguageLevel = "Beginner" | "Intermediate" | "Advanced" | "Fluent" | "Native/Fluent" | "Native";
+
+export type LanguageResponse = {
+    id: string;
+    language: string;
+    level: LanguageLevel;
+    orderIndex: number;
+    createdAt: Date;
+}
+
 export type PortfolioResponse = {
     about: AboutParagraphResponse[];
     education: EducationResponse[];
     projects: ProjectResponse[];
     skills: SkillByCategory[];
+    languages: LanguageResponse[];
 }
