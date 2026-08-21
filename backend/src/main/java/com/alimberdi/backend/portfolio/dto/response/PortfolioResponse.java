@@ -6,5 +6,6 @@ public record PortfolioResponse(
 		List<AboutParagraphResponse> about,
 		List<EducationResponse> education,
 		List<ProjectResponse> projects,
-		List<SkillByCategory> skills
+		List<SkillByCategory> skills,
+		List<LanguageResponse> languages
 ) {}

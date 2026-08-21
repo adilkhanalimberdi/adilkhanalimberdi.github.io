@@ -146,21 +146,20 @@ const monthMap: Record<number, string> = {
 //     }
 // ]
 
-type LanguageLevel = "Elementary" | "Intermediate" | "Advanced" | "Native/Fluent";
-const languages: { language: string, level: LanguageLevel }[] = [
-    {
-        language: "English",
-        level: "Advanced",
-    },
-    {
-        language: "Russian",
-        level: "Native/Fluent"
-    },
-    {
-        language: "Kazakh",
-        level: "Native/Fluent"
-    }
-]
+// const languages: { language: string, level: LanguageLevel }[] = [
+//     {
+//         language: "English",
+//         level: "Advanced",
+//     },
+//     {
+//         language: "Russian",
+//         level: "Native/Fluent"
+//     },
+//     {
+//         language: "Kazakh",
+//         level: "Native"
+//     }
+// ]
 
 type ValidationErrors = {
     fullName?: string;
@@ -485,7 +484,7 @@ function PortfolioPage() {
                                     <p className="text-text-primary text-xl font-semibold">Languages</p>
 
                                     <div>
-                                        {languages.map((language, index) => {
+                                        {portfolio?.languages.map((language, index) => {
                                             return (
                                                 <div key={index} className="flex flex-row gap-2">
                                                     <p className="text-text-primary">{language.language}: </p>
