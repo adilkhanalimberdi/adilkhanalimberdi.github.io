@@ -8,6 +8,8 @@ import com.alimberdi.backend.portfolio.mapper.AboutParagraphMapper;
 import com.alimberdi.backend.portfolio.model.entity.AboutParagraph;
 import com.alimberdi.backend.portfolio.repository.AboutParagraphRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,11 @@ public class AboutParagraphService {
 	private final OrderIndexService orderIndexService;
 	private final AboutParagraphRepository repository;
 	private final AboutParagraphMapper mapper;
+
+	public Page<AboutParagraphResponse> getAll(Pageable pageable) {
+		return repository.findAll(pageable)
+				.map(mapper::toResponse);
+	}
 
 	public List<AboutParagraphResponse> getAllSortedByOrderIndex() {
 		return repository.findAllByOrderByOrderIndexAsc()
@@ -57,6 +64,15 @@ public class AboutParagraphService {
 
 		paragraph.setContent(request.content() != null ? request.content() : paragraph.getContent());
 		return mapper.toResponse(paragraph);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
 	}
 
 }

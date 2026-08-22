@@ -9,6 +9,8 @@ import com.alimberdi.backend.portfolio.model.entity.Education;
 import com.alimberdi.backend.portfolio.model.enums.EducationStatus;
 import com.alimberdi.backend.portfolio.repository.EducationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,11 @@ public class EducationService {
 	private final OrderIndexService orderIndexService;
 	private final EducationRepository repository;
 	private final EducationMapper mapper;
+
+	public Page<EducationResponse> getAll(Pageable pageable) {
+		return repository.findAll(pageable)
+				.map(mapper::toResponse);
+	}
 
 	public List<EducationResponse> getAllSortedByOrderIndex() {
 		return repository.findAllByOrderByOrderIndexAsc().stream()
@@ -77,6 +84,15 @@ public class EducationService {
 		education.setUrl(request.url() != null ? request.url() : education.getUrl());
 
 		return mapper.toResponse(education);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
 	}
 
 }

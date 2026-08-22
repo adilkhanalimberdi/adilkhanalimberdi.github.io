@@ -18,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContactMessageService {
 
+	private final TelegramNotificationService telegramNotificationService;
 	private final ContactMessageRepository repository;
 	private final ContactMessageMapper mapper;
 
@@ -38,9 +39,20 @@ public class ContactMessageService {
 				.fullName(request.fullName())
 				.email(request.email())
 				.message(request.message())
+				.isViewed(false)
 				.build();
 
+		telegramNotificationService.sendNotification(request.fullName(), request.email(), request.message());
 		repository.save(message);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
 	}
 
 }

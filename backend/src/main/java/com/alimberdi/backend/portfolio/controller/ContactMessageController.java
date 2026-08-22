@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -50,6 +51,14 @@ public class ContactMessageController {
 	public ResponseEntity<Void> create(@RequestBody @Valid ContactMessageCreateRequest request) {
 		contactMessageService.create(request);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
+		contactMessageService.delete(id);
+		return ResponseEntity
+				.status(HttpStatus.NO_CONTENT)
+				.body(Map.of("status", "success"));
 	}
 
 }

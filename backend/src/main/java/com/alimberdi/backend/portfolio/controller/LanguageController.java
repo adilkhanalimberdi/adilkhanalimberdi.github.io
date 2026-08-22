@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +23,13 @@ import java.util.UUID;
 public class LanguageController {
 
 	private final LanguageService languageService;
+
+	@GetMapping
+	public ResponseEntity<ApiResponse<List<LanguageResponse>>> getAll() {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new ApiResponse<>(languageService.getAllSortedByOrderIndex()));
+	}
 
 	@PostMapping
 	public ResponseEntity<ApiResponse<LanguageResponse>> create(@RequestBody @Valid LanguageCreateRequest request) {
@@ -34,6 +43,14 @@ public class LanguageController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(new ApiResponse<>(languageService.update(id, request)));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
+		languageService.delete(id);
+		return ResponseEntity
+				.status(HttpStatus.NO_CONTENT)
+				.body(Map.of("status", "success"));
 	}
 
 }

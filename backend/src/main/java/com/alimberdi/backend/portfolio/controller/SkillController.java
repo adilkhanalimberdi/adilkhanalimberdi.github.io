@@ -3,6 +3,7 @@ package com.alimberdi.backend.portfolio.controller;
 import com.alimberdi.backend.common.dto.ApiResponse;
 import com.alimberdi.backend.portfolio.dto.request.SkillCreateRequest;
 import com.alimberdi.backend.portfolio.dto.request.SkillUpdateRequest;
+import com.alimberdi.backend.portfolio.dto.response.SkillByCategory;
 import com.alimberdi.backend.portfolio.dto.response.SkillResponse;
 import com.alimberdi.backend.portfolio.service.SkillService;
 import jakarta.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +24,13 @@ import java.util.UUID;
 public class SkillController {
 
 	private final SkillService skillService;
+
+	@GetMapping
+	public ResponseEntity<ApiResponse<List<SkillByCategory>>> getAll() {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new ApiResponse<>(skillService.getAllSortedByOrderIndexGroupedByCategory()));
+	}
 
 	@PostMapping
 	public ResponseEntity<ApiResponse<SkillResponse>> create(@RequestBody @Valid SkillCreateRequest request) {
@@ -34,6 +44,14 @@ public class SkillController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(new ApiResponse<>(skillService.update(id, request)));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
+		skillService.delete(id);
+		return ResponseEntity
+				.status(HttpStatus.NO_CONTENT)
+				.body(Map.of("status", "success"));
 	}
 
 }
