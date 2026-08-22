@@ -32,6 +32,10 @@ public class ContactMessage {
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String message;
 
+	@Builder.Default
+	@Column(name = "is_viewed", nullable = false)
+	private boolean isViewed = false;
+
 	@Column(nullable = false, updatable = false)
 	@CreatedDate
 	private Instant createdAt;

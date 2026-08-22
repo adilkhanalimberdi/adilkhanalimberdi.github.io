@@ -57,4 +57,13 @@ public class LanguageService {
 		return mapper.toResponse(language);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
+	}
+
 }

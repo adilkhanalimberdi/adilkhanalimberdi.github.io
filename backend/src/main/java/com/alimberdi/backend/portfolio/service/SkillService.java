@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,17 +25,14 @@ public class SkillService {
 	private final SkillMapper mapper;
 
 	public List<SkillByCategory> getAllSortedByOrderIndexGroupedByCategory() {
-		Map<SkillCategory, List<Skill>> grouped = new EnumMap<>(SkillCategory.class);
-
-		repository.findAllByOrderByOrderIndexAsc().forEach(skill ->
-				grouped.computeIfAbsent(skill.getCategory(), k -> new ArrayList<>()).add(skill)
-		);
-
-		return grouped.entrySet().stream()
-				.map(entry -> new SkillByCategory(
-						entry.getKey(),
-						entry.getValue().stream().map(mapper::toResponse).toList()
+		return repository.findAllByOrderByOrderIndexAsc().stream()
+				.collect(Collectors.groupingBy(
+						Skill::getCategory,
+						() -> new EnumMap<>(SkillCategory.class),
+						Collectors.mapping(mapper::toResponse, Collectors.toList())
 				))
+				.entrySet().stream()
+				.map(entry -> new SkillByCategory(entry.getKey(), entry.getValue()))
 				.toList();
 	}
 
@@ -65,6 +63,15 @@ public class SkillService {
 		skill.setContent(request.content() != null ? request.content() : skill.getContent());
 
 		return mapper.toResponse(skill);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
 	}
 
 }

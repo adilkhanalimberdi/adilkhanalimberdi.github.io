@@ -9,6 +9,8 @@ import com.alimberdi.backend.portfolio.model.entity.Project;
 import com.alimberdi.backend.portfolio.model.enums.ProjectStatus;
 import com.alimberdi.backend.portfolio.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,11 @@ public class ProjectService {
 	private final OrderIndexService orderIndexService;
 	private final ProjectRepository repository;
 	private final ProjectMapper mapper;
+
+	public Page<ProjectResponse> getAll(Pageable pageable) {
+		return repository.findAll(pageable)
+				.map(mapper::toResponse);
+	}
 
 	public List<ProjectResponse> getAllSortedByOrderIndex() {
 		return repository.findAllByOrderByOrderIndexAsc().stream()
@@ -66,6 +73,15 @@ public class ProjectService {
 		project.setStatus(request.status() != null ? request.status() : project.getStatus());
 
 		return mapper.toResponse(project);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(UUID id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+
+		repository.deleteById(id);
 	}
 
 }

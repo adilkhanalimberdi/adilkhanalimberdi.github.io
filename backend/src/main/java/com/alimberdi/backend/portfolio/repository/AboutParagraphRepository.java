@@ -14,8 +14,6 @@ import java.util.UUID;
 @Repository
 public interface AboutParagraphRepository extends JpaRepository<AboutParagraph, UUID> {
 
-	Optional<AboutParagraph> findByOrderIndex(int orderIndex);
-
 	List<AboutParagraph> findAllByOrderByOrderIndexAsc();
 
 	@Modifying
