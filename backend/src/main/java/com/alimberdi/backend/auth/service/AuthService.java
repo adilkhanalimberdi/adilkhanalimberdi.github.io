@@ -3,6 +3,7 @@ package com.alimberdi.backend.auth.service;
 import com.alimberdi.backend.auth.dto.*;
 import com.alimberdi.backend.auth.model.entity.RefreshToken;
 import com.alimberdi.backend.auth.model.entity.User;
+import com.alimberdi.backend.portfolio.dto.response.AuthTokens;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,54 +24,50 @@ public class AuthService {
 	private String adminUsername;
 
 	@Transactional(rollbackFor = Exception.class)
-	public AuthResponse login(LoginRequest request) {
+	public AuthTokens login(LoginRequest loginRequest) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-				request.username(),
-				request.password()
+				loginRequest.username(),
+				loginRequest.password()
 		);
 		authenticationManager.authenticate(token);
 
-		User found = userService.getByUsername(request.username());
-		String access = jwtService.generateToken(found);
-		String refresh = refreshTokenService.generateRefreshToken(found);
-
-		return new AuthResponse(access, refresh);
+		User found = userService.getByUsername(loginRequest.username());
+		return generateTokens(found);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public AuthResponse loginAdmin(AdminLoginRequest request) {
+	public AuthTokens loginAdmin(AdminLoginRequest loginRequest) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				adminUsername,
-				request.password()
+				loginRequest.password()
 		);
 		authenticationManager.authenticate(token);
 
 		User found = userService.getByUsername(adminUsername);
-		String access = jwtService.generateToken(found);
-		String refresh = refreshTokenService.generateRefreshToken(found);
-
-		return new AuthResponse(access, refresh);
+		return generateTokens(found);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public AuthResponse register(RegisterRequest request) {
-		User created = userService.create(request);
-
-		String access = jwtService.generateToken(created);
-		String refresh = refreshTokenService.generateRefreshToken(created);
-
-		return new AuthResponse(access, refresh);
+	public AuthTokens register(RegisterRequest registerRequest) {
+		User created = userService.create(registerRequest);
+		return generateTokens(created);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public AuthResponse refresh(RefreshRequest request) {
-		RefreshToken refreshToken = refreshTokenService.findByToken(request.refreshToken());
-		User user = refreshToken.getUser();
+	public AuthTokens refresh(String oldRefreshToken) {
+		RefreshToken oldToken = refreshTokenService.findByToken(oldRefreshToken);
+		User user = oldToken.getUser();
 
 		String access = jwtService.generateToken(user);
 		String refresh = refreshTokenService.rotate(user);
 
-		return new AuthResponse(access, refresh);
+		return new AuthTokens(access, refresh);
+	}
+
+	private AuthTokens generateTokens(User user) {
+		String access = jwtService.generateToken(user);
+		String refresh = refreshTokenService.generateRefreshToken(user);
+		return new AuthTokens(access, refresh);
 	}
 
 }

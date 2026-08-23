@@ -6,6 +6,7 @@ import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException
 import com.alimberdi.backend.portfolio.mapper.ContactMessageMapper;
 import com.alimberdi.backend.portfolio.model.entity.ContactMessage;
 import com.alimberdi.backend.portfolio.repository.ContactMessageRepository;
+import com.alimberdi.backend.portfolio.service.notification.TelegramNotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

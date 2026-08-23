@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/language")
+@RequestMapping("/languages")
 @PreAuthorize("hasRole('ADMIN')")
 public class LanguageController {
 

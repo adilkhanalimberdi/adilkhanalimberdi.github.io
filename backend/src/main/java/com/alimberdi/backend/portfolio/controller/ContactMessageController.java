@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/contact-message")
+@RequestMapping("/contact-messages")
 public class ContactMessageController {
 
 	private final ContactMessageService contactMessageService;

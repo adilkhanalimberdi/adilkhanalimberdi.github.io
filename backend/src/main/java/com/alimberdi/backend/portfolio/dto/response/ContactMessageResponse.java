@@ -8,5 +8,6 @@ public record ContactMessageResponse(
 		String fullName,
 		String email,
 		String message,
+		boolean isViewed,
 		Instant createdAt
 ) {}

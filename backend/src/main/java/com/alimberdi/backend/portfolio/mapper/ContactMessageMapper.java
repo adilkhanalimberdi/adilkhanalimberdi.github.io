@@ -13,6 +13,7 @@ public class ContactMessageMapper {
 				message.getFullName(),
 				message.getEmail(),
 				message.getMessage(),
+				message.isViewed(),
 				message.getCreatedAt()
 		);
 	}

@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/about")
+@RequestMapping("/about-paragraphs")
 @PreAuthorize("hasRole('ADMIN')")
 public class AboutParagraphController {
 

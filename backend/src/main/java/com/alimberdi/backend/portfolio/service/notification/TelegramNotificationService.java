@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.service;
+package com.alimberdi.backend.portfolio.service.notification;
 
 import com.alimberdi.backend.portfolio.client.TelegramClient;
 import com.alimberdi.backend.portfolio.dto.request.TelegramSendMessageRequest;
@@ -30,9 +30,7 @@ public class TelegramNotificationService implements NotificationService {
 						*Text:*
 						%s
 						""",
-						name,
-						email,
-						message
+						name, email, message
 				),
 				"Markdown"
 		);

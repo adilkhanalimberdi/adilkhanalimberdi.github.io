@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/project")
+@RequestMapping("/projects")
 @PreAuthorize("hasRole('ADMIN')")
 public class ProjectController {
 
