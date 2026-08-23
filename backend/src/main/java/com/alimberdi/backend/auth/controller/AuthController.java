@@ -65,7 +65,6 @@ public class AuthController {
 				.secure(true)
 				.path("/api/v1/auth")
 				.maxAge(Duration.ofMinutes(refreshExpirationMinutes))
-				.sameSite("Strict")
 				.build();
 
 		return ResponseEntity
