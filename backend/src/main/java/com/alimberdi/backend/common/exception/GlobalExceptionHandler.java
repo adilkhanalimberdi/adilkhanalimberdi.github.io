@@ -1,10 +1,12 @@
 package com.alimberdi.backend.common.exception;
 
+import com.alimberdi.backend.auth.exception.RefreshTokenNotFoundException;
 import com.alimberdi.backend.common.dto.ErrorResponse;
 import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
@@ -45,6 +47,26 @@ public class GlobalExceptionHandler {
 		);
 
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(RefreshTokenNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleRefreshTokenNotFound() {
+		ErrorResponse response = new ErrorResponse(
+				HttpStatus.UNAUTHORIZED.value(),
+				"Session expired or invalid refresh token"
+		);
+
+		return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+	public ResponseEntity<ErrorResponse> handleOptimisticLocking() {
+		ErrorResponse response = new ErrorResponse(
+				HttpStatus.UNAUTHORIZED.value(),
+				"Session expired or invalid refresh token"
+		);
+
+		return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
 	}
 
 	@ExceptionHandler(BadCredentialsException.class)

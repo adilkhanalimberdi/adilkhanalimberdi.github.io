@@ -1,9 +1,9 @@
 import {useState, useEffect, useRef, type JSX} from "react";
-import {useTheme} from "../../../hooks/UseTheme.tsx";
-import type {Theme} from "../../../services/portfolio/theme.repository.ts";
-import SunIcon from "../../../assets/icons/SunIcon.tsx";
-import MoonIcon from "../../../assets/icons/MoonIcon.tsx";
-import DesktopIcon from "../../../assets/icons/DesktopIcon.tsx";
+import {useTheme} from "../../hooks/UseTheme.tsx";
+import type {Theme} from "../../services/portfolio/theme.repository.ts";
+import SunIcon from "../../assets/icons/SunIcon.tsx";
+import MoonIcon from "../../assets/icons/MoonIcon.tsx";
+import DesktopIcon from "../../assets/icons/DesktopIcon.tsx";
 
 export default function ThemeSwitcher() {
     const { theme, setTheme } = useTheme();

@@ -1,4 +1,4 @@
-package com.alimberdi.backend.portfolio.service;
+package com.alimberdi.backend.portfolio.service.notification;
 
 public interface NotificationService {
 

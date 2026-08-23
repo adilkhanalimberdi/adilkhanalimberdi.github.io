@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/education")
+@RequestMapping("/educations")
 @PreAuthorize("hasRole('ADMIN')")
 public class EducationController {
 

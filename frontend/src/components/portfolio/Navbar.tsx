@@ -1,4 +1,4 @@
-import ThemeSwitcher from "./theme/ThemeSwitcher.tsx";
+import ThemeSwitcher from "./ThemeSwitcher.tsx";
 import {useState} from "react";
 import {HiMenu} from "react-icons/hi";
 import {HiXMark} from "react-icons/hi2";

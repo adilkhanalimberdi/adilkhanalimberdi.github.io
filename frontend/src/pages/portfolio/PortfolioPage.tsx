@@ -3,7 +3,7 @@ import {FaGithub, FaLinkedin} from "react-icons/fa";
 
 import Navbar from "../../components/portfolio/Navbar.tsx";
 import {type JSX, useEffect, useState} from "react";
-import type {ContactMessage} from "../../type/portfolio/contact.message.ts";
+import type {ContactMessageCreateRequest} from "../../type/portfolio/contact.message.ts";
 import {ContactMessageService} from "../../services/portfolio/contact.message.service.ts";
 import {type SubmitEvent} from "react";
 import {RiSendPlaneFill} from "react-icons/ri";
@@ -144,7 +144,7 @@ function PortfolioPage() {
     const handleSendMessage = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const request: ContactMessage = {
+        const request: ContactMessageCreateRequest = {
             fullName: fullName,
             email: email,
             message: message,
@@ -176,7 +176,7 @@ function PortfolioPage() {
     }
 
     return (
-        <div className="min-h-dvh flex flex-col">
+        <div className="min-h-dvh flex flex-col font-sans">
 
             <CustomToaster />
 
@@ -474,7 +474,7 @@ function PortfolioPage() {
                                         </div>
 
                                         <div className="flex flex-col gap-1">
-                                            <button className="h-10 bg-accent text-text-light px-5 rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer
+                                            <button className="h-10 bg-accent text-text-light px-5 rounded-lg transition-all duration-200 flex items-center justify-center
                                                     hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
                                                     type="submit"
                                                     disabled={sending}>

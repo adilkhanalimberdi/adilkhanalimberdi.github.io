@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useState } from "react";
-import ThemeRepository, { type Theme } from "../../../services/portfolio/theme.repository.ts";
-import { ThemeContext } from "../../../context/theme.context.ts";
+import ThemeRepository, { type Theme } from "../services/portfolio/theme.repository.ts";
+import { ThemeContext } from "../context/theme.context.ts";
 
 interface ThemeProviderProps {
     children: ReactNode;

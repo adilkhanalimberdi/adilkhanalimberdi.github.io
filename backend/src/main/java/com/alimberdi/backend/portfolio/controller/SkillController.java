@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/skill")
+@RequestMapping("/skills")
 @PreAuthorize("hasRole('ADMIN')")
 public class SkillController {
 
