@@ -27,7 +27,6 @@ public class AboutParagraphController {
 
 	private final AboutParagraphService aboutParagraphService;
 
-
 	@GetMapping
 	public ResponseEntity<ApiResponse<Page<AboutParagraphResponse>>> getAll(
 			@PageableDefault(sort = "orderIndex", direction = Sort.Direction.ASC) Pageable pageable

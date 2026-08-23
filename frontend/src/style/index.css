@@ -8,6 +8,8 @@ html {
     /* Backgrounds */
     --theme-primary: oklch(96% 0 0);
     --theme-secondary: oklch(90% 0 0);
+    --theme-badge: oklch(55.5% 0.163 48.998);
+    --theme-danger: oklch(57.7% 0.245 27.325);
 
     /* Accent */
     --theme-accent: oklch(60.6% 0.25 292.717);
@@ -44,6 +46,8 @@ html {
     /* Backgrounds */
     --theme-primary: oklch(21% 0.006 285.885);
     --theme-secondary: oklch(27.4% 0.006 286.033);
+    --theme-badge: oklch(82.8% 0.189 84.429);
+    --theme-danger: oklch(57.7% 0.245 27.325);
 
     /* Accent */
     --theme-accent: oklch(60.6% 0.25 292.717);
