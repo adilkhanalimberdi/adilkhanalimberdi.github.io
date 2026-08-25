@@ -1,6 +1,6 @@
 import type {PageResponse} from "../../type/pagination.ts";
-import type {EducationResponse} from "../../type/portfolio/portfolio.ts";
 import {api} from "../api.ts";
+import type {EducationResponse} from "../../type/portfolio/education.ts";
 
 export const EducationService = {
     async getAllEducation(): Promise<PageResponse<EducationResponse>> {

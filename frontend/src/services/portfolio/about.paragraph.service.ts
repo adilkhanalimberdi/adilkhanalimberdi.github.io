@@ -1,5 +1,5 @@
 import type {PageResponse} from "../../type/pagination.ts";
-import type {AboutParagraphResponse} from "../../type/portfolio/portfolio.ts";
+import type { AboutParagraphResponse } from "../../type/portfolio/about.paragraph.ts";
 import {api} from "../api.ts";
 
 export const AboutParagraphService = {
