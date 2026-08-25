@@ -7,6 +7,8 @@
     --color-secondary: var(--theme-secondary);
     --color-accent: var(--theme-accent);
     --color-accent-secondary: var(--theme-accent-secondary);
+    --color-badge: var(--theme-badge);
+    --color-danger: var(--theme-danger);
 
     --color-text-primary: var(--theme-text-primary);
     --color-text-secondary: var(--theme-text-secondary);
