@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -51,11 +50,9 @@ public class ProjectController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
+	public ResponseEntity<Void> delete(@PathVariable UUID id) {
 		projectService.delete(id);
-		return ResponseEntity
-				.status(HttpStatus.NO_CONTENT)
-				.body(Map.of("status", "success"));
+		return ResponseEntity.noContent().build();
 	}
 
 }

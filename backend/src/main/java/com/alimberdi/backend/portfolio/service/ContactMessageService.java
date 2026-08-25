@@ -48,6 +48,11 @@ public class ContactMessageService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
+	public void toggleViewed(UUID id) {
+		repository.toggleViewed(id);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
 		if (id == null) {
 			throw new IllegalArgumentException("Id cannot be null");

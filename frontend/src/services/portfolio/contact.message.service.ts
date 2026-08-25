@@ -11,6 +11,10 @@ export const ContactMessageService = {
         await api.post("/contact-messages", message);
     },
 
+    async toggleViewed(id: string) {
+        await api.patch(`/contact-messages/${id}/toggle`);
+    },
+
     async deleteById(id: string) {
         await api.delete(`/contact-messages/${id}`);
     }

@@ -2,7 +2,7 @@ import profileImage from "../../assets/images/adilkhan.webp";
 import {FaGithub, FaLinkedin} from "react-icons/fa";
 
 import Navbar from "../../components/portfolio/Navbar.tsx";
-import {type JSX, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import type {ContactMessageCreateRequest} from "../../type/portfolio/contact.message.ts";
 import {ContactMessageService} from "../../services/portfolio/contact.message.service.ts";
 import {type SubmitEvent} from "react";
@@ -17,28 +17,7 @@ import * as axios from "axios";
 import type {PortfolioResponse} from "../../type/portfolio/portfolio.ts";
 import {PortfolioService} from "../../services/portfolio/portfolio.service.ts";
 import {parseYearMonth} from "../../utils/year.month.util.ts";
-
-function processInformation(text: string, id: string | number): JSX.Element {
-    const parts = text.split('_');
-
-    return (
-        <p key={id} className="text-text-primary">
-            {parts.map((part, index) => {
-                const isHighlighted = index % 2 !== 0;
-
-                if (isHighlighted) {
-                    return (
-                        <span key={index} className="text-accent-secondary">
-                            {part}
-                        </span>
-                    );
-                }
-
-                return part;
-            })}
-        </p>
-    )
-}
+import RenderedText from "../../utils/string.util.tsx";
 
 const monthMap: Record<number, string> = {
     1: "January",
@@ -241,7 +220,7 @@ function PortfolioPage() {
 
                             <div className="flex-1 flex flex-col gap-3">
                                 {portfolio?.about.map(paragraph => paragraph.content).map((info, index) => {
-                                    return processInformation(info, index)
+                                    return <RenderedText text={info} id={index} />;
                                 })}
                             </div>
                         </div>

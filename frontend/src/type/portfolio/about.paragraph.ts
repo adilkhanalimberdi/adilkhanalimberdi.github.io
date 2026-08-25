@@ -1,4 +1,4 @@
-export type AboutParagraphCreateResponse = {
+export type AboutParagraphCreateRequest = {
     content: string;
 }
 

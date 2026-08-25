@@ -11,17 +11,16 @@ import type { ContactMessageResponse } from "../../type/portfolio/contact.messag
 import toast from "react-hot-toast";
 import type { PageResponse } from "../../type/pagination.ts";
 import { Modal } from "../../components/portfolio/Modal.tsx";
-import {AboutParagraphService} from "../../services/portfolio/about.paragraph.service.ts";
 import {ContactMessageService} from "../../services/portfolio/contact.message.service.ts";
 import {EducationService} from "../../services/portfolio/education.service.ts";
 import {ProjectService} from "../../services/portfolio/project.service.ts";
 import {SkillService} from "../../services/portfolio/skill.service.ts";
 import {LanguageService} from "../../services/portfolio/language.service.ts";
-import type {AboutParagraphResponse} from "../../type/portfolio/about.paragraph.ts";
 import type {EducationResponse} from "../../type/portfolio/education.ts";
 import type {ProjectResponse} from "../../type/portfolio/project.ts";
 import type {SkillByCategory} from "../../type/portfolio/skill.ts";
 import type {LanguageResponse} from "../../type/portfolio/language.ts";
+import {AboutTab} from "../../components/portfolio/admin/AboutTab.tsx";
 
 type Tab = 'contact' | 'about' | 'education' | 'projects' | 'skills' | 'languages';
 
@@ -62,7 +61,6 @@ function AdminPage() {
     const [activeTab, setActiveTab] = useState<Tab>('contact');
 
     const [messages, setMessages] = useState<PageResponse<ContactMessageResponse> | null>(null);
-    const [aboutParagraphs, setAboutParagraphs] = useState<PageResponse<AboutParagraphResponse> | null>(null);
     const [education, setEducation] = useState<PageResponse<EducationResponse> | null>(null);
     const [projects, setProjects] = useState<PageResponse<ProjectResponse> | null>(null);
     const [skills, setSkills] = useState<SkillByCategory[]>([]);
@@ -74,10 +72,6 @@ function AdminPage() {
         ContactMessageService.getAllContactMessages()
             .then((res) => setMessages(res))
             .catch(() => toast.error("Failed to get contact messages"));
-
-        AboutParagraphService.getAllAboutParagraphs()
-            .then((res) => setAboutParagraphs(res))
-            .catch(() => toast.error("Failed to get about paragraphs"));
 
         EducationService.getAllEducation()
             .then((res) => setEducation(res))
@@ -98,10 +92,34 @@ function AdminPage() {
 
     const toggleMessageViewed = (id: string) => {
         if (!messages) return;
+
+        const targetMessage = messages.content.find(m => m.id === id);
+        if (!targetMessage) return;
+
+        const willBeViewed = !targetMessage.isViewed;
+        const actionText = willBeViewed ? "viewed" : "unviewed";
+
         setMessages({
             ...messages,
-            content: messages.content.map(m => m.id === id ? { ...m, isViewed: !m.isViewed } : m)
+            content: messages.content.map(m =>
+                m.id === id ? { ...m, isViewed: willBeViewed } : m
+            )
         });
+
+        ContactMessageService.toggleViewed(id)
+            .then(() => {
+                toast.success(`Message successfully marked as ${actionText}!`);
+            })
+            .catch(() => {
+                toast.error(`Failed to mark message as ${actionText}.`);
+
+                setMessages(prev => prev ? {
+                    ...prev,
+                    content: prev.content.map(m =>
+                        m.id === id ? { ...m, isViewed: !willBeViewed } : m
+                    )
+                } : null);
+            });
     };
 
     const requestDelete = (type: Tab, id: string, label: string) => {
@@ -124,11 +142,6 @@ function AdminPage() {
                 case 'contact':
                     await ContactMessageService.deleteById(id);
                     setMessages(prev => prev ? { ...prev, content: prev.content.filter(m => m.id !== id) } : prev);
-                    break;
-
-                case 'about':
-                    await AboutParagraphService.deleteById(id);
-                    setAboutParagraphs(prev => prev ? { ...prev, content: prev.content.filter(p => p.id !== id) } : prev);
                     break;
 
                 case 'education':
@@ -265,30 +278,8 @@ function AdminPage() {
                         </div>
                     )}
 
-                    {activeTab === 'about' && (
-                        <div className="flex flex-col gap-6">
-                            <h2 className="text-xl font-semibold text-text-primary">About Paragraphs</h2>
-                            <div className="flex flex-col gap-3">
-                                {!aboutParagraphs?.content.length ? (
-                                    <p className="text-text-muted">No paragraphs found.</p>
-                                ) : (
-                                    aboutParagraphs.content.map((item) => (
-                                        <div key={item.id} className="p-4 bg-primary border border-border rounded-lg flex justify-between gap-4 items-start">
-                                            <p className="text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">{item.content}</p>
-                                            <div className="flex gap-1 shrink-0">
-                                                <button className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
-                                                    <LucidePencil size={18} />
-                                                </button>
-                                                <button onClick={() => requestDelete('about', item.id, item.content.slice(0, 40))}
-                                                        className="p-1.5 hover:text-[color-mix(in_srgb,var(--theme-danger),white_30%)] text-text-muted rounded hover:bg-hover cursor-pointer">
-                                                    <LucideTrash2 size={18} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
+                    {activeTab === "about" && (
+                        <AboutTab />
                     )}
 
                     {activeTab === 'education' && (

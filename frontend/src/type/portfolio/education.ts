@@ -5,7 +5,7 @@ export type YearMonth = {
     month: number
 }
 
-export type EducationCreateResponse = {
+export type EducationCreateRequest = {
     institution: string;
     description: string;
     location: string;
