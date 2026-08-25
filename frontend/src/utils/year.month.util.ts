@@ -1,4 +1,4 @@
-import type {YearMonth} from "../type/portfolio/portfolio.ts";
+import type {YearMonth} from "../type/portfolio/education.ts";
 
 export function parseYearMonth(data: string): YearMonth {
     const parts = data.split('-');
