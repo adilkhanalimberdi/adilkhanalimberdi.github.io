@@ -23,6 +23,15 @@ public class AuthController {
 	@Value("${app.jwt.expiration.refresh-minutes}")
 	private int refreshExpirationMinutes;
 
+	@Value("${app.cookie.secure}")
+	private boolean cookieSecure;
+
+	@Value("${app.cookie.same-site}")
+	private String cookieSameSite;
+
+	@Value("${app.cookie.partitioned}")
+	private boolean cookiePartitioned;
+
 	private final AuthService authService;
 
 	@PostMapping("/login")
@@ -62,7 +71,9 @@ public class AuthController {
 
 		ResponseCookie cookie = ResponseCookie.from("refreshToken", tokens.refreshToken())
 				.httpOnly(true)
-				.secure(true)
+				.secure(cookieSecure)
+				.sameSite(cookieSameSite)
+				.partitioned(cookiePartitioned)
 				.path("/api/v1/auth")
 				.maxAge(Duration.ofMinutes(refreshExpirationMinutes))
 				.build();
