@@ -1,5 +1,5 @@
-import type {SkillByCategory} from "../../type/portfolio/portfolio.ts";
 import {api} from "../api.ts";
+import type {SkillByCategory} from "../../type/portfolio/skill.ts";
 
 export const SkillService = {
     async getAllSkills(): Promise<SkillByCategory[]> {

@@ -1,5 +1,5 @@
-import type {LanguageResponse} from "../../type/portfolio/portfolio.ts";
 import {api} from "../api.ts";
+import type {LanguageResponse} from "../../type/portfolio/language.ts";
 
 export const LanguageService = {
     async getAllLanguages(): Promise<LanguageResponse[]> {
