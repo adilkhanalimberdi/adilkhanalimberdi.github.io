@@ -53,7 +53,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(
 								HttpMethod.POST,
-								"/contact-message",
+								"/messages",
 								"/auth/**"
 						).permitAll()
 						.requestMatchers(
