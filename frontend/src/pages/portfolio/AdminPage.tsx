@@ -11,10 +11,12 @@ import {EducationTab} from "../../components/portfolio/adminTabs/EducationTab.ts
 import {ProjectsTab} from "../../components/portfolio/adminTabs/ProjectsTab.tsx";
 import {SkillsTab} from "../../components/portfolio/adminTabs/SkillsTab.tsx";
 import {LanguagesTab} from "../../components/portfolio/adminTabs/LanguagesTab.tsx";
+import {useUnreadCount} from "../../hooks/UseUnreadCount.ts";
 
 type Tab = 'contact' | 'about' | 'education' | 'projects' | 'skills' | 'languages';
 
 function AdminPage() {
+    const {unreadCount, refetchUnreadCount} = useUnreadCount();
     const [activeTab, setActiveTab] = useState<Tab>('contact');
 
     return (
@@ -53,6 +55,9 @@ function AdminPage() {
                                     }`}>
                                 <Icon size={18} />
                                 {tab.label}
+                                {tab.label === 'Messages' && unreadCount > 0 && (
+                                    <span className="ml-1 px-2 py-0.5 text-xs font-bold bg-amber-500 text-black rounded-full">{unreadCount}</span>
+                                )}
                             </button>
                         );
                     })}
@@ -61,7 +66,7 @@ function AdminPage() {
                 <section className="bg-secondary border border-border rounded-xl p-6 shadow-sm">
 
                     {activeTab === 'contact' && (
-                        <ContactMessagesTab />
+                        <ContactMessagesTab refetchUnreadCount={refetchUnreadCount} />
                     )}
 
                     {activeTab === "about" && (

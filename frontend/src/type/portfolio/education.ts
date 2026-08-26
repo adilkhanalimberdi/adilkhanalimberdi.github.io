@@ -11,11 +11,11 @@ export type EducationCreateRequest = {
     location: string;
     degree: string;
     speciality: string;
-    startDate: YearMonth;
-    endDate: YearMonth;
-    grade: number;
+    startDate: string;
+    endDate: string | null;
+    grade: number | null;
     status: EducationStatus;
-    url: string;
+    url: string | null;
 }
 
 export type EducationResponse = {

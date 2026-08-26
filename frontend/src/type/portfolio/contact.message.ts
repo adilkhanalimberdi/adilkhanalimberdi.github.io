@@ -12,3 +12,7 @@ export type ContactMessageResponse = {
     isViewed: boolean;
     createdAt: Date;
 }
+
+export type UnreadMessageCountResponse = {
+    count: number;
+}

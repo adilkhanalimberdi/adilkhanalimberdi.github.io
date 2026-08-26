@@ -4,6 +4,12 @@ import {ContactMessageService} from "../../../services/portfolio/contact.message
 import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
 import type {ContactMessageResponse} from "../../../type/portfolio/contact.message.ts";
+import {useState} from "react";
+import {ConfirmModal} from "../ConfirmModal.tsx";
+
+interface ContactMessagesTabProps {
+    refetchUnreadCount: () => void,
+}
 
 function orderByViewedSortByCreatedAtDesc(array: ContactMessageResponse[]): ContactMessageResponse[] {
     const viewed = array.filter(item => item.isViewed);
@@ -21,8 +27,11 @@ function orderByViewedSortByCreatedAtDesc(array: ContactMessageResponse[]): Cont
     ];
 }
 
-export const ContactMessagesTab = () => {
+export const ContactMessagesTab = ({refetchUnreadCount}: ContactMessagesTabProps) => {
     const {messages, refetch} = useContactMessages();
+
+    const [deleteId, setDeleteId] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
     const toggleMessageViewed = async (id: string) => {
         if (!messages) return;
@@ -36,24 +45,37 @@ export const ContactMessagesTab = () => {
         try {
             await ContactMessageService.toggleViewed(id);
             await refetch();
+            refetchUnreadCount();
             toast.success(`Message successfully marked as ${actionText}!`)
         } catch (err) {
             handleError(err as Error, `Failed to mark message as ${actionText}.`)
         }
     };
 
-    const handleDeleteById = async (id: string) => {
+    const confirmDelete = async () => {
+        if (!deleteId) return;
+        setIsDeleting(true);
         try {
-            await ContactMessageService.deleteById(id);
+            await ContactMessageService.deleteById(deleteId);
             await refetch();
+            refetchUnreadCount();
             toast.success("You have deleted a message successfully!");
+            setDeleteId(null);
         } catch (err) {
             handleError(err as Error, "Failed to delete message.");
+        } finally {
+            setIsDeleting(false);
         }
     }
 
     return (
         <div className="flex flex-col gap-4">
+            <ConfirmModal isOpen={Boolean(deleteId)}
+                          title="Delete Message"
+                          message="Are you sure you want to delete this language? This action cannot be undone."
+                          onConfirm={confirmDelete}
+                          onClose={() => setDeleteId(null)}
+                          isLoading={isDeleting} />
             <h2 className="text-xl font-semibold mb-2 text-text-primary">Incoming Contact Messages</h2>
             {!messages?.content || messages.content.length === 0 ? (
                 <p className="text-text-muted">No messages found.</p>
@@ -85,7 +107,7 @@ export const ContactMessagesTab = () => {
                                 {item.isViewed ? <LucideCheckCircle2 className="text-accent" size={20} /> : <LucideCircle size={20} />}
                             </button>
 
-                            <button onClick={() => handleDeleteById(item.id)}
+                            <button onClick={() => setDeleteId(item.id)}
                                     className="p-2 text-text-muted hover:text-[color-mix(in_srgb,var(--theme-danger),white_30%)] rounded-lg hover:bg-hover transition-colors cursor-pointer"
                                     title="Delete message">
                                 <LucideTrash2 size={20} />

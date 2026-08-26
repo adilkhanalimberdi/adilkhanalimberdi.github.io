@@ -2,6 +2,7 @@ package com.alimberdi.backend.portfolio.service;
 
 import com.alimberdi.backend.portfolio.dto.request.ContactMessageCreateRequest;
 import com.alimberdi.backend.portfolio.dto.response.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.response.UnreadMessageCountResponse;
 import com.alimberdi.backend.portfolio.exception.ContactMessageNotFoundException;
 import com.alimberdi.backend.portfolio.mapper.ContactMessageMapper;
 import com.alimberdi.backend.portfolio.model.entity.ContactMessage;
@@ -32,6 +33,12 @@ public class ContactMessageService {
 		return repository.findById(id)
 				.map(mapper::toResponse)
 				.orElseThrow(() -> new ContactMessageNotFoundException("Contact message with id " + id + " not found"));
+	}
+
+	public UnreadMessageCountResponse getUnreadCount() {
+		return new UnreadMessageCountResponse(
+				repository.countByIsViewedFalse()
+		);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

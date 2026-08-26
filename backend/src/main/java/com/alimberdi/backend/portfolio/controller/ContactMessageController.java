@@ -3,6 +3,7 @@ package com.alimberdi.backend.portfolio.controller;
 import com.alimberdi.backend.common.dto.ApiResponse;
 import com.alimberdi.backend.portfolio.dto.request.ContactMessageCreateRequest;
 import com.alimberdi.backend.portfolio.dto.response.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.response.UnreadMessageCountResponse;
 import com.alimberdi.backend.portfolio.service.ContactMessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/contact-messages")
+@RequestMapping("/messages")
 public class ContactMessageController {
 
 	private final ContactMessageService contactMessageService;
@@ -42,6 +43,16 @@ public class ContactMessageController {
 		ContactMessageResponse message = contactMessageService.getById(id);
 		return new ResponseEntity<>(
 				new ApiResponse<>(message),
+				HttpStatus.OK
+		);
+	}
+
+	@GetMapping("/unread-count")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<ApiResponse<UnreadMessageCountResponse>> getUnreadCount() {
+		UnreadMessageCountResponse unreadCount = contactMessageService.getUnreadCount();
+		return new ResponseEntity<>(
+				new ApiResponse<>(unreadCount),
 				HttpStatus.OK
 		);
 	}

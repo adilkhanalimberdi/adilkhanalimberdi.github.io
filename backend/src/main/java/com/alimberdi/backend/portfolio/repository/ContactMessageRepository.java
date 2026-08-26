@@ -20,4 +20,6 @@ public interface ContactMessageRepository extends JpaRepository<ContactMessage, 
 	""", nativeQuery = true)
 	void toggleViewed(@Param("id") UUID id);
 
+	long countByIsViewedFalse();
+
 }

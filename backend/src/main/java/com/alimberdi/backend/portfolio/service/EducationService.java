@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -57,7 +56,7 @@ public class EducationService {
 				.endDate(request.endDate())
 				.grade(request.grade())
 				.status(request.status() != null ? request.status() : EducationStatus.COMPLETED)
-				.url(request.url())
+				.url(request.url().trim().isBlank() ? null : request.url().trim())
 				.orderIndex(targetIndex)
 				.build();
 		return mapper.toResponse(repository.save(education));
