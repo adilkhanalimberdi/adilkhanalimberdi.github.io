@@ -40,6 +40,8 @@ html {
     --theme-button-primary: oklch(27.8% 0.033 256.848);
     --theme-button-primary-hover: oklch(35% 0.04 256.848);
     --theme-button-primary-text: oklch(98% 0 0);
+    --theme-button-green: oklch(0.7878 0.1894 144.75);
+    --theme-button-red: oklch(0.75 0.151 19.76);
 }
 
 .dark {
@@ -78,6 +80,8 @@ html {
     --theme-button-primary: oklch(96.7% 0.001 286.375);
     --theme-button-primary-hover: oklch(90% 0.002 286.375);
     --theme-button-primary-text: oklch(21% 0.006 285.885);
+    --theme-button-green: oklch(0.4471 0.1088 155.64);
+    --theme-button-red: oklch(0.45 0.1817 25.1);
 }
 
 ::-webkit-scrollbar {

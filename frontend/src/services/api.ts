@@ -53,7 +53,7 @@ api.interceptors.response.use(
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && !originalRequest._retry) {
-            if (originalRequest.url?.includes("/auth/admin/login") || originalRequest.url?.includes("/auth/refresh")) {
+            if (originalRequest.url?.includes("/auth/adminTabs/login") || originalRequest.url?.includes("/auth/refresh")) {
                 setAccessToken(null);
                 return Promise.reject(error);
             }
@@ -81,7 +81,7 @@ api.interceptors.response.use(
                 return api(originalRequest);
             } catch (error) {
                 processQueue(error, null);
-                window.location.href = "/admin/login";
+                window.location.href = "/adminTabs/login";
                 return Promise.reject(error);
             } finally {
                 isRefreshing = false;

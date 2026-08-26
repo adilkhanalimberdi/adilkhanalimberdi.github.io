@@ -1,13 +1,14 @@
 import {useAuth} from "../providers/AuthProvider.tsx";
 import {Navigate, Outlet} from "react-router-dom";
+import {Loader2} from "lucide-react";
 
 export function ProtectedRoute() {
     const { isAuthenticated, isLoading } = useAuth();
 
     if (isLoading) {
         return (
-            <div>
-                Loading...
+            <div className="w-full h-full flex items-center justify-center">
+                <Loader2 size={18} className="animate-spin" />
             </div>
         );
     }

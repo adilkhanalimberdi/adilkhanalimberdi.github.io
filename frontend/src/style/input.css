@@ -29,4 +29,6 @@
     --color-button-primary: var(--theme-button-primary);
     --color-button-primary-hover: var(--theme-button-primary-hover);
     --color-button-primary-text: var(--theme-button-primary-text);
+    --color-button-green: var(--theme-button-green);
+    --color-button-red: var(--theme-button-red);
 }

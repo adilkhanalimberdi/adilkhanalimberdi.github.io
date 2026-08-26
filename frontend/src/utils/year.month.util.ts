@@ -10,3 +10,9 @@ export function parseYearMonth(data: string): YearMonth {
         month: month,
     };
 }
+
+export function parseYearMonthString(data: string): string {
+    const [year, month] = data.split('-');
+
+    return `${year}-${month.padStart(2, '0')}`;
+}

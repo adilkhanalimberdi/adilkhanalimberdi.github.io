@@ -2,7 +2,7 @@ import {api} from "../api.ts";
 import type {LanguageResponse} from "../../type/portfolio/language.ts";
 
 export const LanguageService = {
-    async getAllLanguages(): Promise<LanguageResponse[]> {
+    async getAll(): Promise<LanguageResponse[]> {
         const response = await api.get("/languages");
         return response.data.data;
     },

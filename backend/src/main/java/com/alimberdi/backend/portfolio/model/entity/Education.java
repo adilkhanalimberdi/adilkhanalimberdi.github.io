@@ -3,8 +3,6 @@ package com.alimberdi.backend.portfolio.model.entity;
 import com.alimberdi.backend.portfolio.model.enums.EducationStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Check;
-import org.hibernate.annotations.DialectOverride;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

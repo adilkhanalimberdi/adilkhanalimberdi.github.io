@@ -3,6 +3,7 @@ package com.alimberdi.backend.portfolio.controller;
 import com.alimberdi.backend.common.dto.ApiResponse;
 import com.alimberdi.backend.portfolio.dto.request.ContactMessageCreateRequest;
 import com.alimberdi.backend.portfolio.dto.response.ContactMessageResponse;
+import com.alimberdi.backend.portfolio.dto.response.UnreadMessageCountResponse;
 import com.alimberdi.backend.portfolio.service.ContactMessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/contact-messages")
+@RequestMapping("/messages")
 public class ContactMessageController {
 
 	private final ContactMessageService contactMessageService;
@@ -47,18 +47,33 @@ public class ContactMessageController {
 		);
 	}
 
+	@GetMapping("/unread-count")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<ApiResponse<UnreadMessageCountResponse>> getUnreadCount() {
+		UnreadMessageCountResponse unreadCount = contactMessageService.getUnreadCount();
+		return new ResponseEntity<>(
+				new ApiResponse<>(unreadCount),
+				HttpStatus.OK
+		);
+	}
+
 	@PostMapping
 	public ResponseEntity<Void> create(@RequestBody @Valid ContactMessageCreateRequest request) {
 		contactMessageService.create(request);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	@PatchMapping("/{id}/toggle")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Void> toggleViewed(@PathVariable UUID id) {
+		contactMessageService.toggleViewed(id);
+		return ResponseEntity.ok().build();
+	}
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
+	public ResponseEntity<Void> delete(@PathVariable UUID id) {
 		contactMessageService.delete(id);
-		return ResponseEntity
-				.status(HttpStatus.NO_CONTENT)
-				.body(Map.of("status", "success"));
+		return ResponseEntity.noContent().build();
 	}
 
 }
