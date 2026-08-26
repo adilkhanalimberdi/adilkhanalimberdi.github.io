@@ -2,7 +2,7 @@ import type {ContactMessageCreateRequest} from "../../type/portfolio/contact.mes
 import {api} from "../api.ts";
 
 export const ContactMessageService = {
-    async getAllContactMessages() {
+    async getAll() {
         const response = await api.get("/contact-messages");
         return response.data.data;
     },

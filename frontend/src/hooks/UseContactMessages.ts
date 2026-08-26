@@ -1,20 +1,20 @@
-import {useCallback, useEffect, useState} from "react";
 import type {PageResponse} from "../type/pagination.ts";
-import type {AboutParagraphResponse} from "../type/portfolio/about.paragraph.ts";
-import {AboutParagraphService} from "../services/portfolio/about.paragraph.service.ts";
+import type {ContactMessageResponse} from "../type/portfolio/contact.message.ts";
+import {useCallback, useEffect, useState} from "react";
+import {ContactMessageService} from "../services/portfolio/contact.message.service.ts";
 import {handleError} from "../utils/error.handler.ts";
 
-const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch paragraphs.";
+const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch messages.";
 
-export const useAboutParagraphs = () => {
-    const [paragraphs, setParagraphs] = useState<PageResponse<AboutParagraphResponse> | null>(null);
+export const useContactMessages = () => {
+    const [messages, setMessages] = useState<PageResponse<ContactMessageResponse> | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refetch = useCallback(async () => {
         setIsLoading(true);
         try {
-            const data = await AboutParagraphService.getAll();
-            setParagraphs(data);
+            const data = await ContactMessageService.getAll();
+            setMessages(data);
         } catch (err) {
             handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
         } finally {
@@ -27,9 +27,9 @@ export const useAboutParagraphs = () => {
 
         const loadData = async () => {
             try {
-                const data = await AboutParagraphService.getAll();
+                const data = await ContactMessageService.getAll();
                 if (isMounted) {
-                    setParagraphs(data);
+                    setMessages(data);
                 }
             } catch (err) {
                 handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
@@ -42,13 +42,13 @@ export const useAboutParagraphs = () => {
 
         return () => {
             isMounted = false;
-        };
+        }
     }, []);
 
     return {
-        paragraphs,
-        setParagraphs,
+        messages,
+        setMessages,
         isLoading,
         refetch,
-    };
+    }
 }

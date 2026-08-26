@@ -17,7 +17,7 @@ import * as axios from "axios";
 import type {PortfolioResponse} from "../../type/portfolio/portfolio.ts";
 import {PortfolioService} from "../../services/portfolio/portfolio.service.ts";
 import {parseYearMonth} from "../../utils/year.month.util.ts";
-import RenderedText from "../../utils/string.util.tsx";
+import RenderedText from "../../components/portfolio/RenderedText.tsx";
 
 const monthMap: Record<number, string> = {
     1: "January",
@@ -219,9 +219,12 @@ function PortfolioPage() {
                             </h2>
 
                             <div className="flex-1 flex flex-col gap-3">
-                                {portfolio?.about.map(paragraph => paragraph.content).map((info, index) => {
-                                    return <RenderedText text={info} id={index} />;
-                                })}
+                                {portfolio?.about.map((paragraph, index) => (
+                                    <RenderedText
+                                        key={paragraph.id || index}
+                                        text={paragraph.content}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </section>
@@ -244,7 +247,7 @@ function PortfolioPage() {
                                         : "Present";
 
                                     return (
-                                        <div key={index}
+                                        <div key={education.id || index}
                                              className="w-full border border-border bg-primary rounded-xl p-5 flex flex-col gap-4 transition-all duration-200 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
                                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 border-b border-border/60 pb-4">
                                                 <div className="flex flex-col gap-1">
@@ -305,7 +308,7 @@ function PortfolioPage() {
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                 {portfolio?.projects.map((project, index) => (
-                                    <div key={index}
+                                    <div key={project.id || index}
                                          onClick={() => {
                                              if (project.url) {
                                                  window.open(project.url, "_blank", "noopener,noreferrer");
@@ -359,7 +362,7 @@ function PortfolioPage() {
                                     <div>
                                         {portfolio?.languages.map((language, index) => {
                                             return (
-                                                <div key={index} className="flex flex-row gap-2">
+                                                <div key={language.id || index} className="flex flex-row gap-2">
                                                     <p className="text-text-primary">{language.language}: </p>
                                                     <p className="text-text-secondary">{language.level}</p>
                                                 </div>

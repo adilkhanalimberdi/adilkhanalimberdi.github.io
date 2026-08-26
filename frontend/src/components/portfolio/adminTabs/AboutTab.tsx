@@ -1,11 +1,11 @@
 import {useAboutParagraphs} from "../../../hooks/UseAboutParagraphs.ts";
-import RenderedText from "../../../utils/string.util.tsx";
 import {Check, LucidePencil, LucidePlus, LucideTrash2, X} from "lucide-react";
 import {useState} from "react";
 import type {AboutParagraphCreateRequest} from "../../../type/portfolio/about.paragraph.ts";
 import {AboutParagraphService} from "../../../services/portfolio/about.paragraph.service.ts";
 import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
+import RenderedText from "../RenderedText.tsx";
 
 export const AboutTab = () => {
     const {paragraphs, refetch} = useAboutParagraphs();
@@ -30,7 +30,7 @@ export const AboutTab = () => {
         }
     }
 
-    const handleDeleteParagraph = async (id: string) => {
+    const handleDeleteById = async (id: string) => {
         const isConfirmed = confirm("Are you sure you want to delete this paragraph?");
 
         if (!isConfirmed) {
@@ -61,7 +61,7 @@ export const AboutTab = () => {
                                     <button className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
                                         <LucidePencil size={18} />
                                     </button>
-                                    <button onClick={() => handleDeleteParagraph(item.id)}
+                                    <button onClick={() => handleDeleteById(item.id)}
                                             className="p-1.5 hover:text-[color-mix(in_srgb,var(--theme-danger),white_30%)] text-text-muted rounded hover:bg-hover cursor-pointer">
                                         <LucideTrash2 size={18} />
                                     </button>

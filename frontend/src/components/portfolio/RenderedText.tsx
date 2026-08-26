@@ -1,23 +1,22 @@
 interface RenderedTextProps {
     text: string;
-    id?: string | number;
     className?: string;
 }
 
-function RenderedText({ text, id, className }: RenderedTextProps) {
+function RenderedText({ text, className }: RenderedTextProps) {
     const parts = text.split('_');
 
     return (
-        <p key={id} className={`text-text-primary ${className}`}>
+        <p className={`text-text-primary ${className}`}>
             {parts.map((part, index) => {
                 const isHighlighted = index % 2 !== 0;
 
                 if (isHighlighted) {
                     return (
                         <span key={index} className="text-accent-secondary">
-                        {part}
+                            {part}
                         </span>
-                );
+                    );
                 }
 
                 return part;

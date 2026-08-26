@@ -3,7 +3,7 @@ import {api} from "../api.ts";
 import type {EducationResponse} from "../../type/portfolio/education.ts";
 
 export const EducationService = {
-    async getAllEducation(): Promise<PageResponse<EducationResponse>> {
+    async getAll(): Promise<PageResponse<EducationResponse>> {
         const response = await api.get("/educations");
         return response.data.data;
     },

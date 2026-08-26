@@ -41,7 +41,7 @@ public class AboutParagraphController {
 				.status(HttpStatus.CREATED)
 				.body(new ApiResponse<>(aboutParagraphService.create(request)));
 	}
-
+ 
 	@PatchMapping("/{id}")
 	public ResponseEntity<ApiResponse<AboutParagraphResponse>> update(@PathVariable UUID id, @RequestBody @Valid AboutParagraphUpdateRequest request) {
 		return ResponseEntity

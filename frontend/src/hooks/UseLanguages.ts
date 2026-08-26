@@ -1,20 +1,19 @@
 import {useCallback, useEffect, useState} from "react";
-import type {PageResponse} from "../type/pagination.ts";
-import type {AboutParagraphResponse} from "../type/portfolio/about.paragraph.ts";
-import {AboutParagraphService} from "../services/portfolio/about.paragraph.service.ts";
+import type {LanguageResponse} from "../type/portfolio/language.ts";
+import {LanguageService} from "../services/portfolio/language.service.ts";
 import {handleError} from "../utils/error.handler.ts";
 
-const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch paragraphs.";
+const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch languages.";
 
-export const useAboutParagraphs = () => {
-    const [paragraphs, setParagraphs] = useState<PageResponse<AboutParagraphResponse> | null>(null);
+export const useLanguages = () => {
+    const [languages, setLanguages] = useState<LanguageResponse[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refetch = useCallback(async () => {
         setIsLoading(true);
         try {
-            const data = await AboutParagraphService.getAll();
-            setParagraphs(data);
+            const data = await LanguageService.getAll();
+            setLanguages(data);
         } catch (err) {
             handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
         } finally {
@@ -27,9 +26,9 @@ export const useAboutParagraphs = () => {
 
         const loadData = async () => {
             try {
-                const data = await AboutParagraphService.getAll();
+                const data = await LanguageService.getAll();
                 if (isMounted) {
-                    setParagraphs(data);
+                    setLanguages(data);
                 }
             } catch (err) {
                 handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
@@ -42,13 +41,13 @@ export const useAboutParagraphs = () => {
 
         return () => {
             isMounted = false;
-        };
+        }
     }, []);
 
     return {
-        paragraphs,
-        setParagraphs,
+        languages,
+        setLanguages,
         isLoading,
         refetch,
-    };
+    }
 }

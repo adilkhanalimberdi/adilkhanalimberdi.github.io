@@ -1,20 +1,20 @@
 import {useCallback, useEffect, useState} from "react";
 import type {PageResponse} from "../type/pagination.ts";
-import type {AboutParagraphResponse} from "../type/portfolio/about.paragraph.ts";
-import {AboutParagraphService} from "../services/portfolio/about.paragraph.service.ts";
+import type {ProjectResponse} from "../type/portfolio/project.ts";
+import {ProjectService} from "../services/portfolio/project.service.ts";
 import {handleError} from "../utils/error.handler.ts";
 
-const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch paragraphs.";
+const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch projects.";
 
-export const useAboutParagraphs = () => {
-    const [paragraphs, setParagraphs] = useState<PageResponse<AboutParagraphResponse> | null>(null);
+export const useProjects = () => {
+    const [projects, setProjects] = useState<PageResponse<ProjectResponse> | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refetch = useCallback(async () => {
         setIsLoading(true);
         try {
-            const data = await AboutParagraphService.getAll();
-            setParagraphs(data);
+            const data = await ProjectService.getAll();
+            setProjects(data);
         } catch (err) {
             handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
         } finally {
@@ -27,9 +27,9 @@ export const useAboutParagraphs = () => {
 
         const loadData = async () => {
             try {
-                const data = await AboutParagraphService.getAll();
+                const data = await ProjectService.getAll();
                 if (isMounted) {
-                    setParagraphs(data);
+                    setProjects(data);
                 }
             } catch (err) {
                 handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
@@ -42,13 +42,13 @@ export const useAboutParagraphs = () => {
 
         return () => {
             isMounted = false;
-        };
+        }
     }, []);
 
     return {
-        paragraphs,
-        setParagraphs,
+        projects,
+        setProjects,
         isLoading,
         refetch,
-    };
+    }
 }

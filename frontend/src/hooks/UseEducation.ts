@@ -1,20 +1,20 @@
 import {useCallback, useEffect, useState} from "react";
 import type {PageResponse} from "../type/pagination.ts";
-import type {AboutParagraphResponse} from "../type/portfolio/about.paragraph.ts";
-import {AboutParagraphService} from "../services/portfolio/about.paragraph.service.ts";
+import type {EducationResponse} from "../type/portfolio/education.ts";
+import {EducationService} from "../services/portfolio/education.service.ts";
 import {handleError} from "../utils/error.handler.ts";
 
-const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch paragraphs.";
+const DEFAULT_FETCH_ERROR_MESSAGE = "Failed to fetch education.";
 
-export const useAboutParagraphs = () => {
-    const [paragraphs, setParagraphs] = useState<PageResponse<AboutParagraphResponse> | null>(null);
+export const useEducation = () => {
+    const [education, setEducation] = useState<PageResponse<EducationResponse> | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refetch = useCallback(async () => {
         setIsLoading(true);
         try {
-            const data = await AboutParagraphService.getAll();
-            setParagraphs(data);
+            const data = await EducationService.getAll();
+            setEducation(data);
         } catch (err) {
             handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
         } finally {
@@ -27,9 +27,9 @@ export const useAboutParagraphs = () => {
 
         const loadData = async () => {
             try {
-                const data = await AboutParagraphService.getAll();
+                const data = await EducationService.getAll();
                 if (isMounted) {
-                    setParagraphs(data);
+                    setEducation(data);
                 }
             } catch (err) {
                 handleError(err as Error, DEFAULT_FETCH_ERROR_MESSAGE);
@@ -46,9 +46,9 @@ export const useAboutParagraphs = () => {
     }, []);
 
     return {
-        paragraphs,
-        setParagraphs,
+        education,
+        setEducation,
         isLoading,
         refetch,
-    };
+    }
 }
