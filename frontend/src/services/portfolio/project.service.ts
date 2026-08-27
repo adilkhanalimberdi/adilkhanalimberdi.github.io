@@ -1,10 +1,15 @@
 import type {PageResponse} from "../../type/pagination.ts";
 import {api} from "../api.ts";
-import type {ProjectResponse} from "../../type/portfolio/project.ts";
+import type {ProjectCreateRequest, ProjectResponse} from "../../type/portfolio/project.ts";
 
 export const ProjectService = {
     async getAll(): Promise<PageResponse<ProjectResponse>> {
         const response = await api.get("/projects");
+        return response.data.data;
+    },
+
+    async create(request: ProjectCreateRequest): Promise<ProjectResponse> {
+        const response = await api.post("/projects", request);
         return response.data.data;
     },
 

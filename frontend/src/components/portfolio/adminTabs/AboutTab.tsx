@@ -17,6 +17,10 @@ export const AboutTab = () => {
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
+    const clearForm = () => {
+        setNewParagraph("");
+    }
+
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -28,9 +32,9 @@ export const AboutTab = () => {
             await AboutParagraphService.create(request);
             await refetch();
             toast.success("You have created a new about paragraph successfully!");
-            setNewParagraph("");
-        } catch (error) {
-            handleError(error as Error, "Failed to create a paragraph");
+            clearForm();
+        } catch (err) {
+            handleError(err as Error, "Failed to create paragraph.");
         } finally {
             setIsCreating(false);
         }
@@ -80,7 +84,7 @@ export const AboutTab = () => {
                             </div>
                         ))}
 
-                        <div className={`p-2 bg-primary border-2 border-dashed border-border/50 text-text-secondary rounded-lg flex justify-center items-center hover:bg-primary/80 hover:border-border hover:text-text-primary transition-all duration-200 ${isCreating ? 'hidden' : ''}`}
+                        <div className={`p-3 bg-primary border-2 border-dashed border-border/50 text-text-secondary rounded-lg flex justify-center items-center hover:bg-primary/80 hover:border-border hover:text-text-primary transition-all duration-200 ${isCreating ? 'hidden' : ''}`}
                              onClick={() => setIsCreating(true)}>
                             <LucidePlus size={18} />
                         </div>
@@ -97,21 +101,21 @@ export const AboutTab = () => {
                                           required={true}></textarea>
 
                                 <div className="flex flex-row gap-2 justify-end items-center">
+                                    <button className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200"
+                                            type="button"
+                                            onClick={() => {
+                                                clearForm();
+                                                setIsCreating(false);
+                                            }}>
+                                        <X size={18} />
+                                        <span>Cancel</span>
+                                    </button>
+
                                     <button className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                             type="submit"
                                             disabled={!newParagraph.trim()}>
                                         <Check size={18} />
                                         <span>Save</span>
-                                    </button>
-
-                                    <button className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200"
-                                            type="button"
-                                            onClick={() => {
-                                                setIsCreating(false);
-                                                setNewParagraph("");
-                                            }}>
-                                        <X size={18} />
-                                        <span>Cancel</span>
                                     </button>
                                 </div>
                             </form>

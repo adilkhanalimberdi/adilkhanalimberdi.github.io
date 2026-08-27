@@ -101,7 +101,7 @@ export const EducationTab = () => {
                 ) : (
                     <div className="flex flex-col gap-3">
                         {education.content.map((item) => (
-                            <div key={item.id} className="p-4 bg-primary border border-border rounded-lg flex justify-between gap-4">
+                            <div key={item.id} className="p-4 h-45 bg-primary border border-border rounded-lg flex justify-between gap-4">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-bold text-text-primary">{item.institution}</h3>
@@ -111,7 +111,9 @@ export const EducationTab = () => {
                                     </div>
                                     <p className="text-sm font-medium text-text-secondary">{item.degree} - {item.speciality}</p>
                                     <p className="text-xs text-text-muted">{item.location} • {item.startDate} - {item.endDate || 'Present'}</p>
-                                    {item.description && <p className="text-sm text-text-muted mt-2">{item.description}</p>}
+                                    {item.description && (
+                                        <p className="text-sm text-text-muted mt-2 line-clamp-2">{item.description}</p>
+                                    )}
                                     {item.url && (
                                         <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-url-accent hover:underline mt-1">
                                             Website <LucideExternalLink size={12} />
@@ -130,7 +132,7 @@ export const EducationTab = () => {
                             </div>
                         ))}
 
-                        <div className={`p-2 bg-primary border-2 border-dashed border-border/50 text-text-secondary rounded-lg flex justify-center items-center hover:bg-primary/80 hover:border-border hover:text-text-primary transition-all duration-200 ${isCreating ? 'hidden' : ''}`}
+                        <div className={`p-3 bg-primary border-2 border-dashed border-border/50 text-text-secondary rounded-lg flex justify-center items-center hover:bg-primary/80 hover:border-border hover:text-text-primary transition-all duration-200 ${isCreating ? 'hidden' : ''}`}
                              onClick={() => setIsCreating(true)}>
                             <LucidePlus size={18} />
                         </div>

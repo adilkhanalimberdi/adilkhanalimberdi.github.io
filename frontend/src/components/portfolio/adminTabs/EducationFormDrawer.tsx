@@ -1,5 +1,5 @@
 import React from 'react';
-import { LucideX, LucideCheck } from 'lucide-react';
+import {LucideX, LucideCheck, X} from 'lucide-react';
 import type {EducationStatus} from "../../../type/portfolio/education.ts";
 
 interface EducationFormDrawerProps {
@@ -146,13 +146,21 @@ export const EducationFormDrawer = ({isOpen, onClose, onSubmit, formData, setFor
                     <div className="flex justify-end gap-3 pt-4 border-t border-border">
                         <button type="button"
                                 onClick={onClose}
-                                className="px-4 py-2 text-sm text-text-primary bg-primary border border-border rounded-lg hover:bg-hover transition-colors">
-                            Cancel
+                                className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200">
+                            <X size={18} />
+                            <span>Cancel</span>
                         </button>
                         <button type="submit"
-                                className="px-4 py-2 text-sm text-button-primary-text bg-button-primary rounded-lg flex items-center gap-1.5 hover:opacity-90 transition-opacity">
+                                className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={!formData.institute.trim() ||
+                                          !formData.degree.trim() ||
+                                          !formData.speciality.trim() ||
+                                          !formData.location.trim() ||
+                                          !formData.status.trim() ||
+                                          !formData.startDate.trim() ||
+                                          !formData.description.trim()}>
                             <LucideCheck size={16} />
-                            <span>{isEditing ? 'Save Changes' : 'Create Record'}</span>
+                            <span>Save</span>
                         </button>
                     </div>
                 </form>
