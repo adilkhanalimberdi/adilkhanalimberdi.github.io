@@ -50,7 +50,7 @@ public class ProjectService {
 				.title(request.title())
 				.description(request.description())
 				.imageUrl(request.imageUrl())
-				.url(request.url())
+				.url(request.url().trim().isBlank() ? null : request.url().trim())
 				.status(request.status() != null ? request.status() : ProjectStatus.COMPLETED)
 				.orderIndex(targetIndex)
 				.build();
