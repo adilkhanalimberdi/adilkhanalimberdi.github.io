@@ -5,6 +5,11 @@ export type LanguageCreateRequest = {
     level: LanguageLevel;
 }
 
+export type LanguageUpdateRequest = {
+    language?: string;
+    level?: LanguageLevel;
+}
+
 export type LanguageResponse = {
     id: string;
     language: string;

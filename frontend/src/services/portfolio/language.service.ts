@@ -1,5 +1,5 @@
 import {api} from "../api.ts";
-import type {LanguageCreateRequest, LanguageResponse} from "../../type/portfolio/language.ts";
+import type {LanguageCreateRequest, LanguageResponse, LanguageUpdateRequest} from "../../type/portfolio/language.ts";
 
 export const LanguageService = {
     async getAll(): Promise<LanguageResponse[]> {
@@ -9,6 +9,11 @@ export const LanguageService = {
 
     async create(request: LanguageCreateRequest): Promise<LanguageResponse> {
         const response = await api.post("/languages", request);
+        return response.data.data;
+    },
+
+    async update(id: string, request: LanguageUpdateRequest): Promise<LanguageResponse> {
+        const response = await api.patch(`/languages/${id}`, request);
         return response.data.data;
     },
 

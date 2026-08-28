@@ -5,7 +5,7 @@ import {SkillService} from "../../../services/portfolio/skill.service.ts";
 import toast from "react-hot-toast";
 import React, {useState} from "react";
 import {ConfirmModal} from "../ConfirmModal.tsx";
-import type {SkillCategory, SkillCreateRequest} from "../../../type/portfolio/skill.ts";
+import type {SkillCategory, SkillCreateRequest, SkillUpdateRequest} from "../../../type/portfolio/skill.ts";
 
 export const SkillsTab = () => {
     const {skills, refetch} = useSkills();
@@ -13,6 +13,10 @@ export const SkillsTab = () => {
     const [isCreating, setIsCreating] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<SkillCategory | null>(null);
     const [newSkill, setNewSkill] = useState<string>("");
+
+    const [editSkill, setEditSkill] = useState<string>("");
+    const [editId, setEditId] = useState<string | null>(null);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -43,6 +47,26 @@ export const SkillsTab = () => {
         }
     }
 
+    const handleEdit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editId) return;
+
+        const request: SkillUpdateRequest = {
+            content: editSkill,
+        }
+        setIsEditing(true);
+        try {
+            await SkillService.update(editId, request);
+            await refetch();
+            toast.success("You have updated skill successfully!");
+            setEditId(null);
+        } catch (err) {
+            handleError(err as Error, "Failed to update skill.");
+        } finally {
+            setIsEditing(false);
+        }
+    }
+
     const confirmDelete = async () => {
         if (!deleteId) return;
         setIsDeleting(true);
@@ -66,6 +90,46 @@ export const SkillsTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting} />
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+                    <form className="flex flex-col gap-4"
+                          onSubmit={(e) => handleEdit(e)}>
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-bold text-text-primary">Edit Skill</h3>
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="text-text-muted hover:text-text-primary p-1 rounded-md transition-colors">
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <input type="text"
+                               value={editSkill}
+                               onChange={(e) => setEditSkill(e.target.value)}
+                               placeholder="Enter skill content here..."
+                               className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
+                        <div className="flex justify-end gap-2">
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200">
+                                <X size={18} />
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit"
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={false}>
+                                <LucideCheck size={16} />
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <h2 className="text-xl font-semibold text-text-primary">Skills</h2>
             {skills.length === 0 ? (
                 <p className="text-text-muted">No skills found.</p>
@@ -80,7 +144,12 @@ export const SkillsTab = () => {
                                 <div key={item.id} className="p-3 h-12 bg-primary border border-border rounded-lg flex justify-between items-center">
                                     <span className="text-sm text-text-secondary">{item.content}</span>
                                     <div className="flex gap-1">
-                                        <button className="p-1 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
+                                        <button onClick={() => {
+                                                    setEditId(item.id);
+                                                    setIsEditing(true);
+                                                    setEditSkill(item.content);
+                                                }}
+                                                className="p-1 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
                                             <LucidePencil size={16} />
                                         </button>
                                         <button onClick={() => setDeleteId(item.id)}

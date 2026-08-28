@@ -1,6 +1,6 @@
 import type {PageResponse} from "../../type/pagination.ts";
 import {api} from "../api.ts";
-import type {ProjectCreateRequest, ProjectResponse} from "../../type/portfolio/project.ts";
+import type {ProjectCreateRequest, ProjectResponse, ProjectUpdateRequest} from "../../type/portfolio/project.ts";
 
 export const ProjectService = {
     async getAll(): Promise<PageResponse<ProjectResponse>> {
@@ -10,6 +10,11 @@ export const ProjectService = {
 
     async create(request: ProjectCreateRequest): Promise<ProjectResponse> {
         const response = await api.post("/projects", request);
+        return response.data.data;
+    },
+
+    async update(id: string, request: ProjectUpdateRequest): Promise<ProjectResponse> {
+        const response = await api.patch(`/projects/${id}`, request);
         return response.data.data;
     },
 

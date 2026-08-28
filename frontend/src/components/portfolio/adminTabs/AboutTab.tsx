@@ -1,7 +1,10 @@
 import {useAboutParagraphs} from "../../../hooks/UseAboutParagraphs.ts";
-import {Check, LucidePencil, LucidePlus, LucideTrash2, X} from "lucide-react";
-import {useState} from "react";
-import type {AboutParagraphCreateRequest} from "../../../type/portfolio/about.paragraph.ts";
+import {Check, LucideCheck, LucidePencil, LucidePlus, LucideTrash2, X} from "lucide-react";
+import React, {useState} from "react";
+import type {
+    AboutParagraphCreateRequest,
+    AboutParagraphUpdateRequest
+} from "../../../type/portfolio/about.paragraph.ts";
 import {AboutParagraphService} from "../../../services/portfolio/about.paragraph.service.ts";
 import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
@@ -13,6 +16,10 @@ export const AboutTab = () => {
 
     const [isCreating, setIsCreating] = useState<boolean>(false);
     const [newParagraph, setNewParagraph] = useState<string>("");
+
+    const [editId, setEditId] = useState<string | null>(null);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [editParagraph, setEditParagraph] = useState<string>("");
 
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -40,6 +47,26 @@ export const AboutTab = () => {
         }
     }
 
+    const handleEdit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editId) return;
+
+        const request: AboutParagraphUpdateRequest = {
+            content: editParagraph,
+        }
+        setIsEditing(true);
+        try {
+            await AboutParagraphService.update(editId, request);
+            await refetch();
+            toast.success("You have updated about paragraph successfully!");
+            setEditId(null);
+        } catch (err) {
+            handleError(err as Error, "Failed to update paragraph.");
+        } finally {
+            setIsEditing(false);
+        }
+    }
+
     const confirmDelete = async () => {
         if (!deleteId) return;
         setIsDeleting(true);
@@ -63,6 +90,48 @@ export const AboutTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting} />
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+                    <form className="flex flex-col gap-4"
+                          onSubmit={(e) => handleEdit(e)}>
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-bold text-text-primary">Edit Paragraph</h3>
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="text-text-muted hover:text-text-primary p-1 rounded-md transition-colors">
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <textarea name="new-paragraph"
+                                  cols={30} rows={5}
+                                  value={editParagraph}
+                                  onChange={(e) => setEditParagraph(e.target.value)}
+                                  className="w-full px-2 py-2.5 rounded-lg bg-primary border min-h-15 border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50"
+                                  placeholder="Enter paragraph content here... (You can wrap words in '_' to highlight them)"
+                                  required={true}></textarea>
+                        <div className="flex justify-end gap-2">
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200">
+                                <X size={18} />
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit"
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={!editParagraph || (paragraphs?.content.find(p => p.id === editId)?.content === editParagraph)}>
+                                <LucideCheck size={16} />
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <h2 className="text-xl font-semibold text-text-primary">About Paragraphs</h2>
             <div className="flex flex-col gap-3">
                 {!paragraphs?.content.length ? (
@@ -73,7 +142,12 @@ export const AboutTab = () => {
                             <div key={item.id} className="p-4 bg-primary border border-border rounded-lg flex justify-between gap-4 items-start">
                                 <RenderedText text={item.content} className="text-sm text-text-secondary leading-relaxed whitespace-pre-wrap" />
                                 <div className="flex gap-1 shrink-0">
-                                    <button className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
+                                    <button onClick={() => {
+                                                setEditId(item.id);
+                                                setIsEditing(true);
+                                                setEditParagraph(item.content);
+                                            }}
+                                            className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
                                         <LucidePencil size={18} />
                                     </button>
                                     <button onClick={() => setDeleteId(item.id)}

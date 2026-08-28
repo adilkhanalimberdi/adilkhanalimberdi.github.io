@@ -18,6 +18,7 @@ import type {PortfolioResponse} from "../../type/portfolio/portfolio.ts";
 import {PortfolioService} from "../../services/portfolio/portfolio.service.ts";
 import {parseYearMonth} from "../../utils/year.month.util.ts";
 import RenderedText from "../../components/portfolio/RenderedText.tsx";
+import {normalizeUrl} from "../../utils/url.util.ts";
 
 const monthMap: Record<number, string> = {
     1: "January",
@@ -311,7 +312,7 @@ function PortfolioPage() {
                                     <div key={project.id || index}
                                          onClick={() => {
                                              if (project.url) {
-                                                 window.open(project.url, "_blank", "noopener,noreferrer");
+                                                 window.open(normalizeUrl(project.url), "_blank", "noopener,noreferrer");
                                              }
                                          }}
                                          className="group h-52 w-full rounded-xl border border-border bg-primary p-5 flex flex-col justify-between cursor-pointer transition-all duration-200 ease-out

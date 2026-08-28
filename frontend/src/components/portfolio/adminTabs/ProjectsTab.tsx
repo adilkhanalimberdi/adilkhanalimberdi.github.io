@@ -5,7 +5,8 @@ import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
 import {ConfirmModal} from "../ConfirmModal.tsx";
 import React, {useState} from "react";
-import type {ProjectCreateRequest, ProjectStatus} from "../../../type/portfolio/project.ts";
+import type {ProjectCreateRequest, ProjectStatus, ProjectUpdateRequest} from "../../../type/portfolio/project.ts";
+import {normalizeUrl} from "../../../utils/url.util.ts";
 
 export const ProjectsTab = () => {
     const {projects, refetch} = useProjects();
@@ -15,6 +16,13 @@ export const ProjectsTab = () => {
     const [newUrl, setNewUrl] = useState<string>("");
     const [newStatus, setNewStatus] = useState<ProjectStatus>("COMPLETED");
     const [isCreating, setIsCreating] = useState<boolean>(false);
+
+    const [editTitle, setEditTitle] = useState<string>("");
+    const [editDescription, setEditDescription] = useState<string>("");
+    const [editUrl, setEditUrl] = useState<string>("");
+    const [editStatus, setEditStatus] = useState<ProjectStatus | null>(null);
+    const [editId, setEditId] = useState<string | null>(null);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -48,6 +56,29 @@ export const ProjectsTab = () => {
         }
     }
 
+    const handleEdit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editId) return;
+
+        const request: ProjectUpdateRequest = {
+            title: editTitle,
+            description: editDescription,
+            url: editUrl,
+            status: (!editStatus ? undefined : editStatus),
+        }
+        setIsEditing(true);
+        try {
+            await ProjectService.update(editId, request);
+            await refetch();
+            toast.success("You have updated project successfully!");
+            setEditId(null);
+        } catch (err) {
+            handleError(err as Error, "Failed to update project.");
+        } finally {
+            setIsEditing(false);
+        }
+    }
+
     const confirmDelete = async () => {
         if (!deleteId) return;
         setIsDeleting(true);
@@ -71,6 +102,68 @@ export const ProjectsTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting}/>
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+                    <form className="flex flex-col gap-4"
+                          onSubmit={(e) => handleEdit(e)}>
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-bold text-text-primary">Edit Project</h3>
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="text-text-muted hover:text-text-primary p-1 rounded-md transition-colors">
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-row gap-2">
+                                <input type="text"
+                                       value={editTitle}
+                                       onChange={(e) => setEditTitle(e.target.value)}
+                                       placeholder="Enter project title here..."
+                                       className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
+                                <select value={editStatus || "COMPLETED"}
+                                        onChange={(e) => setEditStatus(e.target.value as ProjectStatus)}
+                                        className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50">
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="COMPLETED">Completed</option>
+                                    <option value="PAUSED">Paused</option>
+                                    <option value="ARCHIVED">Archived</option>
+                                </select>
+                            </div>
+                            <textarea cols={30} rows={5}
+                                      value={editDescription}
+                                      onChange={(e) => setEditDescription(e.target.value)}
+                                      className="w-full px-2 py-2.5 rounded-lg bg-primary border min-h-15 border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50"
+                                      placeholder="Enter description here..."></textarea>
+                            <input type="text"
+                                   value={editUrl}
+                                   onChange={(e) => setEditUrl(e.target.value)}
+                                   placeholder="https://..."
+                                   className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
+                        </div>
+                        <div className="flex justify-end gap-2">
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200">
+                                <X size={18} />
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit"
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={false}>
+                                <LucideCheck size={16} />
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <h2 className="text-xl font-semibold text-text-primary">Projects</h2>
             <div>
                 {!projects || projects.content.length == 0 ? (
@@ -92,13 +185,21 @@ export const ProjectsTab = () => {
 
                                 <div className="flex justify-between items-center pt-2 border-t border-border mt-auto">
                                     {item.url ? (
-                                        <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-url-accent hover:underline">
+                                        <a href={normalizeUrl(item.url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-url-accent hover:underline">
                                             View Project <LucideExternalLink size={12} />
                                         </a>
                                     ) : <span />}
 
                                     <div className="flex gap-1">
-                                        <button className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
+                                        <button onClick={() => {
+                                                    setEditId(item.id);
+                                                    setIsEditing(true);
+                                                    setEditTitle(item.title);
+                                                    setEditDescription(item.description);
+                                                    setEditUrl(item.url || "");
+                                                    setEditStatus(item.status);
+                                                }}
+                                                className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover cursor-pointer">
                                             <LucidePencil size={18} />
                                         </button>
                                         <button onClick={() => setDeleteId(item.id)}
