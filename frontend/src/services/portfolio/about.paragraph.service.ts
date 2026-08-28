@@ -1,5 +1,9 @@
 import type {PageResponse} from "../../type/pagination.ts";
-import type {AboutParagraphCreateRequest, AboutParagraphResponse} from "../../type/portfolio/about.paragraph.ts";
+import type {
+    AboutParagraphCreateRequest,
+    AboutParagraphResponse,
+    AboutParagraphUpdateRequest
+} from "../../type/portfolio/about.paragraph.ts";
 import {api} from "../api.ts";
 
 export const AboutParagraphService = {
@@ -10,6 +14,11 @@ export const AboutParagraphService = {
 
     async create(request: AboutParagraphCreateRequest): Promise<AboutParagraphResponse> {
         const response = await api.post("/about-paragraphs", request);
+        return response.data.data;
+    },
+
+    async update(id: string, request: AboutParagraphUpdateRequest): Promise<AboutParagraphResponse> {
+        const response = await api.patch(`/about-paragraphs/${id}`, request);
         return response.data.data;
     },
 

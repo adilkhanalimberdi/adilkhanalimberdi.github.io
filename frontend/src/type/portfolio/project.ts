@@ -8,6 +8,14 @@ export type ProjectCreateRequest = {
     status: ProjectStatus;
 }
 
+export type ProjectUpdateRequest = {
+    title?: string;
+    description?: string;
+    imageUrl?: string;
+    url?: string;
+    status?: ProjectStatus;
+}
+
 export type ProjectResponse = {
     id: string;
     title: string;

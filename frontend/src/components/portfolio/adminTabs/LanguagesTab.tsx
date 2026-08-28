@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
 import React, {useState} from "react";
 import {ConfirmModal} from "../ConfirmModal.tsx";
-import type {LanguageCreateRequest, LanguageLevel} from "../../../type/portfolio/language.ts";
+import type {LanguageCreateRequest, LanguageLevel, LanguageUpdateRequest} from "../../../type/portfolio/language.ts";
 
 export const LanguagesTab = () => {
     const {languages, refetch} = useLanguages();
@@ -13,6 +13,11 @@ export const LanguagesTab = () => {
     const [isCreating, setIsCreating] = useState<boolean>(false);
     const [newLanguage, setNewLanguage] = useState<string>("");
     const [newLevel, setNewLevel] = useState<LanguageLevel>("Advanced");
+
+    const [editLanguage, setEditLanguage] = useState<string>("");
+    const [editLevel, setEditLevel] = useState<LanguageLevel | null>(null);
+    const [editId, setEditId] = useState<string | null>(null);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -42,6 +47,27 @@ export const LanguagesTab = () => {
         }
     }
 
+    const handleEdit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editId) return;
+
+        const request: LanguageUpdateRequest = {
+            language: editLanguage,
+            level: (!editLevel ? undefined : editLevel),
+        }
+        setIsEditing(true);
+        try {
+            await LanguageService.update(editId, request);
+            await refetch();
+            toast.success("You have updated language successfully!");
+            setEditId(null);
+        } catch (err) {
+            handleError(err as Error, "Failed to update language.");
+        } finally {
+            setIsEditing(false);
+        }
+    }
+
     const confirmDelete = async () => {
         if (!deleteId) return;
         setIsDeleting(true);
@@ -65,6 +91,59 @@ export const LanguagesTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting} />
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+                    <form className="flex flex-col gap-4"
+                          onSubmit={(e) => handleEdit(e)}>
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-bold text-text-primary">Edit Language</h3>
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="text-text-muted hover:text-text-primary p-1 rounded-md transition-colors">
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <input type="text"
+                                   value={editLanguage}
+                                   onChange={(e) => setEditLanguage(e.target.value)}
+                                   placeholder="Enter language here..."
+                                   className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
+                            <select value={editLevel || "Advanced"}
+                                    required={true}
+                                    onChange={(e) => setEditLevel(e.target.value as LanguageLevel)}
+                                    className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="Fluent">Fluent</option>
+                                <option value="Native/Fluent">Native/Fluent</option>
+                                <option value="Native">Native</option>
+                            </select>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                            <button type="button"
+                                    onClick={() => {
+                                        setEditId(null);
+                                        setIsEditing(false);
+                                    }}
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-red rounded-md flex flex-row items-center gap-1 hover:brightness-115 transition-all duration-200">
+                                <X size={18} />
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit"
+                                    className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={false}>
+                                <LucideCheck size={16} />
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <h2 className="text-xl font-semibold text-text-primary">Languages</h2>
             <div>
                 {!languages || languages.length === 0 ? (
@@ -78,7 +157,13 @@ export const LanguagesTab = () => {
                                     <span className="w-fit text-xs bg-secondary border border-border px-2 py-0.5 rounded text-text-muted font-medium">{item.level}</span>
                                 </div>
                                 <div className="flex gap-1 shrink-0">
-                                    <button className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover transition-colors cursor-pointer" title="Edit language">
+                                    <button onClick={() => {
+                                                setEditId(item.id);
+                                                setIsEditing(true);
+                                                setEditLanguage(item.language);
+                                                setEditLevel(item.level);
+                                            }}
+                                            className="p-1.5 hover:text-accent text-text-muted rounded hover:bg-hover transition-colors cursor-pointer" title="Edit language">
                                         <LucidePencil size={18} />
                                     </button>
                                     <button onClick={() => setDeleteId(item.id)}

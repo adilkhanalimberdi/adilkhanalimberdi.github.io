@@ -5,6 +5,11 @@ export type SkillCreateRequest = {
     content: string;
 }
 
+export type SkillUpdateRequest = {
+    category?: SkillCategory;
+    content?: string;
+}
+
 export type SkillByCategory = {
     category: string;
     content: SkillResponse[];
