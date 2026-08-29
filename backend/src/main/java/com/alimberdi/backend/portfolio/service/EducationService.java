@@ -46,6 +46,10 @@ public class EducationService {
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
+		if (request.endDate() != null && request.startDate().isAfter(request.endDate())) {
+			throw new IllegalArgumentException("Start date cannot be after end date.");
+		}
+
 		Education education = Education.builder()
 				.institution(request.institution())
 				.description(request.description())
@@ -70,6 +74,10 @@ public class EducationService {
 
 		Education education = repository.findById(id)
 				.orElseThrow(() -> new EducationNotFoundException("Education with id " + id + " not found"));
+
+		if (request.endDate() != null && request.startDate().isAfter(request.endDate())) {
+			throw new IllegalArgumentException("Start date cannot be after end date.");
+		}
 
 		education.setInstitution(request.institution() != null ? request.institution() : education.getInstitution());
 		education.setDescription(request.description() != null ? request.description() : education.getDescription());

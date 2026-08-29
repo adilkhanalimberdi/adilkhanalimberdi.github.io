@@ -39,6 +39,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+		ErrorResponse response = new ErrorResponse(
+				HttpStatus.BAD_REQUEST.value(),
+				ex.getMessage()
+		);
+
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(ContactMessageNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleContactMessageNotFoundException(ContactMessageNotFoundException ex) {
 		ErrorResponse response = new ErrorResponse(
