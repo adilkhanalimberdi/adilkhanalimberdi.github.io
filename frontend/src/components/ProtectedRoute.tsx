@@ -7,7 +7,7 @@ export function ProtectedRoute() {
 
     if (isLoading) {
         return (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-dvh flex items-center justify-center">
                 <Loader2 size={18} className="animate-spin" />
             </div>
         );

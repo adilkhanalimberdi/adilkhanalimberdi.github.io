@@ -19,6 +19,15 @@ function AdminPage() {
     const {unreadCount, refetchUnreadCount} = useUnreadCount();
     const [activeTab, setActiveTab] = useState<Tab>('contact');
 
+    const adminTabs = [
+        { id: 'contact', label: 'Messages', icon: LucideMail },
+        { id: 'about', label: 'About', icon: LucideUser },
+        { id: 'education', label: 'Education', icon: LucideGraduationCap },
+        { id: 'projects', label: 'Projects', icon: LucideFolderKanban },
+        { id: 'skills', label: 'Skills', icon: LucideWrench },
+        { id: 'languages', label: 'Languages', icon: LucideGlobe },
+    ];
+
     return (
         <div className={"min-h-dvh flex flex-col bg-primary text-text-primary font-sans transition-colors"}>
             <CustomToaster />
@@ -35,14 +44,7 @@ function AdminPage() {
                 </div>
 
                 <nav className="flex gap-2 border-b border-border overflow-x-auto pb-2">
-                    {[
-                        { id: 'contact', label: 'Messages', icon: LucideMail },
-                        { id: 'about', label: 'About', icon: LucideUser },
-                        { id: 'education', label: 'Education', icon: LucideGraduationCap },
-                        { id: 'projects', label: 'Projects', icon: LucideFolderKanban },
-                        { id: 'skills', label: 'Skills', icon: LucideWrench },
-                        { id: 'languages', label: 'Languages', icon: LucideGlobe },
-                    ].map(tab => {
+                    {adminTabs.map(tab => {
                         const Icon = tab.icon;
                         const isActive = activeTab === tab.id;
                         return (
@@ -64,31 +66,29 @@ function AdminPage() {
                 </nav>
 
                 <section className="bg-secondary border border-border rounded-xl p-6 shadow-sm">
-
-                    {activeTab === 'contact' && (
+                    <div className={activeTab === 'contact' ? 'block' : 'hidden'}>
                         <ContactMessagesTab refetchUnreadCount={refetchUnreadCount} />
-                    )}
+                    </div>
 
-                    {activeTab === "about" && (
+                    <div className={activeTab === 'about' ? 'block' : 'hidden'}>
                         <AboutTab />
-                    )}
+                    </div>
 
-                    {activeTab === 'education' && (
+                    <div className={activeTab === 'education' ? 'block' : 'hidden'}>
                         <EducationTab />
-                    )}
+                    </div>
 
-                    {activeTab === 'projects' && (
+                    <div className={activeTab === 'projects' ? 'block' : 'hidden'}>
                         <ProjectsTab />
-                    )}
+                    </div>
 
-                    {activeTab === 'skills' && (
+                    <div className={activeTab === 'skills' ? 'block' : 'hidden'}>
                         <SkillsTab />
-                    )}
+                    </div>
 
-                    {activeTab === 'languages' && (
+                    <div className={activeTab === 'languages' ? 'block' : 'hidden'}>
                         <LanguagesTab />
-                    )}
-
+                    </div>
                 </section>
             </main>
         </div>
