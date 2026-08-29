@@ -3,7 +3,7 @@ import {LucideCheck, LucidePencil, LucidePlus, LucideTrash2, X} from "lucide-rea
 import {LanguageService} from "../../../services/portfolio/language.service.ts";
 import toast from "react-hot-toast";
 import {handleError} from "../../../utils/error.handler.ts";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {ConfirmModal} from "../ConfirmModal.tsx";
 import type {LanguageCreateRequest, LanguageLevel, LanguageUpdateRequest} from "../../../type/portfolio/language.ts";
 
@@ -83,6 +83,23 @@ export const LanguagesTab = () => {
         }
     }
 
+    const currentLanguage = useMemo(() => {
+        if (!editId || !languages) return null;
+        return languages.find((lang) => lang.id === editId) || null;
+    }, [languages, editId]);
+
+    const isUpdateDisabled = useMemo(() => {
+        if (!editLanguage.trim()) return true;
+        if (currentLanguage) {
+            const isUnchanged =
+                currentLanguage.language === editLanguage.trim() &&
+                currentLanguage.level === editLevel;
+
+            if (isUnchanged) return true;
+        }
+        return false;
+    }, [editLanguage, editLevel, currentLanguage]);
+
     return (
         <div className="flex flex-col gap-6">
             <ConfirmModal isOpen={Boolean(deleteId)}
@@ -91,8 +108,13 @@ export const LanguagesTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting} />
-            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
-                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}
+                 onClick={() => {
+                     setEditId(null);
+                     setIsEditing(false);
+                 }}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-lg shadow-lg flex flex-col gap-4"
+                     onClick={(e) => e.stopPropagation()}>
                     <form className="flex flex-col gap-4"
                           onSubmit={(e) => handleEdit(e)}>
                         <div className="flex justify-between items-center">
@@ -111,11 +133,11 @@ export const LanguagesTab = () => {
                                    value={editLanguage}
                                    onChange={(e) => setEditLanguage(e.target.value)}
                                    placeholder="Enter language here..."
-                                   className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
+                                   className="w-full px-2 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50" />
                             <select value={editLevel || "Advanced"}
                                     required={true}
                                     onChange={(e) => setEditLevel(e.target.value as LanguageLevel)}
-                                    className="w-full pl-3 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50">
+                                    className="w-full px-2 py-2.5 rounded-lg bg-primary border border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50">
                                 <option value="Beginner">Beginner</option>
                                 <option value="Intermediate">Intermediate</option>
                                 <option value="Advanced">Advanced</option>
@@ -136,7 +158,7 @@ export const LanguagesTab = () => {
                             </button>
                             <button type="submit"
                                     className="px-3 py-1.5 text-sm text-text-primary bg-button-green rounded-md flex flex-row items-center gap-1 enabled:hover:brightness-115 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    disabled={false}>
+                                    disabled={isUpdateDisabled}>
                                 <LucideCheck size={16} />
                                 <span>Update</span>
                             </button>

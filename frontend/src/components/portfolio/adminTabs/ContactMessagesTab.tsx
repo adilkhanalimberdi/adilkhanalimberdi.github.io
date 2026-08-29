@@ -91,11 +91,10 @@ export const ContactMessagesTab = ({refetchUnreadCount}: ContactMessagesTabProps
                             <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
                                     <span className="font-bold text-text-primary text-sm sm:text-base">{item.fullName}</span>
-                                    <span className="text-xs text-url-accent font-medium break-all">{item.email}</span>
+                                    <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer"
+                                       className="text-xs text-url-accent font-medium break-all hover:text-url-accent/80 hover:underline">{item.email}</a>
                                 </div>
-                                <span className="text-xs text-text-muted shrink-0 ml-auto sm:ml-0">
-                                                    {new Date(item.createdAt).toLocaleDateString()}
-                                                </span>
+                                <span className="text-xs text-text-muted shrink-0 ml-auto sm:ml-0">{new Date(item.createdAt).toLocaleDateString()}</span>
                             </div>
                             <p className="text-sm whitespace-pre-wrap text-text-secondary wrap-break-word">{item.message}</p>
                         </div>

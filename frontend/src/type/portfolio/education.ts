@@ -18,6 +18,19 @@ export type EducationCreateRequest = {
     url: string | null;
 }
 
+export type EducationUpdateRequest = {
+    institution?: string;
+    description?: string;
+    location?: string;
+    degree?: string;
+    speciality?: string;
+    startDate?: string;
+    endDate?: string | null;
+    grade?: number | null;
+    status?: EducationStatus;
+    url?: string;
+}
+
 export type EducationResponse = {
     id: string;
     institution: string;

@@ -90,8 +90,13 @@ export const AboutTab = () => {
                           onConfirm={confirmDelete}
                           onClose={() => setDeleteId(null)}
                           isLoading={isDeleting} />
-            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}>
-                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-md shadow-lg flex flex-col gap-4">
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in ${isEditing ? '' : 'hidden'}`}
+                 onClick={() => {
+                     setEditId(null);
+                     setIsEditing(false);
+                 }}>
+                <div className="bg-secondary border border-border p-6 rounded-xl w-full max-w-lg shadow-lg flex flex-col gap-4"
+                     onClick={(e) => e.stopPropagation()}>
                     <form className="flex flex-col gap-4"
                           onSubmit={(e) => handleEdit(e)}>
                         <div className="flex justify-between items-center">
@@ -106,7 +111,7 @@ export const AboutTab = () => {
                             </button>
                         </div>
                         <textarea name="new-paragraph"
-                                  cols={30} rows={5}
+                                  cols={30} rows={4}
                                   value={editParagraph}
                                   onChange={(e) => setEditParagraph(e.target.value)}
                                   className="w-full px-2 py-2.5 rounded-lg bg-primary border min-h-15 border-border text-text-primary placeholder:text-text-muted text-sm transition-all focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none disabled:opacity-50"
