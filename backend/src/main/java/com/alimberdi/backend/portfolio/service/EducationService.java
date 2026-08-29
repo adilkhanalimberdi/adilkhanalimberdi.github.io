@@ -38,59 +38,41 @@ public class EducationService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public EducationResponse create(EducationCreateRequest request) {
-		Integer maxIndex = repository.findMaxOrderIndex();
+		if (request.endDate() != null && request.startDate().isAfter(request.endDate())) {
+			throw new IllegalArgumentException("Start date cannot be after end date.");
+		}
 
+		Integer maxIndex = repository.findMaxOrderIndex();
 		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
-		Education education = Education.builder()
-				.institution(request.institution())
-				.description(request.description())
-				.location(request.location())
-				.degree(request.degree())
-				.speciality(request.speciality())
-				.startDate(request.startDate())
-				.endDate(request.endDate())
-				.grade(request.grade())
-				.status(request.status() != null ? request.status() : EducationStatus.COMPLETED)
-				.url(request.url().trim().isBlank() ? null : request.url().trim())
-				.orderIndex(targetIndex)
-				.build();
+		Education education = mapper.toEntity(request);
+		education.setOrderIndex(targetIndex);
+
+		if (education.getStatus() == null) {
+			education.setStatus(EducationStatus.COMPLETED);
+		}
 		return mapper.toResponse(repository.save(education));
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public EducationResponse update(UUID id, EducationUpdateRequest request) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		Education education = repository.findById(id)
 				.orElseThrow(() -> new EducationNotFoundException("Education with id " + id + " not found"));
 
-		education.setInstitution(request.institution() != null ? request.institution() : education.getInstitution());
-		education.setDescription(request.description() != null ? request.description() : education.getDescription());
-		education.setLocation(request.location() != null ? request.location() : education.getLocation());
-		education.setDegree(request.degree() != null ? request.degree() : education.getDegree());
-		education.setSpeciality(request.speciality() != null ? request.speciality() : education.getSpeciality());
-		education.setStartDate(request.startDate() != null ? request.startDate() : education.getStartDate());
-		education.setEndDate(request.endDate() != null ? request.endDate() : education.getEndDate());
-		education.setGrade(request.grade() != null ? request.grade() : education.getGrade());
-		education.setStatus(request.status() != null ? request.status() : education.getStatus());
-		education.setUrl(request.url() != null ? request.url() : education.getUrl());
+		mapper.updateEntityFromDto(request, education);
 
+		if (education.getEndDate() != null && education.getStartDate().isAfter(education.getEndDate())) {
+			throw new IllegalArgumentException("Start date cannot be after end date.");
+		}
 		return mapper.toResponse(education);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 

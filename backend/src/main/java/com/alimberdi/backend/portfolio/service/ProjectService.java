@@ -39,48 +39,29 @@ public class ProjectService {
 	@Transactional(rollbackFor = Exception.class)
 	public ProjectResponse create(ProjectCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
-
 		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
-		Project project = Project.builder()
-				.title(request.title())
-				.description(request.description())
-				.imageUrl(request.imageUrl())
-				.url(request.url().trim().isBlank() ? null : request.url().trim())
-				.status(request.status() != null ? request.status() : ProjectStatus.COMPLETED)
-				.orderIndex(targetIndex)
-				.build();
+		Project project = mapper.toEntity(request);
+		project.setOrderIndex(targetIndex);
+
 		return mapper.toResponse(repository.save(project));
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public ProjectResponse update(UUID id, ProjectUpdateRequest request) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		Project project = repository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " not found"));
 
-		project.setTitle(request.title() != null ? request.title() : project.getTitle());
-		project.setDescription(request.description() != null ? request.description() : project.getDescription());
-		project.setImageUrl(request.imageUrl() != null ? request.imageUrl() : project.getImageUrl());
-		project.setUrl(request.url() != null ? request.url() : project.getUrl());
-		project.setStatus(request.status() != null ? request.status() : project.getStatus());
-
+		mapper.updateEntityFromDto(request, project);
 		return mapper.toResponse(project);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 

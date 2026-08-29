@@ -39,18 +39,15 @@ public class SkillService {
 	@Transactional(rollbackFor = Exception.class)
 	public SkillResponse create(SkillCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
-
 		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
-		Skill skill = Skill.builder()
-				.category(request.category())
-				.content(request.content())
-				.orderIndex(targetIndex)
-				.build();
+		Skill skill = mapper.toEntity(request);
+		skill.setOrderIndex(targetIndex);
+
 		return mapper.toResponse(repository.save(skill));
 	}
 
@@ -59,18 +56,12 @@ public class SkillService {
 		Skill skill = repository.findById(id)
 				.orElseThrow(() -> new SkillNotFoundException("Skill with id " + id + " not found"));
 
-		skill.setCategory(request.category() != null ? request.category() : skill.getCategory());
-		skill.setContent(request.content() != null ? request.content() : skill.getContent());
-
+		mapper.updateEntityFromDto(request, skill);
 		return mapper.toResponse(skill);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 

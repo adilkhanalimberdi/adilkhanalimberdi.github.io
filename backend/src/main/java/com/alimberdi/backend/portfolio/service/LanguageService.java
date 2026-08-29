@@ -31,18 +31,15 @@ public class LanguageService {
 	@Transactional(rollbackFor = Exception.class)
 	public LanguageResponse create(LanguageCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
-
 		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
-		Language language = Language.builder()
-				.language(request.language())
-				.level(request.level())
-				.orderIndex(targetIndex)
-				.build();
+		Language language = mapper.toEntity(request);
+		language.setOrderIndex(targetIndex);
+
 		return mapper.toResponse(repository.save(language));
 	}
 
@@ -51,18 +48,12 @@ public class LanguageService {
 		Language language = repository.findById(id)
 				.orElseThrow(() -> new LanguageNotFoundException("Language with id " + id + " not found"));
 
-		language.setLanguage(request.language() != null ? request.language() : language.getLanguage());
-		language.setLevel(request.level() != null ? request.level() : language.getLevel());
-
+		mapper.updateEntityFromDto(request, language);
 		return mapper.toResponse(language);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 
