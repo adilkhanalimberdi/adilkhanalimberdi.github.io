@@ -1,20 +1,28 @@
 package com.alimberdi.backend.portfolio.mapper;
 
+import com.alimberdi.backend.portfolio.dto.request.LanguageCreateRequest;
+import com.alimberdi.backend.portfolio.dto.request.LanguageUpdateRequest;
 import com.alimberdi.backend.portfolio.dto.response.LanguageResponse;
 import com.alimberdi.backend.portfolio.model.entity.Language;
-import org.springframework.stereotype.Component;
+import org.mapstruct.*;
 
-@Component
-public class LanguageMapper {
+@Mapper(
+		componentModel = MappingConstants.ComponentModel.SPRING,
+		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
+public interface LanguageMapper {
 
-	public LanguageResponse toResponse(Language language) {
-		return new LanguageResponse(
-				language.getId(),
-				language.getLanguage(),
-				language.getLevel(),
-				language.getOrderIndex(),
-				language.getCreatedAt()
-		);
-	}
+	LanguageResponse toResponse(Language language);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "orderIndex", ignore = true)
+	Language toEntity(LanguageCreateRequest request);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "orderIndex", ignore = true)
+	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	void updateEntityFromDto(LanguageUpdateRequest request, @MappingTarget Language language);
 
 }

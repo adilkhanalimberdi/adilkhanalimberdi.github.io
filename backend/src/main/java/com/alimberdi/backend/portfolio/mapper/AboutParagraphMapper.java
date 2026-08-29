@@ -1,19 +1,32 @@
 package com.alimberdi.backend.portfolio.mapper;
 
+import com.alimberdi.backend.portfolio.dto.request.AboutParagraphCreateRequest;
+import com.alimberdi.backend.portfolio.dto.request.AboutParagraphUpdateRequest;
 import com.alimberdi.backend.portfolio.dto.response.AboutParagraphResponse;
 import com.alimberdi.backend.portfolio.model.entity.AboutParagraph;
-import org.springframework.stereotype.Component;
+import org.mapstruct.*;
 
-@Component
-public class AboutParagraphMapper {
+import java.util.List;
 
-	public AboutParagraphResponse toResponse(AboutParagraph paragraph) {
-		return new AboutParagraphResponse(
-				paragraph.getId(),
-				paragraph.getContent(),
-				paragraph.getOrderIndex(),
-				paragraph.getCreatedAt()
-		);
-	}
+@Mapper(
+		componentModel = MappingConstants.ComponentModel.SPRING,
+		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
+public interface AboutParagraphMapper {
+
+	AboutParagraphResponse toResponse(AboutParagraph paragraph);
+
+	List<AboutParagraphResponse> toResponseList(List<AboutParagraph> paragraphs);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "orderIndex", ignore = true)
+	AboutParagraph toEntity(AboutParagraphCreateRequest request);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "orderIndex", ignore = true)
+	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	void updateEntityFromDto(AboutParagraphUpdateRequest request, @MappingTarget AboutParagraph paragraph);
 
 }

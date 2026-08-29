@@ -30,48 +30,35 @@ public class AboutParagraphService {
 	}
 
 	public List<AboutParagraphResponse> getAllSortedByOrderIndex() {
-		return repository.findAllByOrderByOrderIndexAsc()
-				.stream()
-				.map(mapper::toResponse)
-				.toList();
+		return mapper.toResponseList(repository.findAllByOrderByOrderIndexAsc());
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public AboutParagraphResponse create(AboutParagraphCreateRequest request) {
 		Integer maxIndex = repository.findMaxOrderIndex();
-
 		Integer targetIndex = orderIndexService.resolve(
 				request.orderIndex(),
 				maxIndex,
 				() -> repository.shiftIndexesUpFrom(request.orderIndex())
 		);
 
-		AboutParagraph paragraph = AboutParagraph.builder()
-				.content(request.content())
-				.orderIndex(targetIndex)
-				.build();
+		AboutParagraph paragraph = mapper.toEntity(request);
+		paragraph.setOrderIndex(targetIndex);
+
 		return mapper.toResponse(repository.save(paragraph));
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public AboutParagraphResponse update(UUID id, AboutParagraphUpdateRequest request) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		AboutParagraph paragraph = repository.findById(id)
 				.orElseThrow(() -> new AboutParagraphNotFoundException("About paragraph with id " + id + " not found"));
 
-		paragraph.setContent(request.content() != null ? request.content() : paragraph.getContent());
+		mapper.updateEntityFromDto(request, paragraph);
 		return mapper.toResponse(paragraph);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 

@@ -36,35 +36,25 @@ public class ContactMessageService {
 	}
 
 	public UnreadMessageCountResponse getUnreadCount() {
-		return new UnreadMessageCountResponse(
-				repository.countByIsViewedFalse()
-		);
+		return new UnreadMessageCountResponse(repository.countByIsViewedFalse());
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void create(ContactMessageCreateRequest request) {
-		ContactMessage message = ContactMessage.builder()
-				.fullName(request.fullName())
-				.email(request.email())
-				.message(request.message())
-				.isViewed(false)
-				.build();
-
+		ContactMessage message = mapper.toEntity(request);
 		telegramNotificationService.sendNotification(request.fullName(), request.email(), request.message());
 		repository.save(message);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void toggleViewed(UUID id) {
-		repository.toggleViewed(id);
+		ContactMessage message = repository.findById(id)
+				.orElseThrow(() -> new ContactMessageNotFoundException("Contact message with id " + id + " not found"));
+		message.setViewed(!message.isViewed());
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void delete(UUID id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-
 		repository.deleteById(id);
 	}
 
